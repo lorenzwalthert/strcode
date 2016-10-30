@@ -32,7 +32,7 @@ devtools::install_github("lorenzwalthert/strcode")
 
 
 # Overview
-We suggest three levels of granularity in code structuring. Of course, 
+We suggest three levels of granularity for code structuring. Of course, 
 higher-level blocks can contain lower-level blocks.
 
 - level 1 sections, which are high-level blocks that can be 
@@ -56,21 +56,22 @@ higher-level blocks can contain lower-level blocks.
 ### a
 ```
 
-You can notice from above that
+You can notice from the above that
 
 * The number of `#` used in front of the break character (`___`, `...`, `. .`) 
   corresponds to the level of granularity that is separated.
-* l1 sections have roman numbers, l2 sections upper-case letters and l3 sections
-  letters have lower-case letters.
-* The breaks characters `___`, `...`, `. .` were chosen such that they reflect the level 
-  of granularity, namely `___` has a much higher visual density than `. .`. 
+* level 1 sections use roman numbers, level 2 sections use upper-case letters 
+  and level 3 sections use lower-case letters.
+* The breaks characters `___`, `...`, `. .` were chosen such that they reflect 
+  the level of granularity, namely `___` has a much higher visual density than 
+  `. .`. 
 * Each block has an (optional) short comment on what the next block is about.
 
 The separators do all have length 80. The value is looked up in the global 
-option `strcode.char.lenght` and can be changed by the user (either every 
+option `strcode.char.length` and can be changed by the user (either every 
 session manually or using .Rprofile). \
-For each of the introduced separator, there is an Add-in function. You can also call 
-them from the console 
+For each of the introduced separators, there is an Add-in function. You can also 
+call them from the console 
 
 * `strcode::insert_l1_break()` 
 * `strcode::insert_l2_break()`
