@@ -62,7 +62,7 @@ You can notice from above that
   corresponds to the level of granularity that is separated.
 * l1 sections have roman numbers, l2 sections upper-case letters and l3 sections
   letters have lower-case letters.
-* The breaks characters `___`, `...`, `. .` were choosen such that they reflect the level 
+* The breaks characters `___`, `...`, `. .` were chosen such that they reflect the level 
   of granularity, namely `___` has a much higher visual density than `. .`. 
 * Each block has an (optional) short comment on what the next block is about.
 

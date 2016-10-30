@@ -44,7 +44,7 @@ You can notice from above that
 
 -   The number of `#` used in front of the break character (`___`, `...`, `. .`) corresponds to the level of granularity that is separated.
 -   l1 sections have roman numbers, l2 sections upper-case letters and l3 sections letters have lower-case letters.
--   The breaks characters `___`, `...`, `. .` were choosen such that they reflect the level of granularity, namely `___` has a much higher visual density than `. .`.
+-   The breaks characters `___`, `...`, `. .` were chosen such that they reflect the level of granularity, namely `___` has a much higher visual density than `. .`.
 -   Each block has an (optional) short comment on what the next block is about.
 
 The separators do all have length 80. The value is looked up in the global option `strcode.char.lenght` and can be changed by the user (either every session manually or using .Rprofile).
