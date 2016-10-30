@@ -1,0 +1,14 @@
+Name: l3 code break
+Description: Inserts code segment break
+Binding: insert_l3_break
+Interactive: false
+
+Name: l2 code break
+Description: Inserts code section break
+Binding: insert_l2_break
+Interactive: false
+
+Name: l1 code break
+Description: Inserts code subsection break
+Binding: insert_l1_break
+Interactive: false
