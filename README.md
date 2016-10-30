@@ -1,7 +1,8 @@
 README
 ================
 
-The strcode (short for structure code) package is an [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you quickly add code block separators so you can organize your code better. You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), a guide for good practice in R programming.
+The strcode (short for structure code) package is an [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you quickly add code block separators so you can organize your code better. <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
+a guide for good practice in R programming. -->
 
 Installation
 ============
