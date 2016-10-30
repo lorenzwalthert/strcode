@@ -1,7 +1,7 @@
 README
 ================
 
-The strcode (short for structure code) package is an [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you quickly add code block separators so you can organize your code better. <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
+The `strcode` (short for structuring code) package is an [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you quickly add code block separators so you can organize your code better. <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
 a guide for good practice in R programming. -->
 
 Installation
@@ -48,7 +48,7 @@ You can notice from above that
 -   Each block has an (optional) short comment on what the next block is about.
 
 The separators do all have length 80. The value is looked up in the global option `strcode.char.lenght` and can be changed by the user (either every session manually or using .Rprofile).
-For each of the introduced separator, there is an Add-in function. You can also call them from the console:
+For each of the introduced separator, there is an Add-in function. You can also call them from the console
 
 -   `strcode::insert_l1_break()`
 -   `strcode::insert_l2_break()`
@@ -57,7 +57,7 @@ For each of the introduced separator, there is an Add-in function. You can also 
 Example
 =======
 
-To demonstrate the improvement to legibility, we give an extended example of garbage code.
+To demonstrate the improvement in legibility, we give an extended example with garbage code.
 
 ``` r
 #   ____________________________________________________________________________
