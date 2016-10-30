@@ -1,6 +1,6 @@
 Package: strcode
 Type: Package
-Title: An Rstudio Add-in to divide your code into blocks
+Title: An RStudio Add-in to divide your code into blocks
 Version: 0.0.9001
 Authors@R: c(
   person("Lorenz", "Walthert", email = "lorenz.walthert@icloud.com", role = "cre"))
