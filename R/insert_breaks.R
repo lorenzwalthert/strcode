@@ -11,7 +11,7 @@
 #'     \item level 1 sections, which are low-level blocks that can be separated
 #'       as follows \cr #   .. . . . . . . . . . . . . . . . . . . . . . . .}
 #'   For optimal use, we recommend specifying shortcuts in the add-in settings.
-#' @details The breaks characters (\code{___}, \code{...}, \code{. .}) were choosen
+#' @details The breaks characters (\code{___}, \code{...}, \code{. .}) were chosen
 #'   such that they reflect the level of granularity, namely \code{___} has a
 #'   much higher visual density than
 #'   \code{. .} \cr
@@ -47,9 +47,12 @@
 #'
 #'
 #' ##  ......................................................
-
 NULL
 
+
+#   ____________________________________________________________________________
+#   exported functions
+##  ............................................................................
 #' @rdname insert_break
 #' @export
 insert_l1_break <- function() {
@@ -59,6 +62,8 @@ insert_l1_break <- function() {
   insertText(to_insert)
 }
 
+##  ............................................................................
+##  level 2
 #' @rdname insert_break
 #' @export
 insert_l2_break <- function() {
@@ -68,6 +73,8 @@ insert_l2_break <- function() {
   insertText(to_insert)
 }
 
+##  ............................................................................
+## level 3
 #' @rdname insert_break
 #' @export
 insert_l3_break <- function() {
@@ -79,13 +86,14 @@ insert_l3_break <- function() {
 
 
 
-
+#   ____________________________________________________________________________
+#   helper functions: help_insert
+# the idea of the helper function is to return a string of a line length that is
+# composed of the start character and the break_characters
 help_insert <- function(start = "##",
                         break_char = "-",
                         lenght = options()$strcode.char.lenght,
                         sep = " ") {
-
-
   paste(paste(start, "", sep = sep),
         paste(rep(
             break_char,

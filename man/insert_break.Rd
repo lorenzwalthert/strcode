@@ -27,7 +27,7 @@ A function designed to use as an RStudio
   For optimal use, we recommend specifying shortcuts in the add-in settings.
 }
 \details{
-The breaks characters (\code{___}, \code{...}, \code{. .}) were choosen
+The breaks characters (\code{___}, \code{...}, \code{. .}) were chosen
   such that they reflect the level of granularity, namely \code{___} has a
   much higher visual density than
   \code{. .} \cr
