@@ -78,7 +78,7 @@ them from the console
 
 # Example
 To demonstrate the improvement in legibility, we give an extended example with 
-garbage code.
+some placeholder code.  
 ```{r}
 #   ____________________________________________________________________________
 #   function test 

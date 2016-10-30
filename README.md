@@ -57,7 +57,7 @@ For each of the introduced separator, there is an Add-in function. You can also 
 Example
 =======
 
-To demonstrate the improvement in legibility, we give an extended example with garbage code.
+To demonstrate the improvement in legibility, we give an extended example with some placeholder code.
 
 ``` r
 #   ____________________________________________________________________________
