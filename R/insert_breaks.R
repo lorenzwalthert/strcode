@@ -4,18 +4,18 @@
 #'   \href{https://rstudio.github.io/rstudioaddins/}{add-in} for structuring code.
 #'   There are three levels granularity
 #'   \itemize{
-#'     \item segments (level III), which are high-level blocks that can be separated
-#'       as follows \cr    ### ======================
-#'     \item sections (level II), which are medium-level blocks that can be separated
-#'       as follows \cr    ## -----------------------------------------
-#'     \item subsections (level I), which are low-level blocks that can be separated
-#'       as follows \cr # ...................................................}
+#'     \item level 1 sections, which are high-level blocks that can be separated
+#'       as follows \cr    ### ______________________
+#'     \item level 2 sections, which are medium-level blocks that can be separated
+#'       as follows \cr    ##  ..............................................
+#'     \item level 1 sections, which are low-level blocks that can be separated
+#'       as follows \cr #   .. . . . . . . . . . . . . . . . . . . . . . . .}
 #'   For optimal use, we recommend specifying shortcuts in the add-in settings.
-#' @details The breaks characters (\code{=}, \code{-}, \code{.}) were choosen
-#'   such that they reflect the level of granularity, namely \code{===} has a
+#' @details The breaks characters (\code{___}, \code{...}, \code{. .}) were choosen
+#'   such that they reflect the level of granularity, namely \code{___} has a
 #'   much higher visual density than
-#'   \code{...} \cr
-#'   We recommend to start off grouping code into level II blocks.
+#'   \code{. .} \cr
+#'   We recommend to start off grouping code into level 2 blocks.
 #'   The advantage is that in both directions of granularity,
 #'   there is another layer (\code{===} and \code{...}) left.
 #'   When the code base grows, there
@@ -23,19 +23,30 @@
 #' @name insert_break
 #' @importFrom rstudioapi insertText
 #' @examples
-#'   ## ===============================================
-#'   ## Section 1: load data
-#'   # ................................................
-#'   # Subsection a: load first data set
+#' # this is a minimal example.
+#' See the readme for a longer and more detailed example.
 #'
-#'   # [your code here]
+#' ##  ......................................................
+#' ##  A: pre-process t2
+#' ### .. . . . . . . . . . . . . . . . . . . . . . . . . . .
+#' ### a: substep 1
 #'
-#'   # ................................................
-#'   # Subsection b: load second data set
 #'
-#'   # [your code here]
 #'
-#'   ## ==============================================
+#' # [your code here]
+#'
+#'
+#'
+#' ### .. . . . . . . . . . . . . . . . . . . . . . . . . . .
+#' ### b: substep 2
+#'
+#'
+#'
+#' # [your code here ]
+#'
+#'
+#'
+#' ##  ......................................................
 
 NULL
 
@@ -71,7 +82,7 @@ insert_l3_break <- function() {
 
 help_insert <- function(start = "##",
                         break_char = "-",
-                        lenght = 80,
+                        lenght = options()$strcode.char.lenght,
                         sep = " ") {
 
 
