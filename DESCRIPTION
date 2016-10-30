@@ -1,12 +1,11 @@
 Package: strcode
 Type: Package
-Title: An Rstudio Add-in to divide your code into partitions
-Version: 0.1.0
+Title: An Rstudio Add-in to divide your code into blocks
+Version: 0.0.9001
 Authors@R: c(
   person("Lorenz", "Walthert", email = "lorenz.walthert@icloud.com", role = "cre"))
-Maintainer@: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: An Rstudio Add-in to divide your code into
+    blocks.
 License: MIT + file LICENCE
 Encoding: UTF-8
 LazyData: true

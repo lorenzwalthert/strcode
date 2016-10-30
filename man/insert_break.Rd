@@ -39,8 +39,7 @@ The breaks characters (\code{___}, \code{...}, \code{. .}) were choosen
 }
 \examples{
 # this is a minimal example.
-See the readme on \\href{https://github.com/lorenzwalthert/strcode}{gitub}
-for a longer one.
+# See the readme for a longer and more detailed example.
 
 ##  ......................................................
 ##  A: pre-process t2

@@ -24,7 +24,7 @@
 #' @importFrom rstudioapi insertText
 #' @examples
 #' # this is a minimal example.
-#' See the readme for a longer and more detailed example.
+#' # See the readme for a longer and more detailed example.
 #'
 #' ##  ......................................................
 #' ##  A: pre-process t2
