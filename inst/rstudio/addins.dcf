@@ -4,11 +4,11 @@ Binding: insert_l3_break
 Interactive: false
 
 Name: l2 code break
-Description: Inserts code section break
+Description: Inserts code sub-section break
 Binding: insert_l2_break
 Interactive: false
 
 Name: l1 code break
-Description: Inserts code subsection break
+Description: Inserts code section break
 Binding: insert_l1_break
 Interactive: false
