@@ -21,7 +21,7 @@
 #'   When the code base grows, there
 #'   might be the need to extend in both directions.
 #' @name insert_break
-#' @importFrom rstudioapi insertText
+#' @importFrom rstudioapi insertText getActiveDocumentContext setCursorPosition
 #' @examples
 #' # this is a minimal example.
 #' # See the readme for a longer and more detailed example.
@@ -56,10 +56,10 @@ NULL
 #' @rdname insert_break
 #' @export
 insert_l1_break <- function() {
-  to_insert <- help_insert(start = "#",
+  to_insert <- help_create_break(start = "#",
                            break_char = "_",
                            sep = "   ")
-  insertText(to_insert)
+  help_insert(to_insert)
 }
 
 ##  ............................................................................
@@ -67,30 +67,32 @@ insert_l1_break <- function() {
 #' @rdname insert_break
 #' @export
 insert_l2_break <- function() {
-  to_insert <- help_insert(start = "##",
+  to_insert <- help_create_break(start = "##",
                            break_char = ".",
                            sep = "  ")
-  insertText(to_insert)
+  help_insert(to_insert)
 }
 
 ##  ............................................................................
-## level 3
+##  level 3
 #' @rdname insert_break
 #' @export
 insert_l3_break <- function() {
-  to_insert <- help_insert(start = "###",
+  to_insert <- help_create_break(start = "###",
                            break_char = ". ",
                            sep = " .")
-  insertText(to_insert)
+  help_insert(to_insert)
 }
 
 
 
 #   ____________________________________________________________________________
-#   helper functions: help_insert
+#   helper functions
+##  ............................................................................
+##  help_create_break
 # the idea of the helper function is to return a string of a line length that is
 # composed of the start character and the break_characters
-help_insert <- function(start = "##",
+help_create_break <- function(start = "##",
                         break_char = "-",
                         lenght = options()$strcode.char.lenght,
                         sep = " ") {
@@ -104,3 +106,15 @@ help_insert <- function(start = "##",
         # insert new line and corresponding comment structure
         sep = "")
 }
+##  ............................................................................
+## help_insert
+# this funciton first gets the row in the active document, inserts a text x
+# one row below and jumps another row down
+
+help_insert <- function(x) {
+  target_row <- getActiveDocumentContext()$selection[[1]]$range$start[1] + 1
+  insertText(c(target_row, 1), x)
+  setCursorPosition(c(target_row + 1, 1), id = NULL)
+
+}
+
