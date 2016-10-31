@@ -101,7 +101,7 @@ help_create_break <- function(start = "##",
             break_char,
             ceiling((lenght - nchar(start) - nchar(sep))/nchar(break_char))),
           collapse = ""),
-        "\n",
+        "\n", "\n",
         # start, paste(rep(" ", 4 - nchar(start)), collapse = ""),
         # insert new line and corresponding comment structure
         sep = "")
@@ -112,9 +112,11 @@ help_create_break <- function(start = "##",
 # one row below and jumps another row down
 
 help_insert <- function(x) {
-  target_row <- getActiveDocumentContext()$selection[[1]]$range$start[1] + 1
-  insertText(c(target_row, 1), x)
-  setCursorPosition(c(target_row + 1, 1), id = NULL)
+  current_row <- getActiveDocumentContext()$selection[[1]]$range$start[1]
+  setCursorPosition(c(current_row, Inf))
+  insertText("\n")
+  insertText(c(current_row  + 1, 1), x)
+  setCursorPosition(c(current_row + 2, 1), id = NULL)
 
 }
 
