@@ -1,7 +1,7 @@
 README
 ================
 
-The `strcode` (short for structuring code) package contains tools to organize your code better. It contains
+The `strcode` (short for structuring code) package contains tools to organize and abstract your code better. It consists of
 
 -   An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you quickly add code block separators to devide your work into sections
 -   A function `sum_str` that summarizes the code structure based on the separators and their comments added with the Add-in. For one or more files, it prints the structure to the console or a file. <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
@@ -240,14 +240,20 @@ sum_str(dir_in = "placeholder_code",
         file_in = "example.R", 
         dir_out = "",
         width = 40,
-        granularity = 1,
+        granularity = 2,
         lowest_sep = FALSE)
 #> Summarized structure of example.R
+#> 1    #   ____________________________________
 #> 2    #   function test
+#> 5    ##  A: pre-processing
+#> 56   ##  B: actual function
+#> 82   #   ____________________________________
 #> 83   #   function test2
+#> 86   ##  A: pre-processing
+#> 137  ##  B: actual function
 ```
 
 -   `dir_*` and `file_*` specify directories or filenames for reading and writing.
 -   `width` gives the width of the output in characters.
--   `granularity = 3`indicates that we want all three levels of granularity to be contained in the summary.
--   Similarly, we use `separator = TRUE` to indicate that we want the separators to be printed between the titles of the sections.
+-   `granularity = 2`indicates that we want two of three levels of granularity to be contained in the summary.
+-   Similarly, we use `lowest_sep = FALSE` to indicate that we want lowest separators (given `granularity`) to be omitted between the titles of the sections.

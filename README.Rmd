@@ -13,8 +13,8 @@ library(strcode)
 ```
 
 
-The `strcode` (short for structuring code) package contains tools to organize 
-your code better. It contains
+The `strcode` (short for structuring code) package contains tools to organize
+and abstract your code better. It consists of
 
 - An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you 
   quickly add code block separators to devide your work into sections
@@ -261,15 +261,15 @@ sum_str(dir_in = "placeholder_code",
         file_in = "example.R", 
         dir_out = "",
         width = 40,
-        granularity = 1,
+        granularity = 2,
         lowest_sep = FALSE)
 ```
 
 - `dir_*` and `file_*` specify directories or filenames for reading and writing. 
 - `width` gives the width of the output in characters.
-- `granularity = 3`indicates that we want all three levels of granularity
+- `granularity = 2`indicates that we want two of three levels of granularity
   to be contained in the summary.
-- Similarly, we use `lowest_sep = TRUE` to indicate that we want lowest 
-  separators (given `granularity`) to be printed between the titles of the 
+- Similarly, we use `lowest_sep = FALSE` to indicate that we want lowest 
+  separators (given `granularity`) to be omitted between the titles of the 
   sections.
 
