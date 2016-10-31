@@ -261,8 +261,15 @@ sum_str(dir_in = "placeholder_code",
         file_in = "example.R", 
         dir_out = "",
         width = 40,
-        granularity = 3,
-        separator = T)
+        granularity = 1,
+        lowest_sep = FALSE)
 ```
 
+- `dir_*` and `file_*` specify directories or filenames for reading and writing. 
+- `width` gives the width of the output in characters.
+- `granularity = 3`indicates that we want all three levels of granularity
+  to be contained in the summary.
+- Similarly, we use `lowest_sep = TRUE` to indicate that we want lowest 
+  separators (given `granularity`) to be printed between the titles of the 
+  sections.
 

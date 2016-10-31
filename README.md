@@ -23,7 +23,7 @@ Structuring code
 Overview
 --------
 
-We suggest three levels of granularity in code structuring. Of course, higher-level blocks can contain lower-level blocks.
+We suggest three levels of granularity for code structuring. Of course, higher-level blocks can contain lower-level blocks.
 
 -   level 1 sections, which are high-level blocks that can be separated as follows
 
@@ -46,15 +46,15 @@ We suggest three levels of granularity in code structuring. Of course, higher-le
 ### a
 ```
 
-You can notice from above that
+You can notice from the above that
 
 -   The number of `#` used in front of the break character (`___`, `...`, `. .`) corresponds to the level of granularity that is separated.
--   l1 sections have roman numbers, l2 sections upper-case letters and l3 sections letters have lower-case letters.
+-   level 1 sections use roman numbers, level 2 sections use upper-case letters and level 3 sections use lower-case letters.
 -   The breaks characters `___`, `...`, `. .` were chosen such that they reflect the level of granularity, namely `___` has a much higher visual density than `. .`.
 -   Each block has an (optional) short comment on what the next block is about.
 
-The separators do all have length 80. The value is looked up in the global option `strcode.char.lenght` and can be changed by the user (either every session manually or using .Rprofile).
-For each of the introduced separator, there is an Add-in function. You can also call them from the console
+The separators do all have length 80. The value is looked up in the global option `strcode.char.length` and can be changed by the user (either every session manually or using .Rprofile).
+For each of the introduced separators, there is an Add-in function. You can also call them from the console
 
 -   `strcode::insert_l1_break()`
 -   `strcode::insert_l2_break()`
@@ -240,27 +240,14 @@ sum_str(dir_in = "placeholder_code",
         file_in = "example.R", 
         dir_out = "",
         width = 40,
-        granularity = 3,
-        separator = T)
+        granularity = 1,
+        lowest_sep = FALSE)
 #> Summarized structure of example.R
-#> 1    #   ____________________________________
 #> 2    #   function test
-#> 4    ##  ....................................
-#> 5    ##  A: pre-processing
-#> 7    ### a: assertive tests
-#> 39   ### b: coercion / remove missing
-#> 44   ### c: warnings
-#> 55   ##  ....................................
-#> 56   ##  B: actual function
-#> 80   ##  ....................................
-#> 82   #   ____________________________________
 #> 83   #   function test2
-#> 85   ##  ....................................
-#> 86   ##  A: pre-processing
-#> 88   ### a: assertive tests
-#> 120  ### b: coercion / remove missing
-#> 125  ### c: warnings
-#> 136  ##  ....................................
-#> 137  ##  B: actual function
-#> 161  ##  ....................................
 ```
+
+-   `dir_*` and `file_*` specify directories or filenames for reading and writing.
+-   `width` gives the width of the output in characters.
+-   `granularity = 3`indicates that we want all three levels of granularity to be contained in the summary.
+-   Similarly, we use `separator = TRUE` to indicate that we want the separators to be printed between the titles of the sections.

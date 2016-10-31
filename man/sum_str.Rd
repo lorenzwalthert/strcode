@@ -6,7 +6,7 @@
 \usage{
 sum_str(dir_in = ".", dir_out = dir_in, file_in = "example.R",
   file_in_extension = ".R", file_out = NULL, file_out_extension = "",
-  width = 50, line_nr = TRUE, granularity = 3, separator = TRUE,
+  width = 50, line_nr = TRUE, granularity = 3, lowest_sep = TRUE,
   title = TRUE, ...)
 }
 \arguments{
@@ -33,7 +33,7 @@ be printed along with the structure summary.}
 
 \item{granularity}{Indicating how many levels should be in the summary}
 
-\item{separator}{A boolean value indicating whether the separating lines
+\item{lowest_sep}{A boolean value indicating whether the separating lines
 should be reported along their comments or not.}
 
 \item{title}{A boolean value indicating whether the reported summary should

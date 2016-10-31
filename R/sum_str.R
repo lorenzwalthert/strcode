@@ -16,7 +16,7 @@
 #' @param line_nr A boolean value that indicates whether the line numbers should
 #'   be printed along with the structure summary.
 #' @param granularity Indicating how many levels should be in the summary
-#' @param separator A boolean value indicating whether the separating lines
+#' @param lowest_sep A boolean value indicating whether the separating lines
 #'   should be reported along their comments or not.
 #' @param title A boolean value indicating whether the reported summary should
 #'   contain a title or not.
@@ -39,7 +39,7 @@ sum_str <- function(dir_in = ".",
                     width = 50,
                     line_nr = TRUE,
                     granularity = 3,
-                    separator = TRUE,
+                    lowest_sep = TRUE,
                     title = TRUE,
                     ...) {
 
@@ -67,7 +67,7 @@ if (is.null(file_in)) {
                    width = width,
                    line_nr = line_nr,
                    granularity = granularity,
-                   separator = separator,
+                   lowest_sep = lowest_sep,
                    title = title)
   })
 
@@ -88,7 +88,7 @@ sum_str_helper <- function(dir_in,
                            width,
                            line_nr,
                            granularity,
-                           separator,
+                           lowest_sep,
                            title) {
 ##  ............................................................................
 ## argument interaction
@@ -111,21 +111,29 @@ sum_str_helper <- function(dir_in,
 
 ##  ............................................................................
 ##  modify pattern according to arguments
-  if (separator == FALSE) {
-    sub_pattern <- paste0("^#{", 1, ",", granularity, "}+\\s+[_|\\.|\\..\\s]+$")
-    remove <- grep(sub_pattern, lines[pos], perl = TRUE)
-    pattern <- pattern[-remove]
-  } else {
-    # in any case remove lowest l pattern separator
+   # remove the l lowest pattern separator depending on granularity
+   if (lowest_sep == FALSE) {
     sub_pattern <- paste0("^#{", granularity, ",", 4,
                           "}\\s+[_|\\.|\\..\\s]+$")
-    # needs to be 4, since {3, 3, } is not allowed
     remove <- grep(sub_pattern, lines[pos], perl = TRUE)
     pattern <- pattern[-remove]
     pos <- pos[-remove]
+  }
+
+  ## removing the l lowest separator comments depending on granularity
+  get_gran_pattern <- function(level = 3) {
+    paste("^", "#", "{", 1, ",", level, "}",
+          "\\s{", 1, ",", level, "}", sep = "", collapse = "")
+  }
+
+  update_pos_pattern <- function(level) {
+    keep <- grep(get_gran_pattern(level = level), lines[pos], perl = TRUE)
+    pattern <<- pattern[keep]
+    pos <<- pos[keep]
 
   }
 
+  update_pos_pattern(granularity)
 
   if (!is.null(width)) {
     pattern <- substring(pattern, 1, width)

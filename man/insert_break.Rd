@@ -16,7 +16,7 @@ insert_l3_break()
 \description{
 A function designed to use as an RStudio
   \href{https://rstudio.github.io/rstudioaddins/}{add-in} for structuring code.
-  There are three levels granularity
+  There are three levels of granularity
   \itemize{
     \item level 1 sections, which are high-level blocks that can be separated
       as follows \cr    ### ______________________
