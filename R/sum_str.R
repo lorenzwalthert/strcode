@@ -108,6 +108,36 @@ sum_str_helper <- function(dir_in,
                        file_out_extension)
   }
 
+
+##  ............................................................................
+## function definitions
+  # find maximal or minimal level of granularity used.
+  find_gran <- function(direction = "up") {
+    if (direction == "up") {
+      l <- 1 # initialize
+    } else if (direction == "down") {
+      l <- 3
+    }
+
+    helper_find_gran <- function(direction) {
+      if (direction == "up") {
+        m <- 1
+      } else if (direction == "down") {
+        m <- -1
+      }
+      pattern <- paste0("^", paste0(rep("#", l), sep = "", collapse = ""), "\\s+")
+      if (any(grepl(pattern, lines, perl = TRUE))) {
+        l
+
+      } else {
+        l <<- l + m * 1
+        helper_find_gran(direction = direction)
+      }
+    }
+
+    helper_find_gran(direction)
+  }
+
 ##  ............................................................................
 ##  get pattern
 
@@ -128,7 +158,7 @@ sum_str_helper <- function(dir_in,
   # remove the l lowest pattern separator depending on granularity if
   # lowest_sep is TRUE
   if (lowest_sep == FALSE) {
-   sub_pattern <- paste0("^#{", granularity, ",", 4,
+   sub_pattern <- paste0("^#{", min(granularity, find_gran("down")), ",", 4,
                           "}\\s+[_|\\.|\\..\\s]+$")
    remove <- grep(sub_pattern, lines[pos], perl = TRUE)
    pattern <- pattern[-remove]

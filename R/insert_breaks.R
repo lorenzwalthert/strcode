@@ -101,7 +101,7 @@ help_create_break <- function(start = "##",
             break_char,
             ceiling((lenght - nchar(start) - nchar(sep))/nchar(break_char))),
           collapse = ""),
-        "\n", "\n",
+        "\n",
         # start, paste(rep(" ", 4 - nchar(start)), collapse = ""),
         # insert new line and corresponding comment structure
         sep = "")
