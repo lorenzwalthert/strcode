@@ -33,16 +33,9 @@ You can install the package from github.
 devtools::install_github("lorenzwalthert/strcode")
 ```
 
-
-
-<<<<<<< HEAD
 # Structuring code
 ## Overview
-We suggest three levels of granularity in code structuring. Of course, 
-=======
-# Overview
 We suggest three levels of granularity for code structuring. Of course, 
->>>>>>> fcecead149878b74b28221d924e42156a0d7f98c
 higher-level blocks can contain lower-level blocks.
 
 - level 1 sections, which are high-level blocks that can be 
