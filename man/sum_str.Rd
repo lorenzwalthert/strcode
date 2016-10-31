@@ -4,9 +4,10 @@
 \alias{sum_str}
 \title{Summarize the code structure}
 \usage{
-sum_str(dir_in = "./vignettes/", dir_out = dir_in, file_in = "example.R",
+sum_str(dir_in = ".", dir_out = dir_in, file_in = "example.R",
   file_in_extension = ".R", file_out = NULL, file_out_extension = "",
-  width = 50, line_nr = TRUE, separator = TRUE, title = TRUE, ...)
+  width = 50, line_nr = TRUE, granularity = 3, separator = TRUE,
+  title = TRUE, ...)
 }
 \arguments{
 \item{dir_in}{A directory where the file(s) can be found.}
@@ -29,6 +30,8 @@ The argument is irrelevant if \code{output_dir} is set to "".}
 
 \item{line_nr}{A boolean value that indicates whether the line numbers should
 be printed along with the structure summary.}
+
+\item{granularity}{Indicating how many levels should be in the summary}
 
 \item{separator}{A boolean value indicating whether the separating lines
 should be reported along their comments or not.}

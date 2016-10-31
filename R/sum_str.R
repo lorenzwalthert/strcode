@@ -15,6 +15,7 @@
 #' @param width The character width of the output.
 #' @param line_nr A boolean value that indicates whether the line numbers should
 #'   be printed along with the structure summary.
+#' @param granularity Indicating how many levels should be in the summary
 #' @param separator A boolean value indicating whether the separating lines
 #'   should be reported along their comments or not.
 #' @param title A boolean value indicating whether the reported summary should
