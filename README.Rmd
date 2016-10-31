@@ -13,10 +13,14 @@ library(strcode)
 ```
 
 
-The `strcode` (short for structuring code) package is an 
-[RStudio Add-in](https://rstudio.github.io/rstudioaddins/) 
-that lets you quickly add code block separators so you can organize your code
-better. 
+The `strcode` (short for structuring code) package contains tools to organize 
+your code better. It contains
+
+- An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you 
+  quickly add code block separators to devide your work into sections
+- A function `sum_str` that summarizes the code structure based on the 
+  separators and their comments added with the Add-in. For one or more files,
+  it prints the structure to the console or a file.
 <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
 a guide for good practice in R programming. -->
 
@@ -31,7 +35,8 @@ devtools::install_github("lorenzwalthert/strcode")
 
 
 
-# Overview
+# Structuring code
+## Overview
 We suggest three levels of granularity in code structuring. Of course, 
 higher-level blocks can contain lower-level blocks.
 
@@ -76,7 +81,7 @@ them from the console
 * `strcode::insert_l2_break()`
 * `strcode::insert_l3_break()`
 
-# Example
+## Example
 To demonstrate the improvement in legibility, we give an extended example with 
 some placeholder code.  
 ```{r}
@@ -243,4 +248,22 @@ test2 <- function(x) {
 ##  ............................................................................
 }
 ```
+
+## Summarizing code
+Given that code is structured as above, it can easily be summarized or 
+represented in a compact and abstract form. This is
+particularly handy when the codebase is large, when a lot of people work on the
+code or when new people join a project. The function `sum_str` is designed 
+exactly for the purpose of extracting separators and respective comments. 
+With a host of options, it is highly customizable and flexible. For example, 
+the file presented in the example section above can be summarized as follows:
+```{r}
+sum_str(dir_in = "placeholder_code", 
+        file_in = "example.R", 
+        dir_out = "",
+        width = 40,
+        granularity = 3,
+        separator = T)
+```
+
 

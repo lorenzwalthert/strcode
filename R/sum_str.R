@@ -29,7 +29,7 @@
 #'
 #   ____________________________________________________________________________
 #   user-function
-sum_str <- function(dir_in = "./vignettes/",
+sum_str <- function(dir_in = ".",
                     dir_out = dir_in,
                     file_in = "example.R",
                     file_in_extension = ".R",
@@ -37,6 +37,7 @@ sum_str <- function(dir_in = "./vignettes/",
                     file_out_extension = "",
                     width = 50,
                     line_nr = TRUE,
+                    granularity = 3,
                     separator = TRUE,
                     title = TRUE,
                     ...) {
@@ -64,11 +65,15 @@ if (is.null(file_in)) {
                    file_out_extension = file_out_extension,
                    width = width,
                    line_nr = line_nr,
+                   granularity = granularity,
                    separator = separator,
                    title = title)
   })
-  cat("The following files were summarized",
-          as.character(all_files), sep = "\n")
+
+  if (dir_out != "") {
+    cat("The following files were summarized",
+            as.character(all_files), sep = "\n")
+  }
 }
 
 #   ____________________________________________________________________________
@@ -81,6 +86,7 @@ sum_str_helper <- function(dir_in,
                            file_out_extension,
                            width,
                            line_nr,
+                           granularity,
                            separator,
                            title) {
 ##  ............................................................................
@@ -94,9 +100,10 @@ sum_str_helper <- function(dir_in,
 ##  ............................................................................
 ##  get pattern
 
-  path <- paste0(dir_in, file_in)
+  path <- paste(dir_in, file_in, sep = "/")
   lines <- readLines(con = path)
-  pos <- grep("^#+([[:space:]]){1,4}", lines) # extract candiates
+  sub_pattern <- "^#+([[:space:]]){1,4}"
+  pos <- grep(sub_pattern, lines) # extract candiates
   # allow spaces in the beginning (deactivated)
   # pos <- grep("^[[:space:]]*#+([[:space:]]){1,4}", lines)
   pattern <-lines[pos]
@@ -104,8 +111,18 @@ sum_str_helper <- function(dir_in,
 ##  ............................................................................
 ##  modify pattern according to arguments
   if (separator == FALSE) {
-    remove <- grep("^#+\\s+[_|\\.|\\..\\s]+$", lines[pos], perl = TRUE)
+    sub_pattern <- paste0("^#{", 1, ",", granularity, "}+\\s+[_|\\.|\\..\\s]+$")
+    remove <- grep(sub_pattern, lines[pos], perl = TRUE)
     pattern <- pattern[-remove]
+  } else {
+    # in any case remove lowest l pattern separator
+    sub_pattern <- paste0("^#{", granularity, ",", 4,
+                          "}\\s+[_|\\.|\\..\\s]+$")
+    # needs to be 4, since {3, 3, } is not allowed
+    remove <- grep(sub_pattern, lines[pos], perl = TRUE)
+    pattern <- pattern[-remove]
+    pos <- pos[-remove]
+
   }
 
 
@@ -118,7 +135,7 @@ sum_str_helper <- function(dir_in,
   }
 
   if (title == TRUE) {
-    pattern <- append(paste0("Table of contents for ", file_in), pattern)
+    pattern <- append(paste0("Summarized structure of ", file_in), pattern)
   }
 
   if ("" %in% c(dir_out, file_out)) {

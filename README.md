@@ -1,8 +1,11 @@
 README
 ================
 
-The `strcode` (short for structuring code) package is an [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you quickly add code block separators so you can organize your code better. <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
-a guide for good practice in R programming. -->
+The `strcode` (short for structuring code) package contains tools to organize your code better. It contains
+
+-   An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you quickly add code block separators to devide your work into sections
+-   A function `sum_str` that summarizes the code structure based on the separators and their comments added with the Add-in. For one or more files, it prints the structure to the console or a file. <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
+    a guide for good practice in R programming. -->
 
 Installation
 ============
@@ -14,8 +17,11 @@ You can install the package from github.
 devtools::install_github("lorenzwalthert/strcode")
 ```
 
+Structuring code
+================
+
 Overview
-========
+--------
 
 We suggest three levels of granularity in code structuring. Of course, higher-level blocks can contain lower-level blocks.
 
@@ -55,7 +61,7 @@ For each of the introduced separator, there is an Add-in function. You can also 
 -   `strcode::insert_l3_break()`
 
 Example
-=======
+-------
 
 To demonstrate the improvement in legibility, we give an extended example with some placeholder code.
 
@@ -222,4 +228,43 @@ test2 <- function(x) {
    
 ##  ............................................................................
 }
+```
+
+Summarizing code
+----------------
+
+Given that code is structured as above, it can easily be summarized or represented in a compact and abstract form. This is particularly handy when the codebase is large, when a lot of people work on the code or when new people join a project. The function `sum_str` is designed exactly for the purpose of extracting separators and respective comments. With a host of options, it is highly customizable and flexible. For example, the file presented in the example section above can be summarized as follows:
+
+``` r
+sum_str(dir_in = "placeholder_code", 
+        file_in = "example.R", 
+        dir_out = "", 
+        separator = T)
+#> Summarized structure of example.R
+#> 1    #   ______________________________________________
+#> 2    #   function test
+#> 4    ##  ..............................................
+#> 5    ##  A: pre-processing
+#> 6    ### .. . . . . . . . . . . . . . . . . . . . . . .
+#> 7    ### a: assertive tests
+#> 38   ### .. . . . . . . . . . . . . . . . . . . . . . .
+#> 39   ### b: coercion / remove missing
+#> 43   ### .. . . . . . . . . . . . . . . . . . . . . . .
+#> 44   ### c: warnings
+#> 55   ##  ..............................................
+#> 56   ##  B: actual function
+#> 80   ##  ..............................................
+#> 82   #   ______________________________________________
+#> 83   #   function test2
+#> 85   ##  ..............................................
+#> 86   ##  A: pre-processing
+#> 87   ### .. . . . . . . . . . . . . . . . . . . . . . .
+#> 88   ### a: assertive tests
+#> 119  ### .. . . . . . . . . . . . . . . . . . . . . . .
+#> 120  ### b: coercion / remove missing
+#> 124  ### .. . . . . . . . . . . . . . . . . . . . . . .
+#> 125  ### c: warnings
+#> 136  ##  ..............................................
+#> 137  ##  B: actual function
+#> 161  ##  ..............................................
 ```
