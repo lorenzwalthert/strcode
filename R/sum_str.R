@@ -7,6 +7,8 @@
 #'   console.
 #' @param file_in The name of a file which should be summarized. \code{NULL} will
 #'   create a summary of all files in the directory.
+#' @param file_in_extension If \code{file_in} is \code{NULL}, all files with the
+#'   \code{file_in_extension} are considered.
 #' @param file_out A connection or character string naming the file to print to.
 #'   The argument is irrelevant if \code{output_dir} is set to "".
 #' @param file_out_extension An file extension for the file to be created.
@@ -17,22 +19,70 @@
 #'   should be reported along their comments or not.
 #' @param title A boolean value indicating whether the reported summary should
 #'   contain a title or not.
+#' @param ... futher arguments to be passed from and to other methods, in
+#'   particular \code{\link{list.files}} for reading in multiple files.
 #'
 #'
 #'
 #'
 #' @export
 #'
+#   ____________________________________________________________________________
+#   user-function
 sum_str <- function(dir_in = "./vignettes/",
                     dir_out = dir_in,
                     file_in = "example.R",
+                    file_in_extension = ".R",
                     file_out = NULL,
                     file_out_extension = "",
                     width = 50,
                     line_nr = TRUE,
                     separator = TRUE,
-                    title = TRUE) {
+                    title = TRUE,
+                    ...) {
 
+##  ............................................................................
+##  prepare input to call helper repeated times.
+if (is.null(file_in)) {
+  all_files <- as.list(list.files(path = dir_in,
+                          pattern = paste0(file_in_extension, "$"),
+                          full.names = FALSE,
+                          ...)
+  )
+
+} else {
+  all_files <- as.list(file_in)
+}
+
+##  ............................................................................
+##  call helper
+  lapply(all_files, function(g) {
+    sum_str_helper(dir_in = dir_in,
+                   dir_out = dir_out,
+                   file_in = g,
+                   file_out = file_out,
+                   file_out_extension = file_out_extension,
+                   width = width,
+                   line_nr = line_nr,
+                   separator = separator,
+                   title = title)
+  })
+  cat("The following files were summarized",
+          as.character(all_files), sep = "\n")
+}
+
+#   ____________________________________________________________________________
+#   helper function
+
+sum_str_helper <- function(dir_in,
+                           dir_out,
+                           file_in,
+                           file_out,
+                           file_out_extension,
+                           width,
+                           line_nr,
+                           separator,
+                           title) {
 ##  ............................................................................
 ## argument interaction
   if (is.null(file_out)) {
@@ -87,4 +137,6 @@ sum_str <- function(dir_in = "./vignettes/",
 # extensions
 # - multiple files in a directrory
 # - output to file
+
+
 
