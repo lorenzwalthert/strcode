@@ -7,7 +7,7 @@
 sum_str(dir_in = ".", dir_out = dir_in, file_in = "example.R",
   file_in_extension = ".R", file_out = NULL, file_out_extension = "",
   width = 50, line_nr = TRUE, granularity = 3, lowest_sep = TRUE,
-  title = TRUE, ...)
+  title = TRUE, header = TRUE, ...)
 }
 \arguments{
 \item{dir_in}{A directory where the file(s) can be found.}
@@ -38,6 +38,9 @@ should be reported along their comments or not.}
 
 \item{title}{A boolean value indicating whether the reported summary should
 contain a title or not.}
+
+\item{header}{A boolean values indicating whether a column header should
+indicate the name of the columns (line, level, section).}
 
 \item{...}{futher arguments to be passed from and to other methods, in
 particular \code{\link{list.files}} for reading in multiple files.}

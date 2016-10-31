@@ -233,16 +233,19 @@ test2 <- function(x) {
 Summarizing code
 ----------------
 
-Given that code is structured as above, it can easily be summarized or represented in a compact and abstract form. This is particularly handy when the codebase is large, when a lot of people work on the code or when new people join a project. The function `sum_str` is designed exactly for the purpose of extracting separators and respective comments. With a host of options, it is highly customizable and flexible. For example, the file presented in the example section above can be summarized as follows:
+Given that code is structured as above, it can easily be summarized or represented in a compact and abstract form. This is particularly handy when the codebase is large, when a lot of people work on the code or when new people join a project. The function `sum_str` is designed exactly for the purpose of extracting separators and respective comments. With a host of options, it is highly customizable and flexible. For example, the file presented in the example section above can be summarized as follows
 
 ``` r
 sum_str(dir_in = "placeholder_code", 
         file_in = "example.R", 
-        dir_out = "",
+        file_out = "",
         width = 40,
         granularity = 2,
-        lowest_sep = FALSE)
+        lowest_sep = FALSE, 
+        header = TRUE)
 #> Summarized structure of example.R
+#> 
+#> line  level section
 #> 1    #   ____________________________________
 #> 2    #   function test
 #> 5    ##  A: pre-processing
@@ -257,3 +260,4 @@ sum_str(dir_in = "placeholder_code",
 -   `width` gives the width of the output in characters.
 -   `granularity = 2`indicates that we want two of three levels of granularity to be contained in the summary.
 -   Similarly, we use `lowest_sep = FALSE` to indicate that we want lowest separators (given `granularity`) to be omitted between the titles of the sections.
+-   `header` was set to `TRUE`, so the column names were reported as well. Note that they are slightly off since knitr uses a different tab length. In the R console and more imporantly in the outputed file, theigh are aliged.

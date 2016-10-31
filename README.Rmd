@@ -255,14 +255,17 @@ particularly handy when the codebase is large, when a lot of people work on the
 code or when new people join a project. The function `sum_str` is designed 
 exactly for the purpose of extracting separators and respective comments. 
 With a host of options, it is highly customizable and flexible. For example, 
-the file presented in the example section above can be summarized as follows:
+the file presented in the example section above can be summarized as follows
 ```{r}
 sum_str(dir_in = "placeholder_code", 
         file_in = "example.R", 
-        dir_out = "",
+        file_out = "",
         width = 40,
         granularity = 2,
-        lowest_sep = FALSE)
+        lowest_sep = FALSE, 
+        header = TRUE)
+
+
 ```
 
 - `dir_*` and `file_*` specify directories or filenames for reading and writing. 
@@ -272,4 +275,7 @@ sum_str(dir_in = "placeholder_code",
 - Similarly, we use `lowest_sep = FALSE` to indicate that we want lowest 
   separators (given `granularity`) to be omitted between the titles of the 
   sections.
+- `header` was set to `TRUE`, so the column names were reported as well. Note 
+  that they are slightly off since knitr uses a different tab length. In the R
+  console and more imporantly in the outputed file, theigh are aliged.
 

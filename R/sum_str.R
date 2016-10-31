@@ -20,6 +20,8 @@
 #'   should be reported along their comments or not.
 #' @param title A boolean value indicating whether the reported summary should
 #'   contain a title or not.
+#' @param header A boolean values indicating whether a column header should
+#'   indicate the name of the columns (line, level, section).
 #' @param ... futher arguments to be passed from and to other methods, in
 #'   particular \code{\link{list.files}} for reading in multiple files.
 #'
@@ -41,24 +43,28 @@ sum_str <- function(dir_in = ".",
                     granularity = 3,
                     lowest_sep = TRUE,
                     title = TRUE,
+                    header = TRUE,
                     ...) {
 
 ##  ............................................................................
 ##  prepare input to call helper repeated times.
-if (is.null(file_in)) {
-  all_files <- as.list(list.files(path = dir_in,
-                          pattern = paste0(file_in_extension, "$"),
-                          full.names = FALSE,
-                          ...)
-  )
+  # in the case there are multiple files
+  if (is.null(file_in)) {
+    all_files <- as.list(list.files(path = dir_in,
+                            pattern = paste0(file_in_extension, "$"),
+                            full.names = FALSE,
+                            ...)
+    )
 
-} else {
-  all_files <- as.list(file_in)
-}
+  # in the case there is just one file
+  } else {
+    all_files <- as.list(file_in)
+  }
 
 ##  ............................................................................
 ##  call helper
   lapply(all_files, function(g) {
+    # pass all arguments as is except the file_in
     sum_str_helper(dir_in = dir_in,
                    dir_out = dir_out,
                    file_in = g,
@@ -68,10 +74,12 @@ if (is.null(file_in)) {
                    line_nr = line_nr,
                    granularity = granularity,
                    lowest_sep = lowest_sep,
-                   title = title)
+                   title = title,
+                   header = header)
   })
 
-  if (dir_out != "") {
+  # if output is not printed in the console, print a short summary.
+  if (dir_out != "" & file_out != "") {
     cat("The following files were summarized",
             as.character(all_files), sep = "\n")
   }
@@ -89,9 +97,11 @@ sum_str_helper <- function(dir_in,
                            line_nr,
                            granularity,
                            lowest_sep,
-                           title) {
+                           title,
+                           header) {
 ##  ............................................................................
 ## argument interaction
+  # get the file_out put together
   if (is.null(file_out)) {
     file_out <- paste0("code_summary-",
                        gsub("^(.*)\\..*$", "\\1", file_in, perl = TRUE),
@@ -111,16 +121,21 @@ sum_str_helper <- function(dir_in,
 
 ##  ............................................................................
 ##  modify pattern according to arguments
-   # remove the l lowest pattern separator depending on granularity
-   if (lowest_sep == FALSE) {
-    sub_pattern <- paste0("^#{", granularity, ",", 4,
+
+### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+### getting the granularity right
+
+  # remove the l lowest pattern separator depending on granularity if
+  # lowest_sep is TRUE
+  if (lowest_sep == FALSE) {
+   sub_pattern <- paste0("^#{", granularity, ",", 4,
                           "}\\s+[_|\\.|\\..\\s]+$")
-    remove <- grep(sub_pattern, lines[pos], perl = TRUE)
-    pattern <- pattern[-remove]
-    pos <- pos[-remove]
+   remove <- grep(sub_pattern, lines[pos], perl = TRUE)
+   pattern <- pattern[-remove]
+   pos <- pos[-remove]
   }
 
-  ## removing the l lowest separator comments depending on granularity
+  # removing the l lowest separator comments depending on granularity
   get_gran_pattern <- function(level = 3) {
     paste("^", "#", "{", 1, ",", level, "}",
           "\\s{", 1, ",", level, "}", sep = "", collapse = "")
@@ -135,6 +150,8 @@ sum_str_helper <- function(dir_in,
 
   update_pos_pattern(granularity)
 
+##  ............................................................................
+## width adjust line_nr, title, output path, header
   if (!is.null(width)) {
     pattern <- substring(pattern, 1, width)
   }
@@ -143,9 +160,6 @@ sum_str_helper <- function(dir_in,
     pattern <- paste(pos, pattern, sep = "\t")
   }
 
-  if (title == TRUE) {
-    pattern <- append(paste0("Summarized structure of ", file_in), pattern)
-  }
 
   if ("" %in% c(dir_out, file_out)) {
     path_out <- ""
@@ -153,9 +167,17 @@ sum_str_helper <- function(dir_in,
     path_out <- paste(dir_out, file_out, sep = "/")
   }
 
+  if (header == TRUE) {
+    pattern <- append(c("line  level section"), pattern)
+  }
+  if (title == TRUE) {
+    pattern <- append(paste0("Summarized structure of ", file_in, "\n"), pattern)
+  }
+
+
 
 ##  ............................................................................
-##  output pattern
+##  output the pattern
   cat(pattern, file = path_out, sep = "\n")
 }
 
