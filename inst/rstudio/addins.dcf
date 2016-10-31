@@ -1,14 +1,14 @@
 Name: l3 code break
-Description: Inserts code segment break
+Description: Inserts a level 3 code break
 Binding: insert_l3_break
 Interactive: false
 
 Name: l2 code break
-Description: Inserts code section break
+Description: Inserts a level 2 code break
 Binding: insert_l2_break
 Interactive: false
 
 Name: l1 code break
-Description: Inserts code subsection break
+Description: Inserts a level 1 code break
 Binding: insert_l1_break
 Interactive: false
