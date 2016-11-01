@@ -79,7 +79,7 @@ sum_str <- function(dir_in = ".",
   })
 
   # if output is not printed in the console, print a short summary.
-  if (dir_out != "" & file_out != "") {
+  if (dir_out != "") {
     cat("The following files were summarized",
             as.character(all_files), sep = "\n")
   }
@@ -100,13 +100,41 @@ sum_str_helper <- function(dir_in,
                            title,
                            header) {
 ##  ............................................................................
-## argument interaction
-  # get the file_out put together
-  if (is.null(file_out)) {
-    file_out <- paste0("code_summary-",
-                       gsub("^(.*)\\..*$", "\\1", file_in, perl = TRUE),
-                       file_out_extension)
+##  argument interaction
+
+### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+### get the file_out together
+if (is.null(file_out)) {
+  file_out <- paste0("code_summary-",
+                     gsub("^(.*)\\..*$", "\\1", file_in, perl = TRUE),
+                     file_out_extension)
+}
+
+
+
+### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+### paths
+  # path_in
+  ## note that file_in is never null when called from sum_str()
+
+  # if dir is not null, the path is composed of dir and file
+  if (!is.null(dir_in)) {
+    path_in <- paste(dir_in, file_in, sep = "/")
+  # otherwise it is simply the file_in
+  } else {
+    path_in <- file_in
   }
+
+  # path_out
+  ## path_out is "" if dir_out is ""
+  if (is.null(dir_out) || dir_out == "") {
+    path_out <- ""
+  # otherwise it is composed of dir_out and file_out, if file_out
+  # has a not empty value
+  } else {
+    path_out <- paste(dir_out, file_out, sep = "/")
+  }
+
 
 
 ##  ............................................................................
@@ -141,8 +169,7 @@ sum_str_helper <- function(dir_in,
 ##  ............................................................................
 ##  get pattern
 
-  path <- paste(dir_in, file_in, sep = "/")
-  lines <- readLines(con = path)
+  lines <- readLines(con = path_in)
   sub_pattern <- "^#+([[:space:]]){1,4}"
   pos <- grep(sub_pattern, lines) # extract candiates
   # allow spaces in the beginning (deactivated)
@@ -188,13 +215,6 @@ sum_str_helper <- function(dir_in,
 
   if (line_nr == TRUE) {
     pattern <- paste(pos, pattern, sep = "\t")
-  }
-
-
-  if ("" %in% c(dir_out, file_out)) {
-    path_out <- ""
-  } else {
-    path_out <- paste(dir_out, file_out, sep = "/")
   }
 
   if (header == TRUE) {
