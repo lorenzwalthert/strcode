@@ -1,11 +1,11 @@
 # hi, these comments should not be included
-#   ____________________________________________________________________________
+#   _
 #   function test
 test <- function(x) {
-##  ............................................................................
-##  A: pre-processing
+##  .
+##  -A: pre-processing
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-### a: assertive tests
+### _a: assertive tests
   # x
   if(missing(x) || is.null(x)){
     x <- character()
@@ -37,7 +37,7 @@ test <- function(x) {
   }
 
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-### b: coercion / remove missing
+###  _b: coercion / remove missing
   x <- as.character(x)
   uniq_x <- unique(na.omit(x), nmax = nmax)
 
