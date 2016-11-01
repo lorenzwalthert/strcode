@@ -4,10 +4,10 @@
 \alias{sum_str}
 \title{Summarize the code structure}
 \usage{
-sum_str(dir_in = ".", dir_out = dir_in, file_in = "example.R",
-  file_in_extension = ".R", file_out = NULL, file_out_extension = "",
-  width = 50, line_nr = TRUE, granularity = 3, lowest_sep = TRUE,
-  title = TRUE, header = TRUE, ...)
+sum_str(dir_in = NULL, dir_out = "",
+  file_in = getSourceEditorContext()$path, file_in_extension = ".R",
+  file_out = NULL, file_out_extension = "", width = 50, line_nr = TRUE,
+  granularity = 3, lowest_sep = TRUE, title = TRUE, header = TRUE, ...)
 }
 \arguments{
 \item{dir_in}{A directory where the file(s) can be found.}
@@ -16,7 +16,8 @@ sum_str(dir_in = ".", dir_out = dir_in, file_in = "example.R",
 console.}
 
 \item{file_in}{The name of a file which should be summarized. \code{NULL} will
-create a summary of all files in the directory.}
+create a summary of all files in the directory. The default value uses the
+RStudio api and produces a summary of the source editor.}
 
 \item{file_in_extension}{If \code{file_in} is \code{NULL}, all files with the
 \code{file_in_extension} are considered.}
@@ -48,5 +49,12 @@ particular \code{\link{list.files}} for reading in multiple files.}
 \description{
 Create a summary of one or multiple code files by collapsing them into the
 section separators and their comments.
+}
+\examples{
+\dontrun{
+# open a new .R file in Rstudio, insert some code breaks
+# using the Add-in of this package, safe the file and run:
+sum_str() # get a summary of the source editor.
+}
 }
 

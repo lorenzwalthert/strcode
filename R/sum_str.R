@@ -28,7 +28,7 @@
 #' @examples
 #' \dontrun{
 #' # open a new .R file in Rstudio, insert some code breaks
-#' # using the Add-in of this package and run.
+#' # using the Add-in of this package, safe the file and run:
 #' sum_str() # get a summary of the source editor.
 #' }
 #' @importFrom rstudioapi getSourceEditorContext
