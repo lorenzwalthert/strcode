@@ -94,28 +94,35 @@ insert_l3_break <- function() {
 # composed of the start character and the break_characters
 help_create_break <- function(start = "##",
                         break_char = "-",
-                        lenght = options()$strcode.char.length,
+                        length = options()$strcode.char.length,
                         sep = " ") {
-  paste(paste(start, "", sep = sep),
-        paste(rep(
-            break_char,
-            ceiling((lenght - nchar(start) - nchar(sep))/nchar(break_char))),
+
+  temp <-
+    paste(paste(start, "", sep = sep),
+        paste(rep(break_char,
+            # ceiling necessary because patern like ". ." will get cut before
+            # length
+            ceiling((length - nchar(start) - nchar(sep))/nchar(break_char))),
           collapse = ""),
-        "\n",
-        # start, paste(rep(" ", 4 - nchar(start)), collapse = ""),
-        # insert new line and corresponding comment structure
-        sep = "")
+        "\n", sep = "")
+  substring(temp, 1, length) # truncate pattern to exacly length
 }
 ##  ............................................................................
-## help_insert
+##  help_insert
 # this funciton first gets the row in the active document, inserts a text x
 # one row below and jumps another row down
 
 help_insert <- function(x) {
+  # get the row where the cursor is
   current_row <- getActiveDocumentContext()$selection[[1]]$range$start[1]
+  # set the cursor to the very left of that row
   setCursorPosition(c(current_row, Inf))
+  # insert a line break
   insertText("\n")
+  # insert the separator at the beginning of the new line, so \n gets
+  # shifted down one
   insertText(c(current_row  + 1, 1), x)
+  # move the cursor one line down
   setCursorPosition(c(current_row + 2, 1), id = NULL)
 
 }
