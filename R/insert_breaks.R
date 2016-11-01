@@ -94,7 +94,7 @@ insert_l3_break <- function() {
 # composed of the start character and the break_characters
 help_create_break <- function(start = "##",
                         break_char = "-",
-                        lenght = options()$strcode.char.lenght,
+                        lenght = options()$strcode.char.length,
                         sep = " ") {
   paste(paste(start, "", sep = sep),
         paste(rep(
