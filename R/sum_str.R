@@ -6,7 +6,8 @@
 #' @param dir_out A directory where to print the output to. "" implies the
 #'   console.
 #' @param file_in The name of a file which should be summarized. \code{NULL} will
-#'   create a summary of all files in the directory.
+#'   create a summary of all files in the directory. The default value uses the
+#'   RStudio api and produces a summary of the source editor.
 #' @param file_in_extension If \code{file_in} is \code{NULL}, all files with the
 #'   \code{file_in_extension} are considered.
 #' @param file_out A connection or character string naming the file to print to.
@@ -24,17 +25,20 @@
 #'   indicate the name of the columns (line, level, section).
 #' @param ... futher arguments to be passed from and to other methods, in
 #'   particular \code{\link{list.files}} for reading in multiple files.
-#'
-#'
-#'
-#'
+#' @examples
+#' \dontrun{
+#' # open a new .R file in Rstudio, insert some code breaks
+#' # using the Add-in of this package and run.
+#' sum_str() # get a summary of the source editor.
+#' }
+#' @importFrom rstudioapi getSourceEditorContext
 #' @export
 #'
 #   ____________________________________________________________________________
 #   user-function
-sum_str <- function(dir_in = ".",
-                    dir_out = dir_in,
-                    file_in = "example.R",
+sum_str <- function(dir_in = NULL,
+                    dir_out = "",
+                    file_in = getSourceEditorContext()$path,
                     file_in_extension = ".R",
                     file_out = NULL,
                     file_out_extension = "",
@@ -231,10 +235,10 @@ if (is.null(file_out)) {
   cat(pattern, file = path_out, sep = "\n")
 }
 
-# relace ^\s+(#+) with \1 in Rstudio to move all breaks to the left.
-# extensions
-# - multiple files in a directrory
-# - output to file
+ # relace ^\s+(#+) with \1 in Rstudio to move all breaks to the left.
+ # extensions
+ # - multiple files in a directrory
+ # - output to file
 
 
 
