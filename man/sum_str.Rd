@@ -28,7 +28,8 @@ The argument is irrelevant if \code{output_dir} is set to "".}
 
 \item{file_out_extension}{An file extension for the file to be created.}
 
-\item{width}{The character width of the output.}
+\item{width}{The character width of the output. If NULL, it is set to the
+the length of the longest separator comment.}
 
 \item{line_nr}{A boolean value that indicates whether the line numbers should
 be printed along with the structure summary.}
@@ -53,8 +54,8 @@ section separators and their comments.
 }
 \details{
 To create the summary, \code{sum_str} uses regular expressions.
-  Hence it is crucial that the code separators and the comments associated
-  with them match the regular expression pattern. We recommend inserting
+  Hence it is crucial that the code separators and the separator comments
+  match the regular expression pattern. We recommend inserting
   separators and their comments using the RStudio Add-in that is contained
   in this package. The definition is rather intuitive as can be seen in the
   example section below. However, we shall provide a formal definition here
@@ -69,15 +70,15 @@ To create the summary, \code{sum_str} uses regular expressions.
     \code{_}.
     }
  Lines that do not satisfy these requirements (e.g. do not start with #s,
- do not containt the right number of spaces after the # ect.) are not
- considered by \code{sum_str}.
+ do not contain the right number of spaces after the #, indent before any #
+ ect.) are not considered by \code{sum_str}.
 }
 \examples{
 # the following separators are examples for valid
 # separators and associated comments
 
 #   __________________________________________________
-#   this is a level one comment
+#   this is a level 1 comment
 ##  . . . . . . . . . . . . . . . . . . . . . . . . .
 ##  note that the comment or the separator character (_, .)
 ##  always starts at indention 4.

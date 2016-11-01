@@ -13,7 +13,8 @@
 #' @param file_out A connection or character string naming the file to print to.
 #'   The argument is irrelevant if \code{output_dir} is set to "".
 #' @param file_out_extension An file extension for the file to be created.
-#' @param width The character width of the output.
+#' @param width The character width of the output. If NULL, it is set to the
+#'   the length of the longest separator comment.
 #' @param line_nr A boolean value that indicates whether the line numbers should
 #'   be printed along with the structure summary.
 #' @param granularity Indicating how many levels should be in the summary
@@ -26,8 +27,8 @@
 #' @param ... futher arguments to be passed from and to other methods, in
 #'   particular \code{\link{list.files}} for reading in multiple files.
 #' @details To create the summary, \code{sum_str} uses regular expressions.
-#'   Hence it is crucial that the code separators and the comments associated
-#'   with them match the regular expression pattern. We recommend inserting
+#'   Hence it is crucial that the code separators and the separator comments
+#'   match the regular expression pattern. We recommend inserting
 #'   separators and their comments using the RStudio Add-in that is contained
 #'   in this package. The definition is rather intuitive as can be seen in the
 #'   example section below. However, we shall provide a formal definition here
@@ -219,7 +220,7 @@ if (is.null(file_out)) {
   # lowest_sep is TRUE
   if (lowest_sep == FALSE) {
    sub_pattern <- paste0("^#{", min(granularity, find_gran("down")), ",", 4,
-                          "}\\s+[_|\\.]+$")
+                          "}\\s+[_|\\.].*$")
    remove <- grep(sub_pattern, lines[pos], perl = TRUE)
    pattern <- pattern[-remove]
    pos <- pos[-remove]
