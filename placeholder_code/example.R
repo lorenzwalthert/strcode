@@ -1,3 +1,4 @@
+# hi, these comments should not be included
 #   ____________________________________________________________________________
 #   function test
 test <- function(x) {

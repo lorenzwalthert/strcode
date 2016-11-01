@@ -174,8 +174,8 @@ if (is.null(file_out)) {
 ##  get pattern
 
   lines <- readLines(con = path_in)
-  sub_pattern <- "^#+([[:space:]]){1,4}"
-  pos <- grep(sub_pattern, lines) # extract candiates
+  sub_pattern <- "^#   |##  |### "
+  pos <- grep(sub_pattern, lines, perl = FALSE) # extract candiates
   # allow spaces in the beginning (deactivated)
   # pos <- grep("^[[:space:]]*#+([[:space:]]){1,4}", lines)
   pattern <-lines[pos]
@@ -213,9 +213,15 @@ if (is.null(file_out)) {
 
 ##  ............................................................................
 ## width adjust line_nr, title, output path, header
+  # only continue if there is a valid pattern
+  if (identical(pattern, character(0))) {
+    return(message("No line matching the required pattern"))
+  }
+
+  # adjust length of pattern.
   if (!is.null(width)) {
     pattern <- substring(pattern, 1, width)
-  }
+  } else
 
   if (line_nr == TRUE) {
     pattern <- paste(pos, pattern, sep = "\t")
