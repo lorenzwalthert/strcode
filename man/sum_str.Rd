@@ -6,8 +6,9 @@
 \usage{
 sum_str(dir_in = NULL, dir_out = "",
   file_in = getSourceEditorContext()$path, file_in_extension = ".R",
-  file_out = NULL, file_out_extension = "", width = 50, line_nr = TRUE,
-  granularity = 3, lowest_sep = TRUE, title = TRUE, header = TRUE, ...)
+  file_out = NULL, file_out_extension = "", width = NULL,
+  line_nr = TRUE, granularity = 3, lowest_sep = TRUE, title = TRUE,
+  header = TRUE, ...)
 }
 \arguments{
 \item{dir_in}{A directory where the file(s) can be found.}
@@ -50,7 +51,37 @@ particular \code{\link{list.files}} for reading in multiple files.}
 Create a summary of one or multiple code files by collapsing them into the
 section separators and their comments.
 }
+\details{
+To create the summary, \code{sum_str} uses regular expressions.
+  Hence it is crucial that the code separators and the comments associated
+  with them match the regular expression pattern. We recommend inserting
+  separators and their comments using the RStudio Add-in that is contained
+  in this package. The definition is rather intuitive as can be seen in the
+  example section below. However, we shall provide a formal definition here
+  as well.
+  \itemize{
+    \item A code separator is defined as a line that that starts with n
+    hashes, followed by 4-n spaces where 0 < n < 4. This
+    sequence is followed by one or more either \code{.} or \code{_}.
+    \item A comment associated with a code separator is defined as a line
+    that that starts with n hashes, followed by 4-n spaces where 0 < n < 4.
+    This sequence is \emph{not} followed by \code{.} or
+    \code{_}.
+    }
+ Lines that do not satisfy these requirements (e.g. do not start with #s,
+ do not containt the right number of spaces after the # ect.) are not
+ considered by \code{sum_str}.
+}
 \examples{
+# the following separators are examples for valid
+# separators and associated comments
+
+#   __________________________________________________
+#   this is a level one comment
+##  . . . . . . . . . . . . . . . . . . . . . . . . .
+##  note that the comment or the separator character (_, .)
+##  always starts at indention 4.
+
 \dontrun{
 # open a new .R file in Rstudio, insert some code breaks
 # using the Add-in of this package, safe the file and run:

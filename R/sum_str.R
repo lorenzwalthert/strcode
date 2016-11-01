@@ -25,7 +25,36 @@
 #'   indicate the name of the columns (line, level, section).
 #' @param ... futher arguments to be passed from and to other methods, in
 #'   particular \code{\link{list.files}} for reading in multiple files.
+#' @details To create the summary, \code{sum_str} uses regular expressions.
+#'   Hence it is crucial that the code separators and the comments associated
+#'   with them match the regular expression pattern. We recommend inserting
+#'   separators and their comments using the RStudio Add-in that is contained
+#'   in this package. The definition is rather intuitive as can be seen in the
+#'   example section below. However, we shall provide a formal definition here
+#'   as well.
+#'   \itemize{
+#'     \item A code separator is defined as a line that that starts with n
+#'     hashes, followed by 4-n spaces where 0 < n < 4. This
+#'     sequence is followed by one or more either \code{.} or \code{_}.
+#'     \item A comment associated with a code separator is defined as a line
+#'     that that starts with n hashes, followed by 4-n spaces where 0 < n < 4.
+#'     This sequence is \emph{not} followed by \code{.} or
+#'     \code{_}.
+#'     }
+#'  Lines that do not satisfy these requirements (e.g. do not start with #s,
+#'  do not contain the right number of spaces after the #, indent before any #
+#'  ect.) are not considered by \code{sum_str}.
+#'
 #' @examples
+#' # the following separators are examples for valid
+#' # separators and associated comments
+#'
+#' #   __________________________________________________
+#' #   this is a level 1 comment
+#' ##  . . . . . . . . . . . . . . . . . . . . . . . . .
+#' ##  note that the comment or the separator character (_, .)
+#' ##  always starts at indention 4.
+#'
 #' \dontrun{
 #' # open a new .R file in Rstudio, insert some code breaks
 #' # using the Add-in of this package, safe the file and run:
@@ -42,7 +71,7 @@ sum_str <- function(dir_in = NULL,
                     file_in_extension = ".R",
                     file_out = NULL,
                     file_out_extension = "",
-                    width = 50,
+                    width = NULL,
                     line_nr = TRUE,
                     granularity = 3,
                     lowest_sep = TRUE,
@@ -190,13 +219,13 @@ if (is.null(file_out)) {
   # lowest_sep is TRUE
   if (lowest_sep == FALSE) {
    sub_pattern <- paste0("^#{", min(granularity, find_gran("down")), ",", 4,
-                          "}\\s+[_|\\.|\\..\\s]+$")
+                          "}\\s+[_|\\.]+$")
    remove <- grep(sub_pattern, lines[pos], perl = TRUE)
    pattern <- pattern[-remove]
    pos <- pos[-remove]
   }
 
-  # removing the l lowest separator comments depending on granularity
+  # removing the l lowest separator comments and breaks depending on granularity
   get_gran_pattern <- function(level = 3) {
     paste("^", "#", "{", 1, ",", level, "}",
           "\\s{", 1, ",", level, "}", sep = "", collapse = "")
@@ -212,16 +241,22 @@ if (is.null(file_out)) {
   update_pos_pattern(granularity)
 
 ##  ............................................................................
-## width adjust line_nr, title, output path, header
+##  width adjust line_nr, title, output path, header
   # only continue if there is a valid pattern
   if (identical(pattern, character(0))) {
     return(message("No line matching the required pattern"))
   }
 
   # adjust length of pattern.
-  if (!is.null(width)) {
-    pattern <- substring(pattern, 1, width)
-  } else
+  if (is.null(width)) {
+  # first calculate width. It is the length of the maximal comment string
+  ## get the comment strings
+    pattern_comments <- grep("^(#   |##  |### )[^._)].*$", pattern, value = TRUE)
+    width <- max(nchar(pattern_comments))
+  }
+
+  pattern <- substring(pattern, 1, width)
+
 
   if (line_nr == TRUE) {
     pattern <- paste(pos, pattern, sep = "\t")
