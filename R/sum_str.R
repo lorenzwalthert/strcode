@@ -206,8 +206,6 @@ if (is.null(file_out)) {
   lines <- readLines(con = path_in)
   sub_pattern <- "^#   |##  |### "
   pos <- grep(sub_pattern, lines, perl = FALSE) # extract candiates
-  # allow spaces in the beginning (deactivated)
-  # pos <- grep("^[[:space:]]*#+([[:space:]]){1,4}", lines)
   pattern <-lines[pos]
 
 ##  ............................................................................
