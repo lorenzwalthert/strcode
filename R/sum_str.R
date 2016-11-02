@@ -7,7 +7,8 @@
 #'   console.
 #' @param file_in The name of a file which should be summarized. \code{NULL} will
 #'   create a summary of all files in the directory. The default value uses the
-#'   RStudio api and produces a summary of the source editor.
+#'   RStudio api and produces a summary of the source editor. This requires that
+#'   the file is saved before \code{sum_str} is called.
 #' @param file_in_extension If \code{file_in} is \code{NULL}, all files with the
 #'   \code{file_in_extension} are considered.
 #' @param file_out A connection or character string naming the file to print to.
@@ -58,7 +59,7 @@
 #'
 #' \dontrun{
 #' # open a new .R file in Rstudio, insert some code breaks
-#' # using the Add-in of this package, safe the file and run:
+#' # using the Add-in of this package, save the file and run:
 #' sum_str() # get a summary of the source editor.
 #' }
 #' @importFrom rstudioapi getSourceEditorContext
