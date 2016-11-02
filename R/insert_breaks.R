@@ -59,7 +59,12 @@ insert_l1_break <- function() {
   to_insert <- help_create_break(start = "#",
                            break_char = "_",
                            sep = "   ")
-  help_insert(to_insert, start = 7, end = 2)
+  help_insert(to_insert,
+              start_row = 1,
+              start_indention = Inf,
+              start_indention_margin = 0,
+              end_row = 2,
+              end_indention = Inf)
 }
 
 ##  ............................................................................
@@ -70,7 +75,12 @@ insert_l2_break <- function() {
   to_insert <- help_create_break(start = "##",
                            break_char = ".",
                            sep = "  ")
-  help_insert(to_insert, start = 1, end = 2)
+  help_insert(to_insert,
+              start_row = 1,
+              start_indention = Inf,
+              start_indention_margin = 0,
+              end_row = 2,
+              end_indention = Inf)
 }
 
 ##  ............................................................................
@@ -81,7 +91,13 @@ insert_l3_break <- function() {
   to_insert <- help_create_break(start = "###",
                            break_char = ". ",
                            sep = " .")
-  help_insert(to_insert, start = 1, end = 2)
+  help_insert(to_insert,
+              start_row = 1,
+              start_indention = Inf,
+              start_indention_margin = 0,
+              end_row = 2,
+              end_indention = Inf)
+
 }
 
 
@@ -111,20 +127,40 @@ help_create_break <- function(start = "##",
 ##  help_insert
 # this funciton first gets the row in the active document, inserts a text x
 # one row below and jumps another row down
-
-help_insert <- function(x, start = 1, end = 2) {
+#' help insert
+#'
+#' A helper function to insert text
+#' @param x An object to insert
+#' @param start_row the start wor of the insertion
+#' @param start_indention The start position within the row
+#' @param start_indention_margin A margin (i.e. spaces) that will be added
+#'   at the target row before \code{x} is inserted.
+#' @param end_row the row where the cursor should be after the insertion
+#' @param end_indention The end position within the row
+help_insert <- function(x,
+                        start_row = 1,
+                        start_indention = Inf,
+                        start_indention_margin = 0,
+                        end_row = 2,
+                        end_indention = Inf) {
   # get the row where the cursor is
   current_row <- getActiveDocumentContext()$selection[[1]]$range$start[1]
   # set the cursor to the very left of that row
   setCursorPosition(c(current_row, Inf))
-  # insert end line breaks
-  insertText(paste(rep("\n", start), collapse = ""))
+
+  # insert end_row line breaks
+  insertText(paste(rep("\n", end_row), collapse = ""))
+
+  # insert the margin at the target row
+  insertText(c(current_row  + start_row, start_indention),
+             paste(rep(" ", start_indention_margin), collapse = ""))
+
 
   # insert the separator at the beginning of the new line, so \n gets
   # shifted down one
-  insertText(c(current_row  + start, 1), x)
+  insertText(c(current_row  + start_row, start_indention), x)
   # move the cursor one line down
-  setCursorPosition(c(current_row + end, 1), id = NULL)
+  setCursorPosition(c(current_row + end_row, end_indention), id = NULL)
 
 }
 

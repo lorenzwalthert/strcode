@@ -144,6 +144,7 @@ test2 <- function(x) {
   a<<-1
 
   was_factor <- FALSE
+
   if (is.factor(yes)) {
     yes <- as.character(yes)
     was_factor <- TRUE
@@ -158,6 +159,3 @@ test2 <- function(x) {
   } else {
     out
   }
-
-##  ............................................................................
-}
