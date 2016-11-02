@@ -59,7 +59,7 @@ insert_l1_break <- function() {
   to_insert <- help_create_break(start = "#",
                            break_char = "_",
                            sep = "   ")
-  help_insert(to_insert)
+  help_insert(to_insert, start = 7, end = 2)
 }
 
 ##  ............................................................................
@@ -70,7 +70,7 @@ insert_l2_break <- function() {
   to_insert <- help_create_break(start = "##",
                            break_char = ".",
                            sep = "  ")
-  help_insert(to_insert)
+  help_insert(to_insert, start = 1, end = 2)
 }
 
 ##  ............................................................................
@@ -81,7 +81,7 @@ insert_l3_break <- function() {
   to_insert <- help_create_break(start = "###",
                            break_char = ". ",
                            sep = " .")
-  help_insert(to_insert)
+  help_insert(to_insert, start = 1, end = 2)
 }
 
 
@@ -98,13 +98,13 @@ help_create_break <- function(start = "##",
                         sep = " ") {
 
   temp <-
-    paste(paste(start, "", sep = sep),
+    paste(start, sep,
         paste(rep(break_char,
             # ceiling necessary because patern like ". ." will get cut before
             # length
             ceiling((length - nchar(start) - nchar(sep))/nchar(break_char))),
           collapse = ""),
-        "\n", sep = "")
+        sep = "")
   substring(temp, 1, length) # truncate pattern to exacly length
 }
 ##  ............................................................................
@@ -112,18 +112,19 @@ help_create_break <- function(start = "##",
 # this funciton first gets the row in the active document, inserts a text x
 # one row below and jumps another row down
 
-help_insert <- function(x) {
+help_insert <- function(x, start = 1, end = 2) {
   # get the row where the cursor is
   current_row <- getActiveDocumentContext()$selection[[1]]$range$start[1]
   # set the cursor to the very left of that row
   setCursorPosition(c(current_row, Inf))
-  # insert a line break
-  insertText("\n")
+  # insert end line breaks
+  insertText(paste(rep("\n", start), collapse = ""))
+
   # insert the separator at the beginning of the new line, so \n gets
   # shifted down one
-  insertText(c(current_row  + 1, 1), x)
+  insertText(c(current_row  + start, 1), x)
   # move the cursor one line down
-  setCursorPosition(c(current_row + 2, 1), id = NULL)
+  setCursorPosition(c(current_row + end, 1), id = NULL)
 
 }
 
