@@ -1,28 +1,30 @@
 #' Summarize the code structure
 #'
-#' Create a summary of one or multiple code files by collapsing them into the
-#' section separators and their comments.
-#' @param dir_in A directory where the file(s) can be found.
-#' @param dir_out A directory where to print the output to. "" implies the
+#' Create a summary of one or multiple code files based on the section
+#' separators and their comments.
+#' @param dir_in The directory where the file(s) can be found.
+#' @param dir_out The directory to print the output to. "" implies the
 #'   console.
-#' @param file_in The name of a file which should be summarized. \code{NULL} will
-#'   create a summary of all files in the directory. The default value uses the
-#'   RStudio api and produces a summary of the source editor.
+#' @param file_in The name of a file which should be summarized. If this is
+#'   \code{NULL}, the summary will be for all files in the specified directory.
+#'   The default value uses the RStudio API to produce a summary of content from
+#'   the source editor.
 #' @param file_in_extension If \code{file_in} is \code{NULL}, all files with the
 #'   \code{file_in_extension} are considered.
 #' @param file_out A connection or character string naming the file to print to.
 #'   The argument is irrelevant if \code{output_dir} is set to "".
-#' @param file_out_extension An file extension for the file to be created.
+#' @param file_out_extension A file extension for the file to be created.
 #' @param width The character width of the output. If NULL, it is set to the
-#'   the length of the longest separator comment.
+#'   length of the longest separator comment.
 #' @param line_nr A boolean value that indicates whether the line numbers should
 #'   be printed along with the structure summary.
-#' @param granularity Indicating how many levels should be in the summary
-#' @param lowest_sep A boolean value indicating whether the separating lines
-#'   should be reported along their comments or not.
+#' @param granularity Indicates the lowest level of granularity that should be
+#'   included in the summary.
+#' @param lowest_sep A boolean value indicating whether or not the separating
+#'   lines should be reported along with their comments.
 #' @param title A boolean value indicating whether the reported summary should
 #'   contain a title or not.
-#' @param header A boolean values indicating whether a column header should
+#' @param header A boolean value indicating whether a column header should
 #'   indicate the name of the columns (line, level, section).
 #' @param ... futher arguments to be passed from and to other methods, in
 #'   particular \code{\link{list.files}} for reading in multiple files.
@@ -34,20 +36,19 @@
 #'   example section below. However, we shall provide a formal definition here
 #'   as well.
 #'   \itemize{
-#'     \item A code separator is defined as a line that that starts with n
-#'     hashes, followed by 4-n spaces where 0 < n < 4. This
-#'     sequence is followed by one or more either \code{.} or \code{_}.
+#'     \item A code separator is defined as a line that starts with n hashes,
+#'     followed by 4-n spaces where 0 < n < 4. This sequence is followed by one
+#'     or more either \code{.} or \code{_}.
 #'     \item A comment associated with a code separator is defined as a line
-#'     that that starts with n hashes, followed by 4-n spaces where 0 < n < 4.
-#'     This sequence is \emph{not} followed by \code{.} or
-#'     \code{_}.
-#'     }
-#'  Lines that do not satisfy these requirements (e.g. do not start with #s,
-#'  do not contain the right number of spaces after the #, indent before any #
-#'  ect.) are not considered by \code{sum_str}.
+#'     that starts with n hashes, followed by 4-n spaces where 0 < n < 4. This
+#'     sequence is \emph{not} followed by \code{.} or \code{_}.
+#'   }
+#'   Lines that do not satisfy these requirements (e.g. do not start with #s,
+#'   do not contain the right number of spaces after the #, indent before any #
+#'   ect.) are not considered by \code{sum_str}.
 #'
 #' @examples
-#' # the following separators are examples for valid
+#' # the following separators are examples of valid
 #' # separators and associated comments
 #'
 #' #   __________________________________________________
@@ -57,8 +58,8 @@
 #' ##  always starts at indention 4.
 #'
 #' \dontrun{
-#' # open a new .R file in Rstudio, insert some code breaks
-#' # using the Add-in of this package, safe the file and run:
+#' # Open a new .R file in RStudio, insert some code breaks
+#' # using the Add-in of this package, save the file and run:
 #' sum_str() # get a summary of the source editor.
 #' }
 #' @importFrom rstudioapi getSourceEditorContext

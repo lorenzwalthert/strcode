@@ -2,20 +2,19 @@
 #'
 #' @param length_random_input A number giving the range from which to withdraw
 #'   a random number.
-#' @param enclosing_start A string that specifies the right-hand side enclosing
+#' @param enclosing_start A string that specifies the left-hand side enclosing
 #'   of the hash
-#' @param enclosing_end A string specifies the left-hand-side of the enclosing
+#' @param enclosing_end A string that specifies the right-hand-side enclosing of
+#'  the hash. If \code{NULL}, then the reverse of \code{enclosing_start} is used.
 #' @param ... further arguments to be passed to and from other methods, in
 #'   in particular to digest
 #' @details The function draws a random number using sample from the range of
-#'   \code{length_random_input}. Then, this number is hashed calling the
+#'   \code{length_random_input}. Then, this number is hashed by calling the
 #'   \code{digest} hash-function from the \code{digest} package. This hash
-#'   is then wrapped into \code{enclosing}, whereas the order of string
-#'   specified with \code{enclosing} is reversed on the right side of the hash if
-#'   enclosing_end is \code{NULL}.
+#'   is then wrapped between \code{enclosing_start} and \code{enclosing_end}.
 #' @examples \dontrun{
 #'   # RStudio needs to run for this
-#'   insert_anchor(enclosing = "#!")
+#'   insert_anchor(enclosing_start = "#!")
 #'   }
 #' @importFrom digest digest
 #' @export

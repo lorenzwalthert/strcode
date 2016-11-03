@@ -15,30 +15,31 @@ insert_l3_break()
 }
 \description{
 A function designed to use as an RStudio
-  \href{https://rstudio.github.io/rstudioaddins/}{add-in} for structuring code.
-  There are three levels of granularity
-  \itemize{
-    \item level 1 sections, which are high-level blocks that can be separated
-      as follows \cr    ### ______________________
-    \item level 2 sections, which are medium-level blocks that can be separated
-      as follows \cr    ##  ..............................................
-    \item level 1 sections, which are low-level blocks that can be separated
-      as follows \cr #   .. . . . . . . . . . . . . . . . . . . . . . . .}
-  For optimal use, we recommend specifying shortcuts in the add-in settings.
+\href{https://rstudio.github.io/rstudioaddins/}{add-in} for structuring code.
+ \cr
+There are three levels of granularity:
+\itemize{
+  \item level 1 sections, which are high-level blocks denoted by \cr
+    ### ______________________
+  \item level 2 sections, which are medium-level blocks denoted by \cr
+    ##  ..............................................
+  \item level 3 sections, which are low-level blocks denoted by \cr
+    #   .. . . . . . . . . . . . . . . . . . . . . . . .
+}
+For optimal use, we recommend specifying keyboard shortcuts in the add-in
+settings.
 }
 \details{
-The breaks characters (\code{___}, \code{...}, \code{. .}) were chosen
-  such that they reflect the level of granularity, namely \code{___} has a
-  much higher visual density than
-  \code{. .} \cr
-  We recommend to start off grouping code into level 2 blocks.
-  The advantage is that in both directions of granularity,
-  there is another layer (\code{===} and \code{...}) left.
-  When the code base grows, there
-  might be the need to extend in both directions.
+The breaks characters (\code{___}, \code{...}, \code{. .}) were
+ chosen such that they reflect the level of granularity, namely \code{___}
+ has a much higher visual density than \code{. .} \cr
+ We recommend starting off by grouping code into level 2 blocks.
+ The advantage is that in both directions of granularity, there is another
+ layer (\code{___} and \code{...}) left. When the code base grows, there
+ might be a need to extend in both directions.
 }
 \examples{
-# this is a minimal example.
+# This is a minimal example.
 # See the readme for a longer and more detailed example.
 
 ##  ......................................................
