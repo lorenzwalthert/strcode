@@ -10,7 +10,7 @@ help_insert(x, start_row = 1, start_indention = Inf,
 \arguments{
 \item{x}{An object to insert}
 
-\item{start_row}{the start wor of the insertion}
+\item{start_row}{the start row of the insertion}
 
 \item{start_indention}{The start position within the row}
 

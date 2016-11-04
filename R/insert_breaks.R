@@ -1,29 +1,30 @@
 #' insert segment, section or subsection break
 #'
 #' A function designed to use as an RStudio
-#'   \href{https://rstudio.github.io/rstudioaddins/}{add-in} for structuring code.
-#'   There are three levels of granularity
-#'   \itemize{
-#'     \item level 1 sections, which are high-level blocks that can be separated
-#'       as follows \cr    ### ______________________
-#'     \item level 2 sections, which are medium-level blocks that can be separated
-#'       as follows \cr    ##  ..............................................
-#'     \item level 1 sections, which are low-level blocks that can be separated
-#'       as follows \cr #   .. . . . . . . . . . . . . . . . . . . . . . . .}
-#'   For optimal use, we recommend specifying shortcuts in the add-in settings.
-#' @details The breaks characters (\code{___}, \code{...}, \code{. .}) were chosen
-#'   such that they reflect the level of granularity, namely \code{___} has a
-#'   much higher visual density than
-#'   \code{. .} \cr
-#'   We recommend to start off grouping code into level 2 blocks.
-#'   The advantage is that in both directions of granularity,
-#'   there is another layer (\code{===} and \code{...}) left.
-#'   When the code base grows, there
-#'   might be the need to extend in both directions.
+#' \href{https://rstudio.github.io/rstudioaddins/}{add-in} for structuring code.
+#'  \cr
+#' There are three levels of granularity:
+#' \itemize{
+#'   \item level 1 sections, which are high-level blocks denoted by \cr
+#'     ### ______________________
+#'   \item level 2 sections, which are medium-level blocks denoted by \cr
+#'     ##  ..............................................
+#'   \item level 3 sections, which are low-level blocks denoted by \cr
+#'     #   .. . . . . . . . . . . . . . . . . . . . . . . .
+#' }
+#' For optimal use, we recommend specifying keyboard shortcuts in the add-in
+#' settings.
+#' @details The breaks characters (\code{___}, \code{...}, \code{. .}) were
+#'  chosen such that they reflect the level of granularity, namely \code{___}
+#'  has a much higher visual density than \code{. .} \cr
+#'  We recommend starting off by grouping code into level 2 blocks.
+#'  The advantage is that in both directions of granularity, there is another
+#'  layer (\code{___} and \code{...}) left. When the code base grows, there
+#'  might be a need to extend in both directions.
 #' @name insert_break
 #' @importFrom rstudioapi insertText getActiveDocumentContext setCursorPosition
 #' @examples
-#' # this is a minimal example.
+#' # This is a minimal example.
 #' # See the readme for a longer and more detailed example.
 #'
 #' ##  ......................................................
@@ -132,7 +133,7 @@ help_create_break <- function(start = "##",
 #'
 #' A helper function to insert text
 #' @param x An object to insert
-#' @param start_row the start wor of the insertion
+#' @param start_row the start row of the insertion
 #' @param start_indention The start position within the row
 #' @param start_indention_margin A margin (i.e. spaces) that will be added
 #'   at the target row before \code{x} is inserted.
