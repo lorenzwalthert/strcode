@@ -3,4 +3,6 @@
 export(insert_l1_break)
 export(insert_l2_break)
 export(insert_l3_break)
+importFrom(rstudioapi,getActiveDocumentContext)
 importFrom(rstudioapi,insertText)
+importFrom(rstudioapi,setCursorPosition)

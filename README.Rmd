@@ -67,9 +67,9 @@ You can notice from above that
 * Each block has an (optional) short comment on what the next block is about.
 
 The separators do all have length 80. The value is looked up in the global 
-option `strcode.char.lenght` and can be changed by the user (either every 
+option `strcode.char.length` and can be changed by the user (either every 
 session manually or using .Rprofile). \
-For each of the introduced separator, there is an Add-in function. You can also call 
+For each of the introduced separators, there is an Add-in function. You can also call 
 them from the console 
 
 * `strcode::insert_l1_break()` 
