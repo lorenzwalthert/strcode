@@ -1,0 +1,11 @@
+Summarized structure of example.R
+
+line  level section
+1	#   ____________________________________
+2	#   function test
+5	##  A: pre-processing
+56	##  B: actual function
+82	#   ____________________________________
+83	#   function test2
+86	##  A: pre-processing
+137	##  B: actual function
