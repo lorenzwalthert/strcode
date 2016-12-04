@@ -3,3 +3,4 @@
 ^README.Rmd$
 ^placeholder_code$
 ^\.travis\.yml$
+^man/demo$
