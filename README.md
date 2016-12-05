@@ -4,6 +4,8 @@ README
 The `strcode` (short for structuring code) package is an [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you quickly add code block separators so you can organize your code better. <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
 a guide for good practice in R programming. -->
 
+![](https://raw.githubusercontent.com/lorenzwalthert/strcode/master/man/demo/demo_strcode_v0.1.0.gif)
+
 Installation
 ============
 
@@ -47,8 +49,8 @@ You can notice from above that
 -   The breaks characters `___`, `...`, `. .` were chosen such that they reflect the level of granularity, namely `___` has a much higher visual density than `. .`.
 -   Each block has an (optional) short comment on what the next block is about.
 
-The separators do all have length 80. The value is looked up in the global option `strcode.char.lenght` and can be changed by the user (either every session manually or using .Rprofile).
-For each of the introduced separator, there is an Add-in function. You can also call them from the console
+The separators do all have length 80. The value is looked up in the global option `strcode.char.length` and can be changed by the user (either every session manually or using .Rprofile).
+For each of the introduced separators, there is an Add-in function. You can also call them from the console
 
 -   `strcode::insert_l1_break()`
 -   `strcode::insert_l2_break()`
