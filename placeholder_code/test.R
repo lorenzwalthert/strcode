@@ -62,3 +62,25 @@ sum_str(dir_in = NULL,
         granularity = 2,
         lowest_sep = TRUE,
         header = TRUE)
+
+
+# write to file (one file)
+sum_str(dir_in = NULL,
+        file_in = "placeholder_code/example.R",
+        dir_out = "placeholder_code",
+        file_out_extension = ".txt",
+        width = 40,
+        granularity = 2,
+        lowest_sep = TRUE,
+        header = TRUE)
+
+# write to file (one file)
+sum_str(dir_in = "placeholder_code",
+        file_in =  NULL,
+        file_in_extension = ".R",
+        dir_out = "placeholder_code",
+        file_out_extension = ".txt",
+        width = 40,
+        granularity = 2,
+        lowest_sep = TRUE,
+        header = TRUE)
