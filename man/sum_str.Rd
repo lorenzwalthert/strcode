@@ -4,16 +4,13 @@
 \alias{sum_str}
 \title{Summarize the code structure}
 \usage{
-sum_str(dir_in = NULL, dir_out = "",
-  file_in = getSourceEditorContext()$path, file_in_extension = ".R",
-  file_out = NULL, file_out_extension = "", width = NULL,
-  line_nr = TRUE, granularity = 3, lowest_sep = TRUE, title = TRUE,
-  header = TRUE, ...)
+sum_str(dir_in = NULL, file_in = getSourceEditorContext()$path,
+  file_in_extension = ".R", dir_out = "", file_out = NULL,
+  file_out_extension = "", width = NULL, line_nr = TRUE,
+  granularity = 3, lowest_sep = TRUE, title = TRUE, header = TRUE, ...)
 }
 \arguments{
 \item{dir_in}{The directory where the file(s) can be found.}
-
-\item{dir_out}{The directory to print the output to. "" implies the console.}
 
 \item{file_in}{The name of a file which should be summarized. If this is
 \code{NULL}, the summary will be for all files in the specified directory.
@@ -22,7 +19,9 @@ the source editor. This requires that
 the file is saved before \code{sum_str} is called.}
 
 \item{file_in_extension}{If \code{file_in} is \code{NULL}, all files with the
-\code{file_in_extension} are considered.}
+\code{file_in_extension} are considered, defaults to ".R".}
+
+\item{dir_out}{The directory to print the output to. "" implies the console.}
 
 \item{file_out}{A connection or character string naming the file to print to.
 The argument is irrelevant if \code{output_dir} is set to "".}
@@ -39,7 +38,7 @@ be printed along with the structure summary.}
 included in the summary.}
 
 \item{lowest_sep}{A boolean value indicating whether or not the separating
-lines should be reported along with their comments.}
+lines of the lowest level should be printed.}
 
 \item{title}{A boolean value indicating whether the reported summary should
 contain a title or not.}
