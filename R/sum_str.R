@@ -12,7 +12,11 @@
 #'   \code{file_in_extension} are considered, defaults to ".R".
 #' @param dir_out The directory to print the output to. "" implies the console.
 #' @param file_out A connection or character string naming the file to print to.
-#'   The argument is irrelevant if \code{output_dir} is set to "".
+#'   If \code{dir_out} is set to "", \code{file_out} can be set to
+#'   "object" and the output of the function will be returned as an
+#'   object instead of just printed to the console with \code{cat}. This is
+#'   useful if output should be assigned to an object. If not set to "object",
+#'   \code{cat} will be used.
 #' @param file_out_extension A file extension for the file to be created.
 #' @param width The character width of the output. If NULL, it is set to the
 #'   length of the longest separator comment.
@@ -71,7 +75,7 @@ sum_str <- function(dir_in = NULL,
                     file_in = getSourceEditorContext()$path,
                     file_in_extension = ".R",
                     dir_out = "",
-                    file_out = NULL,
+                    file_out = "",
                     file_out_extension = "",
                     width = NULL,
                     line_nr = TRUE,
@@ -103,9 +107,11 @@ sum_str <- function(dir_in = NULL,
   if (dir_out != "") {
     cat("The following files were summarized \n")
   }
-  lapply(all_files, function(g) {
+  output <- lapply(all_files, function(g) {
     # pass all arguments as is except the file_in
-    cat(g, sep = " \n")
+    if (dir_out != "") {
+      cat(g, sep = " \n")
+    }
     sum_str_helper(dir_in = dir_in,
                    file_in = g,
                    dir_out = dir_out,
@@ -118,7 +124,12 @@ sum_str <- function(dir_in = NULL,
                    title = title,
                    header = header)
   })
-  invisible() # avoid unnecessary NULL return
+
+  if (dir_out == "" && file_out == "object") {
+    output
+  } else {
+    invisible() # avoid unnecessary NULL return
+  }
 }
 
 #   ____________________________________________________________________________
@@ -261,7 +272,11 @@ sum_str_helper <- function(dir_in,
 
 ##  ............................................................................
 ##  output the pattern
-  cat(lines, file = path_out, sep = "\n")
+  if (dir_out == "" && file_out == "object") {
+    lines
+  } else {
+    cat(lines, file = path_out, sep = "\n")
+  }
 }
 
 #   ____________________________________________________________________________

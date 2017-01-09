@@ -20,7 +20,7 @@ pattern.}
 \item{lines}{a character vector containing the lines to match against.}
 }
 \description{
-This function takes a string (vector) as an input and searches for the
+This helper function takes a string (vector) as an input and searches for the
 highest or lowest granularity. Granularity is defined in terms of a hash/
 space sequence (see \code{\link{sum_str}}). The search is implemented using
 a recursive approach.
@@ -28,4 +28,5 @@ a recursive approach.
 \examples{
   strcode:::find_gran("down", highest = 3, lowest = 1, lines = c("##  .", "#   _"))
 }
+\keyword{internal}
 

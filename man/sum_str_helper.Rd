@@ -18,7 +18,11 @@ the source editor. This requires that
 the file is saved before \code{sum_str} is called.}
 
 \item{file_out}{A connection or character string naming the file to print to.
-The argument is irrelevant if \code{output_dir} is set to "".}
+If \code{dir_out} is set to "", \code{file_out} can be set to
+"object" and the output of the function will be returned as an
+object instead of just printed to the console with \code{cat}. This is
+useful if output should be assigned to an object. If not set to "object",
+\code{cat} will be used.}
 
 \item{file_out_extension}{A file extension for the file to be created.}
 

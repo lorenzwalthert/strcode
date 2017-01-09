@@ -5,7 +5,7 @@
 \title{Summarize the code structure}
 \usage{
 sum_str(dir_in = NULL, file_in = getSourceEditorContext()$path,
-  file_in_extension = ".R", dir_out = "", file_out = NULL,
+  file_in_extension = ".R", dir_out = "", file_out = "",
   file_out_extension = "", width = NULL, line_nr = TRUE,
   granularity = 3, lowest_sep = TRUE, title = TRUE, header = TRUE, ...)
 }
@@ -24,7 +24,11 @@ the file is saved before \code{sum_str} is called.}
 \item{dir_out}{The directory to print the output to. "" implies the console.}
 
 \item{file_out}{A connection or character string naming the file to print to.
-The argument is irrelevant if \code{output_dir} is set to "".}
+If \code{dir_out} is set to "", \code{file_out} can be set to
+"object" and the output of the function will be returned as an
+object instead of just printed to the console with \code{cat}. This is
+useful if output should be assigned to an object. If not set to "object",
+\code{cat} will be used.}
 
 \item{file_out_extension}{A file extension for the file to be created.}
 
