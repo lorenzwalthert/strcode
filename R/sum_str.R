@@ -12,6 +12,7 @@
 #'   \code{file_in_extension} are considered, defaults to ".R".
 #' @param dir_out The directory to print the output to. "" implies the console.
 #' @param file_out A connection or character string naming the file to print to.
+#'   If set to \code{NULL}, the name will be \code{paste0("code-summary_", file_in)}.
 #'   If \code{dir_out} is set to "", \code{file_out} can be set to
 #'   "object" and the output of the function will be returned as an
 #'   object instead of just printed to the console with \code{cat}. This is
@@ -75,7 +76,7 @@ sum_str <- function(dir_in = NULL,
                     file_in = getSourceEditorContext()$path,
                     file_in_extension = ".R",
                     dir_out = "",
-                    file_out = "",
+                    file_out = NULL,
                     file_out_extension = "",
                     width = NULL,
                     line_nr = TRUE,
@@ -84,6 +85,10 @@ sum_str <- function(dir_in = NULL,
                     title = TRUE,
                     header = TRUE,
                     ...) {
+##  ............................................................................
+##  assertive test
+
+assert_number(granularity, lower = 1, upper = 3)
 
 ##  ............................................................................
 ##  prepare input to call helper repeated times.
@@ -125,7 +130,7 @@ sum_str <- function(dir_in = NULL,
                    header = header)
   })
 
-  if (dir_out == "" && file_out == "object") {
+  if (dir_out == "" && !is.null(file_out) && file_out == "object") {
     output
   } else {
     invisible() # avoid unnecessary NULL return
@@ -165,6 +170,7 @@ sum_str_helper <- function(dir_in,
                            lowest_sep,
                            title,
                            header) {
+
 ##  ............................................................................
 ##  argument interaction
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
