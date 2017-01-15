@@ -255,12 +255,24 @@ sum_str_helper <- function(dir_in,
     return(warning("No line matching the required pattern",
                    call. = FALSE, immediate. = TRUE))
   }
+
+  # issue warning if there are no comments
+  pattern_comments <- grep("^(#   |##  |### )[^\\._)].*$", lines, value = TRUE)
+  if (length(pattern_comments) == 0) { # if there were no comments
+    warning("There are no segment titles.",
+            call. = FALSE, immediate. = TRUE)
+  }
   # adjust length of pattern.
   if (is.null(width)) {
   # first calculate width. It is the length of the maximal comment string
   ## get the comment strings
-    pattern_comments <- grep("^(#   |##  |### )[^\\._)].*$", lines, value = TRUE)
-    width <- max(nchar(pattern_comments))
+    if (length(pattern_comments) == 0) { # if there were no comments
+      width <- options()$strcode.char.length
+      warning("width set to options()$strcode.char.length",
+              call. = FALSE, immediate. = TRUE)
+    } else { # if there were comments
+      width <- max(nchar(pattern_comments))
+    }
   }
 
   lines <- substring(lines, 1, width)
