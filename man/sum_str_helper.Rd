@@ -18,6 +18,7 @@ the source editor. This requires that
 the file is saved before \code{sum_str} is called.}
 
 \item{file_out}{A connection or character string naming the file to print to.
+If set to \code{NULL}, the name will be \code{paste0("code-summary_", file_in)}.
 If \code{dir_out} is set to "", \code{file_out} can be set to
 "object" and the output of the function will be returned as an
 object instead of just printed to the console with \code{cat}. This is
