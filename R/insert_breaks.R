@@ -1,4 +1,6 @@
 #' insert segment, section or subsection break
+##  ............................................................................
+
 #'
 #' A function designed to use as an RStudio
 #' \href{https://rstudio.github.io/rstudioaddins/}{add-in} for structuring code.
@@ -86,6 +88,8 @@ insert_l3_break <- function() {
 #' @param The granularity, a numeric value bounded by 1 and 3
 insert_break <- function(granularity){
 
+### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+### set parameter depending on granularity
   start <- paste0(rep("#", granularity), collapse = "")
   break_char = switch(as.character(granularity),
                       "1" = "_",
@@ -94,18 +98,40 @@ insert_break <- function(granularity){
   sep = switch(as.character(granularity),
                "1" = "   ",
                "2" = "  ",
-               "3" = " .")
+               "3" = " ")
 
-  to_insert <- help_create_break(start = start,
-                                 break_char = break_char,
-                                 sep = sep)
-  help_insert(to_insert,
+### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+### elicit title of section
+title <- find_title()
+
+### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+### create title sequence to insert
+seq_title <- help_create_title(start = start,
+                               fill = title,
+                               sep = sep)
+
+### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+### create break sequence to insert
+seq_break <- help_create_break(start = start,
+                               break_char = break_char,
+                               sep = sep)
+
+### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+### actual insertion
+  help_insert(seq_break,
               start_row = 1,
               start_indention = Inf,
               start_indention_margin = 0,
               end_row = 2,
               end_indention = Inf)
-
+  if (!is.null(seq_title)) {
+    help_insert(seq_title,
+                start_row = 0,
+                start_indention = Inf,
+                start_indention_margin = 0,
+                end_row = 1,
+                end_indention = Inf)
+  }
 }
 
 ##  ............................................................................
@@ -117,16 +143,45 @@ help_create_break <- function(start = "##",
                         length = options()$strcode.char.length,
                         sep = " ") {
 
+  breaks <- rep(break_char,
+      # ceiling necessary because patern like ". ." will get cut before
+      # length
+      ceiling((length - nchar(start) - nchar(sep))/nchar(break_char)))
+  # if last element in breaks is space, replace it with first element in break_char
+  breaks <- unlist(strsplit(breaks, "")) # decompose
+  if (breaks[length(breaks)] == " ") {
+    breaks[length(breaks)] <- substring(break_char, 1, 1)
+  }
+  breaks <- paste0(breaks, collapse = "")
   temp <-
     paste(start, sep,
-        paste(rep(break_char,
-            # ceiling necessary because patern like ". ." will get cut before
-            # length
-            ceiling((length - nchar(start) - nchar(sep))/nchar(break_char))),
+        paste(breaks,
           collapse = ""),
         sep = "")
   substring(temp, 1, length) # truncate pattern to exacly length
 }
+##  ............................................................................
+##  help_create_title
+# the idea of the helper function is to return a string of a line length that is
+# composed of the start character and the break_characters
+help_create_title <- function(start = "##",
+                              fill = "this is a title",
+                              length = options()$strcode.char.length,
+                              sep = "sep_here",
+                              end = "----") {
+  # create a text that starts with start, adds sep and then spaces up to margin
+  # too long texts will be truncated
+  if (fill == "") return(NULL)
+  text <- paste0(start, sep, fill)
+
+  extension <- paste0(rep(" ",
+                max(0, length - length(start) - length(end) - length(sep))),
+                collapse = "")
+
+
+  paste0(substring(paste0(text, extension), 1, length - nchar(end)), end)
+}
+
 ##  ............................................................................
 ##  help_insert
 # this funciton first gets the row in the active document, inserts a text x
@@ -168,3 +223,41 @@ help_insert <- function(x,
 
 }
 
+#   ____________________________________________________________________________
+#   shiny helper                                                            ----
+
+#' elicit break titles via shiny gadget
+#'
+#' A helper function to create a pane to enter a title name
+#' @import shiny miniUI
+find_title <- function() {
+
+  ui <- miniPage(
+    miniContentPanel(
+      textAreaInput("text1", " ", width = "300px", height = "30px"),
+      miniTitleBarCancelButton(),
+      miniTitleBarButton("done", "Done")
+    )
+  )
+
+  server <- function(input, output, session) {
+
+    observeEvent(input$done, {
+      stopApp(input$text1)
+    })
+
+    observeEvent(input$text1, {
+      if(!is.null(input$text1) && any(grep("\n", input$text1))) {
+        stopApp(gsub("\n", "", input$text1))
+      }
+    })
+
+    observeEvent(input$cancel, {
+      stopApp("")
+    })
+  }
+
+  runGadget(ui, server,
+            viewer = dialogViewer("Insert Code Segment"),
+            stopOnCancel = FALSE)
+}
