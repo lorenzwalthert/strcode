@@ -16,7 +16,7 @@ insert_l3_break()
 insert_break(granularity)
 }
 \arguments{
-\item{The}{granularity, a numeric value bounded by 1 and 3}
+\item{granularity}{The granularity, a numeric value bounded by 1 and 3}
 }
 \description{
 A function designed to use as an RStudio

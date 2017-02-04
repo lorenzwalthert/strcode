@@ -85,7 +85,7 @@ insert_l3_break <- function() {
 ##  ............................................................................
 ##  top level
 #' Insert a code break of arbitrary granularity
-#' @param The granularity, a numeric value bounded by 1 and 3
+#' @param granularity The granularity, a numeric value bounded by 1 and 3
 insert_break <- function(granularity){
 
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .

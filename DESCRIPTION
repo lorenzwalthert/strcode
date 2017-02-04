@@ -14,5 +14,7 @@ RoxygenNote: 5.0.1
 Imports: 
   rstudioapi,
   digest,
-  checkmate
+  checkmate, 
+  shiny,
+  miniUI
 Suggests: testthat
