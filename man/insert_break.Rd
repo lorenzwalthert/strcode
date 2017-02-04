@@ -12,6 +12,11 @@ insert_l1_break()
 insert_l2_break()
 
 insert_l3_break()
+
+insert_break(granularity)
+}
+\arguments{
+\item{The}{granularity, a numeric value bounded by 1 and 3}
 }
 \description{
 A function designed to use as an RStudio
@@ -28,6 +33,8 @@ There are three levels of granularity:
 }
 For optimal use, we recommend specifying keyboard shortcuts in the add-in
 settings.
+
+Insert a code break of arbitrary granularity
 }
 \details{
 The breaks characters (\code{___}, \code{...}, \code{. .}) were

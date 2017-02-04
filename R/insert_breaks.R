@@ -58,15 +58,7 @@ NULL
 #' @rdname insert_break
 #' @export
 insert_l1_break <- function() {
-  to_insert <- help_create_break(start = "#",
-                           break_char = "_",
-                           sep = "   ")
-  help_insert(to_insert,
-              start_row = 1,
-              start_indention = Inf,
-              start_indention_margin = 0,
-              end_row = 2,
-              end_indention = Inf)
+  insert_break(granularity = 1)
 }
 
 ##  ............................................................................
@@ -74,15 +66,7 @@ insert_l1_break <- function() {
 #' @rdname insert_break
 #' @export
 insert_l2_break <- function() {
-  to_insert <- help_create_break(start = "##",
-                           break_char = ".",
-                           sep = "  ")
-  help_insert(to_insert,
-              start_row = 1,
-              start_indention = Inf,
-              start_indention_margin = 0,
-              end_row = 2,
-              end_indention = Inf)
+  insert_break(granularity = 2)
 }
 
 ##  ............................................................................
@@ -90,9 +74,31 @@ insert_l2_break <- function() {
 #' @rdname insert_break
 #' @export
 insert_l3_break <- function() {
-  to_insert <- help_create_break(start = "###",
-                           break_char = ". ",
-                           sep = " .")
+  insert_break(granularity = 3)
+}
+
+#   ____________________________________________________________________________
+#   helper functions
+
+##  ............................................................................
+##  top level
+#' Insert a code break of arbitrary granularity
+#' @param The granularity, a numeric value bounded by 1 and 3
+insert_break <- function(granularity){
+
+  start <- paste0(rep("#", granularity), collapse = "")
+  break_char = switch(as.character(granularity),
+                      "1" = "_",
+                      "2" = ".",
+                      "3" = ". ")
+  sep = switch(as.character(granularity),
+               "1" = "   ",
+               "2" = "  ",
+               "3" = " .")
+
+  to_insert <- help_create_break(start = start,
+                                 break_char = break_char,
+                                 sep = sep)
   help_insert(to_insert,
               start_row = 1,
               start_indention = Inf,
@@ -102,10 +108,6 @@ insert_l3_break <- function() {
 
 }
 
-
-
-#   ____________________________________________________________________________
-#   helper functions
 ##  ............................................................................
 ##  help_create_break
 # the idea of the helper function is to return a string of a line length that is
