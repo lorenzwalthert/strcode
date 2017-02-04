@@ -11,5 +11,8 @@ License: MIT + file LICENCE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 5.0.1
-Imports: rstudioapi,digest,checkmate
+Imports: 
+  rstudioapi,
+  digest,
+  checkmate
 Suggests: testthat
