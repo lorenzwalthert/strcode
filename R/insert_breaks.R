@@ -1,6 +1,4 @@
 #' insert segment, section or subsection break
-##  ............................................................................
-
 #'
 #' A function designed to use as an RStudio
 #' \href{https://rstudio.github.io/rstudioaddins/}{add-in} for structuring code.
@@ -12,7 +10,7 @@
 #'   \item level 2 sections, which are medium-level blocks denoted by \cr
 #'     ##  ..............................................
 #'   \item level 3 sections, which are low-level blocks denoted by \cr
-#'     #   .. . . . . . . . . . . . . . . . . . . . . . . .
+#'     #   . . . . . . . . . . . . . . . . . . . . . . . ..
 #' }
 #' For optimal use, we recommend specifying keyboard shortcuts in the add-in
 #' settings.
@@ -22,17 +20,19 @@
 #'  We recommend starting off by grouping code into level 2 blocks.
 #'  The advantage is that in both directions of granularity, there is another
 #'  layer (\code{___} and \code{...}) left. When the code base grows, there
-#'  might be a need to extend in both directions.
-#' @name insert_break
+#'  might be a need to extend in both directions. \cr
+#'
+#' @name insert_l_break
+#'
 #' @importFrom rstudioapi insertText getActiveDocumentContext setCursorPosition
 #' @examples
 #' # This is a minimal example.
 #' # See the readme for a longer and more detailed example.
 #'
 #' ##  ......................................................
-#' ##  A: pre-process t2
+#' ##  A: pre-process t2                                 ----
 #' ### .. . . . . . . . . . . . . . . . . . . . . . . . . . .
-#' ### a: substep 1
+#' ### a: substep 1                                      ----
 #'
 #'
 #'
@@ -41,7 +41,7 @@
 #'
 #'
 #' ### .. . . . . . . . . . . . . . . . . . . . . . . . . . .
-#' ### b: substep 2
+#' ### b: substep 2                                      ----
 #'
 #'
 #'
@@ -57,7 +57,8 @@ NULL
 #   exported functions
 ##  ............................................................................
 ##  level 1
-#' @rdname insert_break
+#' @rdname insert_l_break
+#' @aliases insert_l1_break
 #' @export
 insert_l1_break <- function() {
   insert_break(granularity = 1)
@@ -65,7 +66,8 @@ insert_l1_break <- function() {
 
 ##  ............................................................................
 ##  level 2
-#' @rdname insert_break
+#' @rdname insert_l_break
+#' @aliases insert_l2_break
 #' @export
 insert_l2_break <- function() {
   insert_break(granularity = 2)
@@ -73,7 +75,8 @@ insert_l2_break <- function() {
 
 ##  ............................................................................
 ##  level 3
-#' @rdname insert_break
+#' @rdname insert_l_break
+#' @aliases insert_l1_break
 #' @export
 insert_l3_break <- function() {
   insert_break(granularity = 3)
@@ -84,7 +87,10 @@ insert_l3_break <- function() {
 
 ##  ............................................................................
 ##  top level
+
 #' Insert a code break of arbitrary granularity
+#'
+#'A helper function to insert a code break for a given granularity
 #' @param granularity The granularity, a numeric value bounded by 1 and 3
 insert_break <- function(granularity){
 
@@ -104,11 +110,15 @@ insert_break <- function(granularity){
 ### elicit title of section
 title <- find_title()
 
+
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ### create title sequence to insert
 seq_title <- help_create_title(start = start,
                                fill = title,
-                               sep = sep)
+                               sep = sep,
+                               end = "####")
+#   ____________________________________________________________________________
+
 
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ### create break sequence to insert
@@ -136,12 +146,18 @@ seq_break <- help_create_break(start = start,
 
 ##  ............................................................................
 ##  help_create_break
-# the idea of the helper function is to return a string of a line length that is
-# composed of the start character and the break_characters
+#' create a break sequence
+#'
+#' the idea of the helper function is to return a string of a line length that is
+#' composed of the start character and the break_characters
+#' @param start A sequence of letters to start the sequence
+#' @param sep A separator sequence to separate start and break_char
+#' @param break_char A character (sequence) used to create the actual break
+#' @param length An integer value indicating how long the sequence should be
 help_create_break <- function(start = "##",
+                        sep = " ",
                         break_char = "-",
-                        length = options()$strcode.char.length,
-                        sep = " ") {
+                        length = options()$strcode$char_length) {
 
   breaks <- rep(break_char,
       # ceiling necessary because patern like ". ." will get cut before
@@ -162,11 +178,21 @@ help_create_break <- function(start = "##",
 }
 ##  ............................................................................
 ##  help_create_title
-# the idea of the helper function is to return a string of a line length that is
-# composed of the start character and the break_characters
+#' create a title sequence
+#'
+#' This function returns a string that can be used as a title.
+#' @param start A sequence of letters to start the sequence
+#' @param fill A sequence to fill the sequence with. This is the actual title.
+#' @param length An integer value indicating how long the sequence should be
+#' @param sep A separator sequence to separate start and fill.
+#' @param end A character sequence that indicates how the end of the final
+#'   sequence should look like.
+#' @details
+#'   For Rstudio to recognize a herby produced sequence as a title, it must
+#'     start with # and end with at least 4 of the following characters: #, -, =.
 help_create_title <- function(start = "##",
                               fill = "this is a title",
-                              length = options()$strcode.char.length,
+                              length = options()$strcode$char_length,
                               sep = "sep_here",
                               end = "----") {
   # create a text that starts with start, adds sep and then spaces up to margin
@@ -182,9 +208,9 @@ help_create_title <- function(start = "##",
   paste0(substring(paste0(text, extension), 1, length - nchar(end)), end)
 }
 
+
 ##  ............................................................................
-##  help_insert
-# this funciton first gets the row in the active document, inserts a text x
+##  help insert                                                             ----
 # one row below and jumps another row down
 #' help insert
 #'
@@ -236,7 +262,11 @@ find_title <- function() {
     miniContentPanel(
       textAreaInput("text1", " ", width = "300px", height = "30px"),
       miniTitleBarCancelButton(),
-      miniTitleBarButton("done", "Done")
+      miniTitleBarButton("done", "Done"),
+      br(),
+      p("Hit tab to make the text field active (instead of clicking). Hit
+        enter (instead of clicking ok) to confirm the title. An empty
+        field will create a separator with no title.")
     )
   )
 
@@ -258,6 +288,7 @@ find_title <- function() {
   }
 
   runGadget(ui, server,
-            viewer = dialogViewer("Insert Code Segment"),
+            viewer = dialogViewer("Insert Code Segment",
+                                  width = 400, height = 100),
             stopOnCancel = FALSE)
 }
