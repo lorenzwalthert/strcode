@@ -2,73 +2,14 @@
 % Please edit documentation in R/insert_breaks.R
 \name{insert_break}
 \alias{insert_break}
-\alias{insert_l1_break}
-\alias{insert_l2_break}
-\alias{insert_l3_break}
-\title{insert segment, section or subsection break}
+\title{Insert a code break of arbitrary granularity}
 \usage{
-insert_l1_break()
-
-insert_l2_break()
-
-insert_l3_break()
-
 insert_break(granularity)
 }
 \arguments{
 \item{granularity}{The granularity, a numeric value bounded by 1 and 3}
 }
 \description{
-A function designed to use as an RStudio
-\href{https://rstudio.github.io/rstudioaddins/}{add-in} for structuring code.
- \cr
-There are three levels of granularity:
-\itemize{
-  \item level 1 sections, which are high-level blocks denoted by \cr
-    ### ______________________
-  \item level 2 sections, which are medium-level blocks denoted by \cr
-    ##  ..............................................
-  \item level 3 sections, which are low-level blocks denoted by \cr
-    #   .. . . . . . . . . . . . . . . . . . . . . . . .
-}
-For optimal use, we recommend specifying keyboard shortcuts in the add-in
-settings.
-
-Insert a code break of arbitrary granularity
-}
-\details{
-The breaks characters (\code{___}, \code{...}, \code{. .}) were
- chosen such that they reflect the level of granularity, namely \code{___}
- has a much higher visual density than \code{. .} \cr
- We recommend starting off by grouping code into level 2 blocks.
- The advantage is that in both directions of granularity, there is another
- layer (\code{___} and \code{...}) left. When the code base grows, there
- might be a need to extend in both directions.
-}
-\examples{
-# This is a minimal example.
-# See the readme for a longer and more detailed example.
-
-##  ......................................................
-##  A: pre-process t2
-### .. . . . . . . . . . . . . . . . . . . . . . . . . . .
-### a: substep 1
-
-
-
-# [your code here]
-
-
-
-### .. . . . . . . . . . . . . . . . . . . . . . . . . . .
-### b: substep 2
-
-
-
-# [your code here ]
-
-
-
-##  ......................................................
+A helper function to insert a code break for a given granularity
 }
 
