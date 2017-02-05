@@ -53,7 +53,7 @@ You can notice from the above that
 -   The breaks characters `___`, `...`, `. .` were chosen such that they reflect the level of granularity, namely `___` has a much higher visual density than `. .`.
 -   Each block has an (optional) short comment on what the next block is about.
 
-The separators do all have length 80. The value is looked up in the global option `strcode.char.length` and can be changed by the user (either every session manually or using .Rprofile).
+The separators do all have length 80. The value is looked up in the global option `strcode$char_length` and can be changed by the user (either every session manually or using .Rprofile).
 For each of the introduced separators, there is an Add-in function. You can also call them from the console
 
 -   `strcode::insert_l1_break()`
@@ -246,14 +246,14 @@ sum_str(dir_in = "placeholder_code",
 #> Summarized structure of example.R
 #> 
 #> line  level section
-#> 1    #   ____________________________________
-#> 2    #   function test
-#> 5    ##  A: pre-processing
-#> 56   ##  B: actual function
-#> 82   #   ____________________________________
-#> 83   #   function test2
-#> 86   ##  A: pre-processing
-#> 137  ##  B: actual function
+#> 2    #   _
+#> 3    #   function test
+#> 6    ##  -A: pre-processing
+#> 57   ##  B: actual function
+#> 83   #   ____________________________________
+#> 84   #   function test2
+#> 87   ##  A: pre-processing
+#> 138  ##  B: actual function
 ```
 
 -   `dir_*` and `file_*` specify directories or filenames for reading and writing.

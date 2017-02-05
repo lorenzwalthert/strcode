@@ -267,7 +267,7 @@ sum_str_helper <- function(dir_in,
   # first calculate width. It is the length of the maximal comment string
   ## get the comment strings
     if (length(pattern_comments) == 0) { # if there were no comments
-      width <- options()$strcode.char.length
+      width <- options()$strcode$char_length
       warning("width set to options()$strcode.char.length",
               call. = FALSE, immediate. = TRUE)
     } else { # if there were comments

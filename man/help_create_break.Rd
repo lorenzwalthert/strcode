@@ -5,7 +5,7 @@
 \title{create a break sequence}
 \usage{
 help_create_break(start = "##", sep = " ", break_char = "-",
-  length = options()$strcode.char.length)
+  length = options()$strcode$char_length)
 }
 \arguments{
 \item{start}{A sequence of letters to start the sequence}

@@ -5,7 +5,7 @@
 \title{create a title sequence}
 \usage{
 help_create_title(start = "##", fill = "this is a title",
-  length = options()$strcode.char.length, sep = "sep_here", end = "----")
+  length = options()$strcode$char_length, sep = "sep_here", end = "----")
 }
 \arguments{
 \item{start}{A sequence of letters to start the sequence}
