@@ -2,14 +2,13 @@
 % Please edit documentation in R/insert_breaks.R
 \name{insert_break}
 \alias{insert_break}
-\title{Insert a code break of arbitrary granularity}
+\title{Insert a code break of arbitrary level}
 \usage{
-insert_break(granularity)
+insert_break(level)
 }
 \arguments{
-\item{granularity}{The granularity, a numeric value bounded by 1 and 3}
+\item{level}{The level, a numeric value bounded by 1 and 3}
 }
 \description{
-A helper function to insert a code break for a given granularity
+A helper function to insert a code break for a given level
 }
-

@@ -62,7 +62,7 @@ NULL
 #' @aliases insert_l1_break
 #' @export
 insert_l1_break <- function() {
-  insert_break(granularity = 1)
+  insert_break(level = 1)
 }
 
 ##  ............................................................................
@@ -71,7 +71,7 @@ insert_l1_break <- function() {
 #' @aliases insert_l2_break
 #' @export
 insert_l2_break <- function() {
-  insert_break(granularity = 2)
+  insert_break(level = 2)
 }
 
 ##  ............................................................................
@@ -80,7 +80,7 @@ insert_l2_break <- function() {
 #' @aliases insert_l1_break
 #' @export
 insert_l3_break <- function() {
-  insert_break(granularity = 3)
+  insert_break(level = 3)
 }
 
 #   ____________________________________________________________________________
@@ -89,27 +89,27 @@ insert_l3_break <- function() {
 ##  ............................................................................
 ##  top level
 
-#' Insert a code break of arbitrary granularity
+#' Insert a code break of arbitrary level
 #'
-#'A helper function to insert a code break for a given granularity
-#' @param granularity The granularity, a numeric value bounded by 1 and 3
-insert_break <- function(granularity){
+#'A helper function to insert a code break for a given level
+#' @param level The level, a numeric value bounded by 1 and 3
+insert_break <- function(level){
 
   ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-  ### set parameter depending on granularity
-  start <- paste0(rep("#", granularity), collapse = "")
-  break_char = switch(as.character(granularity),
+  ### set parameter depending on level
+  start <- paste0(rep("#", level), collapse = "")
+  break_char = switch(as.character(level),
                       "1" = "_",
                       "2" = ".",
                       "3" = ". ")
-  sep = switch(as.character(granularity),
+  sep = switch(as.character(level),
                "1" = "   ",
                "2" = "  ",
                "3" = " ")
 
   ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
   ### elicit title of section
-  ret_value <- find_title()
+  ret_value <- find_title(level)
   title <- ret_value$text1
   if (ret_value$cancel) return("")
 
@@ -258,20 +258,33 @@ help_insert <- function(x,
 #' elicit break titles via shiny gadget
 #'
 #' A helper function to create a pane to enter a title name
+#' @param level The level of the code break to be inserted
 #' @import shiny miniUI
-find_title <- function() {
-
+find_title <- function(level) {
+  choices_input <- paste("level", 1:3)
   ui <- miniPage(
     miniContentPanel(
-      textAreaInput("text1", " ", width = "300px", height = "30px"),
-      miniTitleBarCancelButton(),
-      miniTitleBarButton("done", "Done"),
-      br(),
-      p("Hit tab to make the text field active (instead of clicking). Hit
-        enter (instead of clicking ok) to confirm the title. An empty
-        field will create a separator with no title.")
+      fillCol(
+        fillRow(
+          text_focus("text1", label = " ", value = "",
+                     placeholder = "Your section title",
+                     width = "320px", height = "33px"),
+          selectInput("select_gran", " ", width = "100px",
+                      choices = choices_input,
+                      selected = choices_input[level]),
+          flex = c(3, 1)
+        ),
+        fillRow(
+          miniTitleBarCancelButton(),
+          miniTitleBarButton("done", "Done"),
+          p("Hit enter (instead of clicking ok) to confirm the title. An empty
+            field will create a separator with no title."),
+          flex = c(1, 1, 4)
+
+          )
       )
-      )
+    )
+    )
 
   server <- function(input, output, session) {
 
@@ -294,7 +307,7 @@ find_title <- function() {
   }
 
   runGadget(ui, server,
-            viewer = dialogViewer("Insert Code Segment",
-                                  width = 400, height = 100),
+            viewer = paneViewer(minHeight = 200),
             stopOnCancel = FALSE)
 }
+
