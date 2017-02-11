@@ -10,7 +10,7 @@ Description: The strcode (short for structuring code) package contains tools to
 License: MIT + file LICENCE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Imports: 
   rstudioapi,
   digest,

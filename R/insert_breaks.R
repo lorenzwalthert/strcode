@@ -1,4 +1,5 @@
 #' insert segment, section or subsection break
+#   ____________________________________________________________________________
 #'
 #' A function designed to use as an RStudio
 #' \href{https://rstudio.github.io/rstudioaddins/}{add-in} for structuring code.
@@ -94,8 +95,8 @@ insert_l3_break <- function() {
 #' @param granularity The granularity, a numeric value bounded by 1 and 3
 insert_break <- function(granularity){
 
-### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-### set parameter depending on granularity
+  ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  ### set parameter depending on granularity
   start <- paste0(rep("#", granularity), collapse = "")
   break_char = switch(as.character(granularity),
                       "1" = "_",
@@ -106,28 +107,30 @@ insert_break <- function(granularity){
                "2" = "  ",
                "3" = " ")
 
-### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-### elicit title of section
-title <- find_title()
+  ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  ### elicit title of section
+  ret_value <- find_title()
+  title <- ret_value$text1
+  if (ret_value$cancel) return("")
 
 
-### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-### create title sequence to insert
-seq_title <- help_create_title(start = start,
-                               fill = title,
-                               sep = sep,
-                               end = "####")
-#   ____________________________________________________________________________
+  ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  ### create title sequence to insert
+  seq_title <- help_create_title(start = start,
+                                 fill = title,
+                                 sep = sep,
+                                 end = "####")
+  #   ____________________________________________________________________________
 
 
-### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-### create break sequence to insert
-seq_break <- help_create_break(start = start,
-                               break_char = break_char,
-                               sep = sep)
+  ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  ### create break sequence to insert
+  seq_break <- help_create_break(start = start,
+                                 break_char = break_char,
+                                 sep = sep)
 
-### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-### actual insertion
+  ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  ### actual insertion
   help_insert(seq_break,
               start_row = 1,
               start_indention = Inf,
@@ -155,14 +158,14 @@ seq_break <- help_create_break(start = start,
 #' @param break_char A character (sequence) used to create the actual break
 #' @param length An integer value indicating how long the sequence should be
 help_create_break <- function(start = "##",
-                        sep = " ",
-                        break_char = "-",
-                        length = options()$strcode$char_length) {
+                              sep = " ",
+                              break_char = "-",
+                              length = options()$strcode$char_length) {
 
   breaks <- rep(break_char,
-      # ceiling necessary because patern like ". ." will get cut before
-      # length
-      ceiling((length - nchar(start) - nchar(sep))/nchar(break_char)))
+                # ceiling necessary because patern like ". ." will get cut before
+                # length
+                ceiling((length - nchar(start) - nchar(sep))/nchar(break_char)))
   # if last element in breaks is space, replace it with first element in break_char
   breaks <- unlist(strsplit(breaks, "")) # decompose
   if (breaks[length(breaks)] == " ") {
@@ -171,9 +174,9 @@ help_create_break <- function(start = "##",
   breaks <- paste0(breaks, collapse = "")
   temp <-
     paste(start, sep,
-        paste(breaks,
-          collapse = ""),
-        sep = "")
+          paste(breaks,
+                collapse = ""),
+          sep = "")
   substring(temp, 1, length) # truncate pattern to exacly length
 }
 ##  ............................................................................
@@ -201,8 +204,8 @@ help_create_title <- function(start = "##",
   text <- paste0(start, sep, fill)
 
   extension <- paste0(rep(" ",
-                max(0, length - length(start) - length(end) - length(sep))),
-                collapse = "")
+                          max(0, length - length(start) - length(end) - length(sep))),
+                      collapse = "")
 
 
   paste0(substring(paste0(text, extension), 1, length - nchar(end)), end)
@@ -267,23 +270,26 @@ find_title <- function() {
       p("Hit tab to make the text field active (instead of clicking). Hit
         enter (instead of clicking ok) to confirm the title. An empty
         field will create a separator with no title.")
-    )
-  )
+      )
+      )
 
   server <- function(input, output, session) {
 
     observeEvent(input$done, {
-      stopApp(input$text1)
+      stopApp(list(text1  = input$text1,
+                   cancel = input$cancel))
     })
 
     observeEvent(input$text1, {
       if(!is.null(input$text1) && any(grep("\n", input$text1))) {
-        stopApp(gsub("\n", "", input$text1))
+        stopApp(list(text1 = gsub("\n", "", input$text1),
+                     cancel = input$cancel))
       }
     })
 
     observeEvent(input$cancel, {
-      stopApp("")
+      stopApp(list(text1 = "",
+                   cancel = input$cancel))
     })
   }
 
