@@ -94,4 +94,3 @@ To create the summary, \code{sum_str} uses regular expressions.
 sum_str() # get a summary of the source editor.
 }
 }
-

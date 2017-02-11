@@ -60,4 +60,3 @@ the code file. Hence, applying \code{setdiff(cand, remove)} contains
 the subset of *lines* that we finally want to output.
 }
 \keyword{internal}
-

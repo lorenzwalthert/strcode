@@ -29,4 +29,3 @@ a recursive approach.
   strcode:::find_gran("down", highest = 3, lowest = 1, lines = c("##  .", "#   _"))
 }
 \keyword{internal}
-

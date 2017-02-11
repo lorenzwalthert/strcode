@@ -4,9 +4,11 @@
 \alias{find_title}
 \title{elicit break titles via shiny gadget}
 \usage{
-find_title()
+find_title(level)
+}
+\arguments{
+\item{level}{The level of the code break to be inserted}
 }
 \description{
 A helper function to create a pane to enter a title name
 }
-

@@ -20,4 +20,3 @@ help_create_break(start = "##", sep = " ", break_char = "-",
 the idea of the helper function is to return a string of a line length that is
 composed of the start character and the break_characters
 }
-

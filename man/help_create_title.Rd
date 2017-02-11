@@ -26,4 +26,3 @@ This function returns a string that can be used as a title.
 For Rstudio to recognize a herby produced sequence as a title, it must
     start with # and end with at least 4 of the following characters: #, -, =.
 }
-
