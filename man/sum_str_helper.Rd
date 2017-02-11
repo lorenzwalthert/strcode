@@ -2,10 +2,12 @@
 % Please edit documentation in R/sum_str.R
 \name{sum_str_helper}
 \alias{sum_str_helper}
-\title{helper function for code summarisation}
+\title{helper function for code summarisation
+return code summary for one file}
 \usage{
-sum_str_helper(dir_in, dir_out, file_in, file_out, file_out_extension, width,
-  line_nr, granularity, lowest_sep, title, header)
+sum_str_helper(dir_in, dir_out, file_in, file_out, file_out_extension,
+  rm_rh_hashes, rm_rh_spaces, width, line_nr, granularity, last_sep, title,
+  header)
 }
 \arguments{
 \item{dir_in}{The directory where the file can be found.}
@@ -27,8 +29,14 @@ useful if output should be assigned to an object. If not set to "object",
 
 \item{file_out_extension}{A file extension for the file to be created.}
 
+\item{rm_rh_hashes}{Boolean value indicating whether or not to remove
+righthand hashes in section titles (see details).}
+
+\item{rm_rh_spaces}{Boolean value indicating whether or not to remove
+righthand spaces in section titles (see details).}
+
 \item{width}{The character width of the output. If NULL, it is set to the
-length of the longest separator comment.}
+length of the longest separator title.}
 
 \item{line_nr}{A boolean value that indicates whether the line numbers should
 be printed along with the structure summary.}
@@ -36,8 +44,8 @@ be printed along with the structure summary.}
 \item{granularity}{Indicates the lowest level of granularity that should be
 included in the summary.}
 
-\item{lowest_sep}{A boolean value indicating whether or not the separating
-lines of the lowest level should be printed.}
+\item{last_sep}{A boolean value indicating whether or not the separating
+lines of the highest granularity should be printed.}
 
 \item{title}{A boolean value indicating whether the reported summary should
 contain a title or not.}

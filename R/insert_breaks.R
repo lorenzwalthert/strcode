@@ -1,4 +1,4 @@
-#' insert segment, section or subsection break
+#' insert a section break with an optional title
 #   ____________________________________________________________________________
 #'
 #' A function designed to use as an RStudio
@@ -14,7 +14,12 @@
 #'     #   . . . . . . . . . . . . . . . . . . . . . . . ..
 #' }
 #' For optimal use, we recommend specifying keyboard shortcuts in the add-in
-#' settings.
+#'   settings. A title can be added to the section as well. When calling the
+#'   function, a shiny app is
+#'   opened in the viewer pane, where the title can be specified. If the field
+#'   remains empty, only a section break is created without title. You may hit
+#'   enter instead of clicking on "done" to confirm your choice.
+#'
 #' @details The breaks characters (\code{___}, \code{...}, \code{. .}) were
 #'  chosen such that they reflect the level of granularity, namely \code{___}
 #'  has a much higher visual density than \code{. .} \cr
@@ -22,18 +27,29 @@
 #'  The advantage is that in both directions of granularity, there is another
 #'  layer (\code{___} and \code{...}) left. When the code base grows, there
 #'  might be a need to extend in both directions. \cr
+#'  In order to be \href{https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections}{recognised as sections by RStudio},
+#'  all titles end with four hashes (see example below). We put the hashes at
+#'  the end of the line (where end of a line is defined by the global option
+#'  options()$strcode$char_length, which defaults t0 80)
+#'  and separate it from the section title with spaces to
+#'  achieve a natural representation in the code flow.
+#'  Being recognised as sections by RStudio means
+#'  that at the very botton of the code pane, right next to line / indent count,
+#'  you can see a little table of contents of the current file can be unfold. An
+#'  that you can fold code the sections (just as you can fold function
+#'  declarations).
 #'
 #' @name insert_l_break
-#'
+#' @seealso sum_str
 #' @importFrom rstudioapi insertText getActiveDocumentContext setCursorPosition
 #' @examples
 #' # This is a minimal example.
 #' # See the readme for a longer and more detailed example.
 #'
 #' ##  ......................................................
-#' ##  A: pre-process t2                                 ----
+#' ##  A: pre-process t2                                 ####
 #' ### .. . . . . . . . . . . . . . . . . . . . . . . . . . .
-#' ### a: substep 1                                      ----
+#' ### a: substep 1                                      ####
 #'
 #'
 #'
@@ -42,7 +58,7 @@
 #'
 #'
 #' ### .. . . . . . . . . . . . . . . . . . . . . . . . . . .
-#' ### b: substep 2                                      ----
+#' ### b: substep 2                                      ####
 #'
 #'
 #'
@@ -102,10 +118,7 @@ insert_break <- function(level){
                       "1" = "_",
                       "2" = ".",
                       "3" = ". ")
-  sep = switch(as.character(level),
-               "1" = "   ",
-               "2" = "  ",
-               "3" = " ")
+  sep = paste(rep(" ", 4 - level), collapse = "")
 
   ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
   ### elicit title of section

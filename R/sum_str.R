@@ -1,7 +1,7 @@
 #' Summarize the code structure
 #'
 #' Create a summary of one or multiple code files based on the section
-#' separators and their comments.
+#' separators and their titles.
 #' @param dir_in The directory where the file(s) can be found.
 #' @param file_in The name of a file which should be summarized. If this is
 #'   \code{NULL}, the summary will be for all files in the specified directory.
@@ -19,14 +19,18 @@
 #'   useful if output should be assigned to an object. If not set to "object",
 #'   \code{cat} will be used.
 #' @param file_out_extension A file extension for the file to be created.
+#' @param rm_rh_hashes Boolean value indicating whether or not to remove
+#'   righthand hashes in section titles (see details).
+#' @param rm_rh_spaces Boolean value indicating whether or not to remove
+#'   righthand spaces in section titles (see details).
 #' @param width The character width of the output. If NULL, it is set to the
-#'   length of the longest separator comment.
+#'   length of the longest separator title.
 #' @param line_nr A boolean value that indicates whether the line numbers should
 #'   be printed along with the structure summary.
 #' @param granularity Indicates the lowest level of granularity that should be
 #'   included in the summary.
-#' @param lowest_sep A boolean value indicating whether or not the separating
-#'   lines of the lowest level should be printed.
+#' @param last_sep A boolean value indicating whether or not the separating
+#'   lines of the highest granularity should be printed.
 #' @param title A boolean value indicating whether the reported summary should
 #'   contain a title or not.
 #' @param header A boolean value indicating whether a column header should
@@ -34,9 +38,9 @@
 #' @param ... futher arguments to be passed from and to other methods, in
 #'   particular \code{\link{list.files}} for reading in multiple files.
 #' @details To create the summary, \code{sum_str} uses regular expressions.
-#'   Hence it is crucial that the code separators and the separator comments
+#'   Hence it is crucial that the code separators and the separator titles
 #'   match the regular expression pattern. We recommend inserting
-#'   separators and their comments using the RStudio Add-in that is contained
+#'   separators and their titles using the RStudio Add-in that is contained
 #'   in this package. The definition is rather intuitive as can be seen in the
 #'   example section below. However, we shall provide a formal definition here
 #'   as well.
@@ -44,22 +48,31 @@
 #'     \item A code separator is defined as a line that starts with n hashes,
 #'     followed by 4-n spaces where 0 < n < 4. This sequence is followed by one
 #'     or more either \code{.} or \code{_}.
-#'     \item A comment associated with a code separator is defined as a line
+#'     \item A title associated with a code separator is defined as a line
 #'     that starts with n hashes, followed by 4-n spaces where 0 < n < 4. This
 #'     sequence is \emph{not} followed by \code{.} or \code{_}.
 #'   }
 #'   Lines that do not satisfy these requirements (e.g. do not start with #s,
 #'   do not contain the right number of spaces after the #, indent before any #
 #'   ect.) are not considered by \code{sum_str}.
-#'
+#' @section Removing spaces and hashes:
+#'   The add-in contained in this package inserts section titles in a way that
+#'     that they are recognised by RStudio as sections (for details, see
+#'     \href{https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections}{RStudio's official website}. One structure that is
+#'     recognised by RStudio as section is a line starting with a hash and ending
+#'     with four hashes. This structure is implemented with \code{strcode}.
+#'     Hence when creating the summary, it might be desired to remove the right
+#'     hand hashes and spaces, which can be specified with the respective options
+#'     \code{rm_rh_hashes} and \code{rm_rh_spaces}.
+#' @seealso insert_l_break
 #' @examples
-#' # the following separators are examples of valid
-#' # separators and associated comments
+#' # the following separator is an example of a valid
+#' # separator and associated title
 #'
 #' #   __________________________________________________
-#' #   this is a level 1 comment
+#' #   this is a level 1 title                     ####
 #' ##  . . . . . . . . . . . . . . . . . . . . . . . . .
-#' ##  note that the comment or the separator character (_, .)
+#' ##  note that the title or the separator character (_, .)
 #' ##  always starts at indention 4.
 #'
 #' \dontrun{
@@ -71,7 +84,7 @@
 #' @export
 #'
 #   ____________________________________________________________________________
-#   user-function
+#   user function                                                           ####
 sum_str <- function(dir_in = NULL,
                     file_in = getSourceEditorContext()$path,
                     file_in_extension = ".R",
@@ -79,19 +92,21 @@ sum_str <- function(dir_in = NULL,
                     file_out = NULL,
                     file_out_extension = "",
                     width = NULL,
+                    rm_rh_hashes = TRUE,
+                    rm_rh_spaces = TRUE,
                     line_nr = TRUE,
                     granularity = 3,
-                    lowest_sep = TRUE,
+                    last_sep = FALSE,
                     title = TRUE,
                     header = TRUE,
                     ...) {
-##  ............................................................................
-##  assertive test
 
+##  ............................................................................
+##  assertive tests                                                         ####
 assert_number(granularity, lower = 1, upper = 3)
 
-##  ............................................................................
-##  prepare input to call helper repeated times.
+### . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ..
+### prepare input to call helper repeated times                             ####
   # in the case there are multiple files
   if (is.null(file_in)) {
     all_files <- as.list(list.files(path = dir_in,
@@ -104,11 +119,9 @@ assert_number(granularity, lower = 1, upper = 3)
   } else {
     all_files <- as.list(file_in)
   }
-
-##  ............................................................................
-##  call helper
-
   # if output is not printed in the console, print a short summary.
+### . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ..
+### call helper                                                             ####
   if (dir_out != "") {
     cat("The following files were summarized \n")
   }
@@ -123,9 +136,11 @@ assert_number(granularity, lower = 1, upper = 3)
                    file_out = file_out,
                    file_out_extension = file_out_extension,
                    width = width,
+                   rm_rh_hashes = rm_rh_hashes,
+                   rm_rh_spaces = rm_rh_spaces,
                    line_nr = line_nr,
                    granularity = granularity,
-                   lowest_sep = lowest_sep,
+                   last_sep = last_sep,
                    title = title,
                    header = header)
   })
@@ -136,10 +151,10 @@ assert_number(granularity, lower = 1, upper = 3)
     invisible() # avoid unnecessary NULL return
   }
 }
-
-#   ____________________________________________________________________________
-#   helper function: sum_str_helper
 #' helper function for code summarisation
+#   ____________________________________________________________________________
+#   helper function: sum_str_helper                                         ####
+#' return code summary for one file
 #'
 #' Function is called by \code{sum_str()} and returns summary of one code file.
 #' @inheritParams sum_str
@@ -164,15 +179,17 @@ sum_str_helper <- function(dir_in,
                            file_in,
                            file_out,
                            file_out_extension,
+                           rm_rh_hashes,
+                           rm_rh_spaces,
                            width,
                            line_nr,
                            granularity,
-                           lowest_sep,
+                           last_sep,
                            title,
                            header) {
 
 ##  ............................................................................
-##  argument interaction
+##  argument interaction                                                    ####
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ### get the file_out together
   if (is.null(file_out)) {
@@ -234,8 +251,8 @@ sum_str_helper <- function(dir_in,
   }
 
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-### remove lowest separator
-  if (lowest_sep == FALSE) {
+### remove last separator
+  if (last_sep == FALSE) {
     hashes <- min(find_gran("down", lines = lines), granularity)
     spaces <- 4 - hashes
     sub_pattern <- paste0("^#{", hashes, "}\\s{", spaces, "}[\\._].*$")
@@ -256,22 +273,33 @@ sum_str_helper <- function(dir_in,
                    call. = FALSE, immediate. = TRUE))
   }
 
-  # issue warning if there are no comments
-  pattern_comments <- grep("^(#   |##  |### )[^\\._)].*$", lines, value = TRUE)
-  if (length(pattern_comments) == 0) { # if there were no comments
+  # issue warning if there are no titles
+  pattern_titles <- grep("^(#   |##  |### )[^\\._)].*$", lines, value = TRUE)
+  if (length(pattern_titles) == 0) { # if there were no titles
     warning("There are no segment titles.",
             call. = FALSE, immediate. = TRUE)
   }
+
+  # remove right hand hashes if desired
+  if (rm_rh_hashes) {
+    lines <- gsub("####$", "    ", lines, perl = TRUE)
+  }
+
+  # remove right hand spaces if desired
+  if (rm_rh_spaces) {
+    lines <- gsub("\\s*$", "", lines, perl = TRUE)
+  }
+
   # adjust length of pattern.
   if (is.null(width)) {
-  # first calculate width. It is the length of the maximal comment string
-  ## get the comment strings
-    if (length(pattern_comments) == 0) { # if there were no comments
+  # first calculate width. It is the length of the maximal title string
+  ## get the title strings
+    if (length(pattern_titles) == 0) { # if there were no titles
       width <- options()$strcode$char_length
       warning("width set to options()$strcode.char.length",
               call. = FALSE, immediate. = TRUE)
-    } else { # if there were comments
-      width <- max(nchar(pattern_comments))
+    } else { # if there were titles
+      width <- max(nchar(pattern_titles))
     }
   }
 
