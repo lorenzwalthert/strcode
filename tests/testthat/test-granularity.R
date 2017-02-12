@@ -19,7 +19,7 @@ test_that("graunlarity example-1", {
   test    <- sum_str(file_in = paste0(path_start, "raw_in/example-1.R"), dir_out = "", granularity = 3,
                      file_out = "object", last_sep = TRUE, title = FALSE)[[1]]
   expect_identical(correct, test)
-  rm(list = ls())
+
 
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ### check for granularity == 2
@@ -29,7 +29,7 @@ test_that("graunlarity example-1", {
   test    <- sum_str(file_in = paste0(path_start, "raw_in/example-1.R"), dir_out = "", granularity = 2,
                      file_out = "object", last_sep = TRUE, title = FALSE)[[1]]
   expect_identical(correct, test)
-  rm(list = ls())
+
 
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ### check for granularity == 2
@@ -39,7 +39,7 @@ test_that("graunlarity example-1", {
   test    <- sum_str(file_in = paste0(path_start, "raw_in/example-1.R"), dir_out = "", granularity = 1,
                      file_out = "object", last_sep = TRUE, title = FALSE)[[1]]
   expect_identical(correct, test)
-  rm(list = ls())
+
 })
 context("granularity example-2")
 test_that("granularity example-2", {
@@ -56,7 +56,7 @@ test_that("granularity example-2", {
   test    <- sum_str(file_in = paste0(path_start, "raw_in/example-2.R"), dir_out = "", granularity = 3,
                      file_out = "object", last_sep = TRUE, title = FALSE)[[1]]
   expect_identical(correct, test)
-  rm(list = ls())
+
 
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ### check for granularity == 2
@@ -64,7 +64,7 @@ test_that("granularity example-2", {
   test    <- sum_str(file_in = paste0(path_start, "raw_in/example-2.R"), dir_out = "", granularity = 2,
                      file_out = "object", last_sep = TRUE, title = FALSE)[[1]]
   expect_identical(correct, test)
-  rm(list = ls())
+
 
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ### check for granularity == 2
@@ -72,7 +72,7 @@ test_that("granularity example-2", {
   test    <- sum_str(file_in = paste0(path_start, "raw_in/example-2.R"), dir_out = "", granularity = 1,
                      file_out = "object", last_sep = TRUE, title = FALSE)[[1]]
   expect_identical(correct, test)
-  rm(list = ls())
+
 })
 context("granularity example-3")
 
@@ -87,26 +87,28 @@ test_that("granularity example-3", {
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ### check for granularity == 3
   correct <- readLines(paste0(path_start, "correct/out-ex-3_gran-3"))
-  test    <- sum_str(file_in = paste0(path_start, "raw_in/example-3.R"), dir_out = "", granularity = 3,
-                     file_out = "object", last_sep = TRUE, title = FALSE)[[1]]
+  expect_warning(test <- sum_str(file_in = paste0(path_start, "raw_in/example-3.R"), dir_out = "", granularity = 3,
+                     file_out = "object", last_sep = TRUE, title = FALSE)[[1]])
   expect_identical(correct, test)
-  rm(list = ls())
+
 
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ### check for granularity == 2
   correct <- readLines(paste0(path_start, "correct/out-ex-3_gran-2"))
-  test    <- sum_str(file_in = paste0(path_start, "raw_in/example-3.R"), dir_out = "", granularity = 2,
-                     file_out = "object", last_sep = TRUE, title = FALSE)[[1]]
+  expect_warning(test <- sum_str(file_in = paste0(path_start, "raw_in/example-3.R"), dir_out = "", granularity = 2,
+                     file_out = "object", last_sep = TRUE, title = FALSE)[[1]])
   expect_identical(correct, test)
-  rm(list = ls())
+
 
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-### check for granularity == 1 not possible, level does not exist:
+### check for granularity == 1
+# level does not exist:
   expect_warning(sum_str(file_in = paste0(path_start, "raw_in/example-3.R"), dir_out = "", granularity = 1,
                          file_out = "object", last_sep = TRUE, title = FALSE))
-  rm(list = ls())
 
-  context("granularity example-4")
+})
+
+context("granularity example-4")
 # generate examples
 # note that level 4 does not have any comments and level 2 is missing
 # mapply(sum_str,
@@ -117,11 +119,12 @@ test_that("granularity example-3", {
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ### check for granularity == 3
   # expect warning and test value
+test_that("granularity 4", {
   correct <- readLines(paste0(path_start, "correct/out-ex-4_gran-3"))
   expect_warning(test <- sum_str(file_in = paste0(path_start, "raw_in/example-4.R") , dir_out = "", granularity = 3,
                      file_out = "object", last_sep = TRUE, title = FALSE)[[1]])
   expect_identical(correct, test)
-  rm(list = ls())
+
 
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ### check for granularity == 2
@@ -129,25 +132,25 @@ test_that("granularity example-3", {
   expect_warning(test    <- sum_str(file_in = paste0(path_start, "raw_in/example-4.R"), dir_out = "", granularity = 2,
                      file_out = "object", last_sep = TRUE, title = FALSE)[[1]])
   expect_identical(correct, test)
-  rm(list = ls())
+
 
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ### check for granularity == 1
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ### check for granularity == 3
   correct <- readLines(paste0(path_start, "correct/out-ex-3_gran-3"))
-  test    <- sum_str(file_in = paste0(path_start, "raw_in/example-3.R"), dir_out = "", granularity = 3,
-                     file_out = "object", last_sep = TRUE, title = FALSE)[[1]]
+  expect_warning(test <- sum_str(file_in = paste0(path_start, "raw_in/example-3.R"), dir_out = "", granularity = 3,
+                     file_out = "object", last_sep = TRUE, title = FALSE)[[1]])
   expect_identical(correct, test)
-  rm(list = ls())
+
 
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ### check for granularity == 2
   correct <- readLines(paste0(path_start, "correct/out-ex-3_gran-2"))
-  test    <- sum_str(file_in = paste0(path_start, "raw_in/example-3.R"), dir_out = "", granularity = 2,
-                     file_out = "object", last_sep = TRUE, title = FALSE)[[1]]
+  expect_warning(test <- sum_str(file_in = paste0(path_start, "raw_in/example-3.R"), dir_out = "", granularity = 2,
+                     file_out = "object", last_sep = TRUE, title = FALSE)[[1]])
   expect_identical(correct, test)
-  rm(list = ls())
+
 
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ### check for granularity == 1
@@ -155,6 +158,30 @@ test_that("granularity example-3", {
   expect_warning(test  <- sum_str(file_in = paste0(path_start, "raw_in/example-4.R"), dir_out = "", granularity = 1,
                      file_out = "object", last_sep = TRUE, title = FALSE)[[1]])
   expect_identical(correct, test)
-  rm(list = ls())
+
+
+})
+
+context("last_sep = FALSE")
+#   ____________________________________________________________________________
+#   check 3 granularities last_sep = FALSE
+# generate samples
+# mapply(sum_str, file_in = paste0("example-", rep(1:5, each = 3), ".R"),
+#        dir_in = "tests/testthat/raw_in", granularity = rep(1:3, 5),
+# dir_out = "tests/testthat/correct",
+# file_out = paste0("out-ex-", rep(1:5, each = 3), "_gran-", rep(1:3, 5), "_last_FALSE"), title = FALSE)
+
+test_that("example-3-and-4", {
+  # after having checked that files are actually correct:
+
+  for (i in 1:3) {
+    for (j in c(1, 2, 5)) {
+      correct <- readLines(paste0(path_start, paste0("correct/out-ex-", j, "_gran-", i, "_last_FALSE")))
+      test    <- sum_str(file_in = paste0(path_start, "raw_in/example-", j, ".R"), dir_out = "", granularity = i,
+                         file_out = "object", last_sep = FALSE, title = FALSE)[[1]]
+      expect_identical(correct, test)
+
+    }
+  } # loop over granularity
 
 })
