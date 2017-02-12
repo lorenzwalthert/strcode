@@ -89,9 +89,7 @@ To create the summary, \code{sum_str} uses regular expressions.
 
   The add-in contained in this package inserts section titles in a way that
     that they are recognised by RStudio as sections (for details, see
-    RStudio's
-    \href{https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections}{official website}.
-    One structure that is
+    \href{https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections}{RStudio's official website}. One structure that is
     recognised by RStudio as section is a line starting with a hash and ending
     with four hashes. This structure is implemented with \code{strcode}.
     Hence when creating the summary, it might be desired to remove the right
