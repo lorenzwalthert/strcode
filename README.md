@@ -3,14 +3,14 @@ README
 
 The `strcode` (short for structuring code) package contains tools to organize and abstract your code better. It consists of
 
--   An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you quickly add code block separators to devide your work into sections
+-   An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you quickly add code block separators to divide your work into sections
 -   A function `sum_str` that summarizes the code structure based on the separators and their comments added with the Add-in. For one or more files, it prints the structure to the console or a file. <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
     a guide for good practice in R programming. -->
 
 Installation
 ============
 
-You can install the package from github.
+You can install the package from GitHub.
 
 ``` r
 # install.packages("devtools")
@@ -25,21 +25,21 @@ Overview
 
 We suggest three levels of granularity for code structuring. Of course, higher-level blocks can contain lower-level blocks.
 
--   level 1 sections, which are high-level blocks that can be separated as follows
+-   level 1 sections, which are high-level blocks that can be separated as follows:
 
 ``` r
 #   ____________________________________________________________________________
 #   I: import xzy
 ```
 
--   level 2 sections, which are medium-level blocks that can be separated as follows
+-   level 2 sections, which are medium-level blocks that can be separated as follows:
 
 ``` r
 ##  ............................................................................
 ##  A: pre-process t2
 ```
 
--   level 3 sections, which are low-level blocks that can be separated as follows
+-   level 3 sections, which are low-level blocks that can be separated as follows:
 
 ``` r
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -51,10 +51,10 @@ You can notice from the above that
 -   The number of `#` used in front of the break character (`___`, `...`, `. .`) corresponds to the level of granularity that is separated.
 -   level 1 sections use roman numbers, level 2 sections use upper-case letters and level 3 sections use lower-case letters.
 -   The breaks characters `___`, `...`, `. .` were chosen such that they reflect the level of granularity, namely `___` has a much higher visual density than `. .`.
--   Each block has an (optional) short comment on what the next block is about.
+-   Each block has an (optional) short comment on what that block is about.
 
-The separators do all have length 80. The value is looked up in the global option `strcode$char_length` and can be changed by the user (either every session manually or using .Rprofile).
-For each of the introduced separators, there is an Add-in function. You can also call them from the console
+The separators all have length 80. The value is looked up in the global option `strcode$char_length` and can be changed by the user (either every session manually or using .Rprofile).
+For each of the introduced separators, there is an Add-in function. You can also call them from the console:
 
 -   `strcode::insert_l1_break()`
 -   `strcode::insert_l2_break()`
@@ -233,17 +233,16 @@ test2 <- function(x) {
 Summarizing code
 ----------------
 
-Given that code is structured as above, it can easily be summarized or represented in a compact and abstract form. This is particularly handy when the codebase is large, when a lot of people work on the code or when new people join a project. The function `sum_str` is designed exactly for the purpose of extracting separators and respective comments. With a host of options, it is highly customizable and flexible. For example, the file presented in the example section above can be summarized as follows
+Once code has been structured by adding sections (as above), it can easily be summarized or represented in a compact and abstract form. This is particularly handy when the codebase is large, when a lot of people work on the code or when new people join a project. The function `sum_str` is designed for the purpose of extracting separators and respective comments, in order to provide high level code summaries. It is highly customizable and flexible, with a host of options. For example, the file presented in the example section above can be summarized as follows:
 
 ``` r
-sum_str(dir_in = "placeholder_code", 
-        file_in = "example.R", 
+sum_str(path_in = "placeholder_code/example.R", 
         file_out = "",
         width = 40,
         granularity = 2,
         lowest_sep = FALSE, 
         header = TRUE)
-#> Summarized structure of example.R
+#> Summarized structure of placeholder_code/example.R
 #> 
 #> line  level section
 #> 2    #   _
@@ -254,6 +253,7 @@ sum_str(dir_in = "placeholder_code",
 #> 84   #   function test2
 #> 87   ##  A: pre-processing
 #> 138  ##  B: actual function
+#> 169  ##  test
 ```
 
 -   `dir_*` and `file_*` specify directories or filenames for reading and writing.

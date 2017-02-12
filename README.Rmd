@@ -259,15 +259,12 @@ For example, the file presented in the example section above can be summarized
 as follows:
 
 ```{r}
-sum_str(dir_in = "placeholder_code", 
-        file_in = "example.R", 
+sum_str(path_in = "placeholder_code/example.R", 
         file_out = "",
         width = 40,
         granularity = 2,
         lowest_sep = FALSE, 
         header = TRUE)
-
-
 ```
 
 - `dir_*` and `file_*` specify directories or filenames for reading and writing. 
