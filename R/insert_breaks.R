@@ -30,14 +30,14 @@
 #'  In order to be \href{https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections}{recognised as sections by RStudio},
 #'  all titles end with four hashes (see example below). We put the hashes at
 #'  the end of the line (where end of a line is defined by the global option
-#'  options()$strcode$char_length, which defaults t0 80)
+#'  options()$strcode$char_length, which defaults to 80)
 #'  and separate it from the section title with spaces to
 #'  achieve a natural representation in the code flow.
 #'  Being recognised as sections by RStudio means
-#'  that at the very botton of the code pane, right next to line / indent count,
-#'  you can see a little table of contents of the current file can be unfold. An
-#'  that you can fold code the sections (just as you can fold function
-#'  declarations).
+#'  that at the very botton of the code pane, right next to line/indent count,
+#'  is a little table of contents of the current file which can be expanded to
+#'  view (and jump to) different code sections. Additionally, you will be able
+#'  to fold code sections (just as you can fold function declarations in RStudio).
 #'
 #' @name insert_l_break
 #' @seealso sum_str
@@ -201,10 +201,10 @@ help_create_break <- function(start = "##",
 #' @param fill A sequence to fill the sequence with. This is the actual title.
 #' @param length An integer value indicating how long the sequence should be
 #' @param sep A separator sequence to separate start and fill.
-#' @param end A character sequence that indicates how the end of the final
+#' @param end A character sequence that indicates what the end of the final
 #'   sequence should look like.
 #' @details
-#'   For Rstudio to recognize a herby produced sequence as a title, it must
+#'   For Rstudio to recognize a hereby produced sequence as a title, it must
 #'     start with # and end with at least 4 of the following characters: #, -, =.
 help_create_title <- function(start = "##",
                               fill = "this is a title",
