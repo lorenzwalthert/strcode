@@ -1,6 +1,6 @@
 #' Insert a hash anchor
 #'
-#' @param length_random_input A number giving the range from which to withdraw
+#' @param length_random_input A number giving the range from which to draw
 #'   a random number.
 #' @param enclosing_start A string that specifies the left-hand side enclosing
 #'   of the hash
@@ -21,9 +21,9 @@
 
 
 ##  ............................................................................
-insert_anchor <- function(length_random_input = .Machine$integer.max,
-                          enclosing_start = "#<",
+insert_anchor <- function(enclosing_start = "#<",
                           enclosing_end = ">#",
+                          length_random_input = .Machine$integer.max,
                           ...) {
 
 ##  ............................................................................
@@ -42,6 +42,11 @@ insert_anchor <- function(length_random_input = .Machine$integer.max,
 
   }
 
+##  ............................................................................
+##  set margin for insertion                                                ####
+  # if you are at beginning of line: no margin
+  indent <- getActiveDocumentContext()$selection[[1]]$range$start[2]
+  margin <- ifelse(indent == 1, 0, 1)
 
 ##  ............................................................................
 ##  actual function call
@@ -55,6 +60,6 @@ insert_anchor <- function(length_random_input = .Machine$integer.max,
   help_insert(anchor,
               start_row = 0,
               start_indention = Inf,
-              start_indention_margin = 1,
+              start_indention_margin = margin,
               end_row = 1)
 }

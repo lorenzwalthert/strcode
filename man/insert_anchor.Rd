@@ -4,18 +4,18 @@
 \alias{insert_anchor}
 \title{Insert a hash anchor}
 \usage{
-insert_anchor(length_random_input = .Machine$integer.max,
-  enclosing_start = "#<", enclosing_end = ">#", ...)
+insert_anchor(enclosing_start = "#<", enclosing_end = ">#",
+  length_random_input = .Machine$integer.max, ...)
 }
 \arguments{
-\item{length_random_input}{A number giving the range from which to withdraw
-a random number.}
-
 \item{enclosing_start}{A string that specifies the left-hand side enclosing
 of the hash}
 
 \item{enclosing_end}{A string that specifies the right-hand-side enclosing of
 the hash. If \code{NULL}, then the reverse of \code{enclosing_start} is used.}
+
+\item{length_random_input}{A number giving the range from which to draw
+a random number.}
 
 \item{...}{further arguments to be passed to and from other methods, in
 in particular to digest}
