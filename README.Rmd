@@ -17,7 +17,7 @@ The `strcode` (short for structuring code) package contains tools to organize
 and abstract your code better. It consists of
 
 - An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you 
-  quickly add code block separators to devide your work into sections
+  quickly add code block separators to divide your work into sections
 - A function `sum_str` that summarizes the code structure based on the 
   separators and their comments added with the Add-in. For one or more files,
   it prints the structure to the console or a file.
