@@ -59,9 +59,11 @@ check_via_read <- function(directory = "test-dir_in",
                            filename = "code_summary-example-1",
                            path_start) {
   filenames <- c(filename, paste0(filename, "_correct"))
-  path <- ifelse(is.null(path_start), paste(directory, filenames, sep = "/"),
-                 paste(path_start, directory, filenames, sep = "/"))
-
+  path <- if (is.null(path_start)) {
+    paste(directory, filenames, sep = "/")
+  } else {
+    paste(path_start, directory, filenames, sep = "/")
+  }
   # read files in
   compare <- lapply(path, readLines)
   length(unique(compare)) == 1

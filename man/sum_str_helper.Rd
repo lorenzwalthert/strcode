@@ -5,19 +5,18 @@
 \title{helper function for code summarisation
 return code summary for one file}
 \usage{
-sum_str_helper(dir_in, dir_out, file_in, file_out, file_out_extension,
-  rm_rh_hashes, rm_rh_spaces, width, line_nr, granularity, last_sep, title,
-  header)
+sum_str_helper(path_in, dir_out, file_out, file_out_extension, rm_rh_hashes,
+  rm_rh_spaces, width, line_nr, granularity, last_sep, title, header)
 }
 \arguments{
-\item{dir_in}{The directory where the file can be found.}
+\item{path_in}{Either a path to a directory or to a single file. If it is
+a directory path, all files in that directory will be summarised. If it
+is a single file path, only the resepective file will be summarised.
+The default value uses the RStudio API to produce a summary of content from
+the source editor. This requires that the file is saved before
+\code{sum_str} is called.}
 
 \item{dir_out}{The directory to print the output to. "" implies the console.}
-
-\item{file_in}{The name of a file which should be summarized.
-The default value uses the RStudio API to produce a summary of content from
-the source editor. This requires that
-the file is saved before \code{sum_str} is called.}
 
 \item{file_out}{A connection or character string naming the file to print to.
 If set to \code{NULL}, the name will be \code{paste0("code-summary_", file_in)}.

@@ -2,12 +2,12 @@
 #'
 #' Create a summary of one or multiple code files based on the section
 #' separators and their titles.
-#' @param dir_in The directory where the file(s) can be found.
-#' @param file_in The name of a file which should be summarized. If this is
-#'   \code{NULL}, the summary will be for all files in the specified directory.
+#' @param path_in Either a path to a directory or to a single file. If it is
+#'   a directory path, all files in that directory will be summarised. If it
+#'   is a single file path, only the resepective file will be summarised.
 #'   The default value uses the RStudio API to produce a summary of content from
-#'   the source editor. This requires that
-#'   the file is saved before \code{sum_str} is called.
+#'   the source editor. This requires that the file is saved before
+#'   \code{sum_str} is called.
 #' @param file_in_extension If \code{file_in} is \code{NULL}, all files with the
 #'   \code{file_in_extension} are considered, defaults to ".R".
 #' @param dir_out The directory to print the output to. "" implies the console.
@@ -85,8 +85,7 @@
 #'
 #   ____________________________________________________________________________
 #   user function                                                           ####
-sum_str <- function(dir_in = NULL,
-                    file_in = getSourceEditorContext()$path,
+sum_str <- function(path_in = getSourceEditorContext()$path,
                     file_in_extension = ".R",
                     dir_out = "",
                     file_out = NULL,
@@ -107,18 +106,26 @@ assert_number(granularity, lower = 1, upper = 3)
 
 ### . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ..
 ### prepare input to call helper repeated times                             ####
-  # in the case there are multiple files
-  if (is.null(file_in)) {
-    all_files <- as.list(list.files(path = dir_in,
-                            pattern = paste0(file_in_extension, "$"),
-                            full.names = FALSE,
-                            ...)
-    )
-
-  # in the case there is just one file
-  } else {
-    all_files <- as.list(file_in)
+  # check if file can be directory or path
+  if (is.na(file.info(path_in)$isdir)) {
+    stop("Indicated path (", path_in, ") is neither a directory nor a valid file name")
   }
+  # create files if path_in is directory
+  else if(file.info(path_in)$isdir) {
+    all_files <- list.files(path = path_in,
+                            pattern = paste0(file_in_extension, "$"),
+                            full.names = FALSE)
+    # files contain path name
+    all_files <- paste(path_in, all_files, sep = "/")
+    if (length(all_files) == 0) {
+      warning("there are no files in the directory")
+    }
+
+  # in the case path_in is already a file
+  } else {
+    all_files <- path_in
+  }
+
   # if output is not printed in the console, print a short summary.
 ### . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ..
 ### call helper                                                             ####
@@ -126,12 +133,11 @@ assert_number(granularity, lower = 1, upper = 3)
     cat("The following files were summarized \n")
   }
   output <- lapply(all_files, function(g) {
-    # pass all arguments as is except the file_in
+    # pass all arguments as is except the path_in
     if (dir_out != "") {
       cat(g, sep = " \n")
     }
-    sum_str_helper(dir_in = dir_in,
-                   file_in = g,
+    sum_str_helper(path_in = g,
                    dir_out = dir_out,
                    file_out = file_out,
                    file_out_extension = file_out_extension,
@@ -158,11 +164,6 @@ assert_number(granularity, lower = 1, upper = 3)
 #'
 #' Function is called by \code{sum_str()} and returns summary of one code file.
 #' @inheritParams sum_str
-#' @param dir_in The directory where the file can be found.
-#' @param file_in The name of a file which should be summarized.
-#'   The default value uses the RStudio API to produce a summary of content from
-#'   the source editor. This requires that
-#'   the file is saved before \code{sum_str} is called.
 #' @details The core of the function is described best as follows: after a file
 #' was read in and stored in a vector *lines* whereas each element describes a
 #' line of code, the candidate lines (in the sense that they might be contained
@@ -174,9 +175,8 @@ assert_number(granularity, lower = 1, upper = 3)
 #' the subset of *lines* that we finally want to output.
 #' @keywords internal
 #' @import checkmate
-sum_str_helper <- function(dir_in,
+sum_str_helper <- function(path_in,
                            dir_out,
-                           file_in,
                            file_out,
                            file_out_extension,
                            rm_rh_hashes,
@@ -194,7 +194,7 @@ sum_str_helper <- function(dir_in,
 ### get the file_out together
   if (is.null(file_out)) {
     # file_out must be a file name. Grap the last expression after backslash.
-    backslash_rm <- gsub("^.*/(.*)", "\\1", file_in, perl = TRUE)
+    backslash_rm <- gsub("^.*/(.*)", "\\1", path_in, perl = TRUE)
     file_out <- paste0("code_summary-",
                        gsub("^(.*)\\..*$", "\\1", backslash_rm, perl = TRUE),
                        file_out_extension)
@@ -202,16 +202,6 @@ sum_str_helper <- function(dir_in,
 
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ### paths
-  # path_in
-  ## note that file_in is never null when called from sum_str()
-
-  # if dir is not null, the path is composed of dir and file
-  if (!is.null(dir_in)) {
-    path_in <- paste(dir_in, file_in, sep = "/")
-  # otherwise it is simply the file_in
-  } else {
-    path_in <- file_in
-  }
 
   # path_out
   ## path_out is "" if dir_out is ""
@@ -313,7 +303,7 @@ sum_str_helper <- function(dir_in,
     lines <- append(c("line  level section"), lines)
   }
   if (title == TRUE) {
-    lines <- append(paste0("Summarized structure of ", file_in, "\n"), lines)
+    lines <- append(paste0("Summarized structure of ", path_in, "\n"), lines)
   }
 
 ##  ............................................................................

@@ -4,20 +4,18 @@
 \alias{sum_str}
 \title{Summarize the code structure}
 \usage{
-sum_str(dir_in = NULL, file_in = getSourceEditorContext()$path,
-  file_in_extension = ".R", dir_out = "", file_out = NULL,
-  file_out_extension = "", width = NULL, rm_rh_hashes = TRUE,
-  rm_rh_spaces = TRUE, line_nr = TRUE, granularity = 3,
-  last_sep = FALSE, title = TRUE, header = TRUE, ...)
+sum_str(path_in = etSourceEditorContext()$path, file_in_extension = ".R",
+  dir_out = "", file_out = NULL, file_out_extension = "", width = NULL,
+  rm_rh_hashes = TRUE, rm_rh_spaces = TRUE, line_nr = TRUE,
+  granularity = 3, last_sep = FALSE, title = TRUE, header = TRUE, ...)
 }
 \arguments{
-\item{dir_in}{The directory where the file(s) can be found.}
-
-\item{file_in}{The name of a file which should be summarized. If this is
-\code{NULL}, the summary will be for all files in the specified directory.
+\item{path_in}{Either a path to a directory or to a single file. If it is
+a directory path, all files in that directory will be summarised. If it
+is a single file path, only the resepective file will be summarised.
 The default value uses the RStudio API to produce a summary of content from
-the source editor. This requires that
-the file is saved before \code{sum_str} is called.}
+the source editor. This requires that the file is saved before
+\code{sum_str} is called.}
 
 \item{file_in_extension}{If \code{file_in} is \code{NULL}, all files with the
 \code{file_in_extension} are considered, defaults to ".R".}
