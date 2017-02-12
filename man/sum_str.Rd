@@ -4,7 +4,7 @@
 \alias{sum_str}
 \title{Summarize the code structure}
 \usage{
-sum_str(path_in = etSourceEditorContext()$path, file_in_extension = ".R",
+sum_str(path_in = getSourceEditorContext()$path, file_in_extension = ".R",
   dir_out = "", file_out = NULL, file_out_extension = "", width = NULL,
   rm_rh_hashes = TRUE, rm_rh_spaces = TRUE, line_nr = TRUE,
   granularity = 3, last_sep = FALSE, title = TRUE, header = TRUE, ...)
