@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>find_title. strcode</title>
+<title>text_focus. strcode</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -66,21 +66,49 @@
       </header>
 
       <div class="page-header">
-  <h1>elicit break titles via shiny gadget</h1>
+  <h1>insert text with autofocus</h1>
 </div>
 
 <div class="row">
   <div class="col-md-9">
     
-    <p>A helper function to create a pane to enter a title name</p>
+    <p># function is identical to textAreaInput but adds autofocus to tags</p>
     
 
-    <pre><span class='fu'>find_title</span>(<span class='no'>level</span>)</pre>
+    <pre><span class='fu'>text_focus</span>(<span class='no'>inputId</span>, <span class='no'>label</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rows</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>placeholder</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>resize</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>level</dt>
-      <dd>The level of the code break to be inserted</dd>
+      <dt>inputId</dt>
+      <dd>The <code>input</code> slot that will be used to access the value.</dd>
+      <dt>label</dt>
+      <dd>Display label for the control, or <code>NULL</code> for no label.</dd>
+      <dt>value</dt>
+      <dd>Initial value.</dd>
+      <dt>width</dt>
+      <dd>The width of the input, e.g. <code>&#39;400px&#39;</code>, or <code>&#39;100%&#39;</code>;
+see <code>validateCssUnit</code>.</dd>
+      <dt>height</dt>
+      <dd>The height of the input, e.g. <code>&#39;400px&#39;</code>, or
+<code>&#39;100%&#39;</code>; see <code>validateCssUnit</code>.</dd>
+      <dt>cols</dt>
+      <dd>Value of the visible character columns of the input, e.g.
+<code>80</code>. If used with <code>width</code>, <code>width</code> will take precedence in
+the browser&#39;s rendering.</dd>
+      <dt>rows</dt>
+      <dd>The value of the visible character rows of the input, e.g.
+<code>6</code>. If used with <code>height</code>, <code>height</code> will take precedence in
+the browser&#39;s rendering.</dd>
+      <dt>placeholder</dt>
+      <dd>A character string giving the user a hint as to what can
+be entered into the control. Internet Explorer 8 and 9 do not support this
+option.</dd>
+      <dt>resize</dt>
+      <dd>Which directions the textarea box can be resized. Can be one of
+<code>&quot;both&quot;</code>, <code>&quot;none&quot;</code>, <code>&quot;vertical&quot;</code>, and <code>&quot;horizontal&quot;</code>.
+The default, <code>NULL</code>, will use the client browser&#39;s default setting for
+resizing textareas.</dd>
     </dl>
           </div>
   <div class="col-md-3">

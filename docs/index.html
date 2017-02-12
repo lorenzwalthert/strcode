@@ -105,11 +105,11 @@ devtools::<span class="kw">install_github</span>(<span class="st">"lorenzwalther
 <li>The breaks characters <code>___</code>, <code>...</code>, <code>. .</code> were chosen such that they reflect the level of granularity, namely <code>___</code> has a much higher visual density than <code>. .</code>.</li>
 <li>Each block has an (optional) short comment on what the next block is about.</li>
 </ul>
-<p>The separators do all have length 80. The value is looked up in the global option <code>strcode.char.length</code> and can be changed by the user (either every session manually or using .Rprofile). For each of the introduced separators, there is an Add-in function. You can also call them from the console</p>
+<p>The separators do all have length 80. The value is looked up in the global option <code>strcode$char_length</code> and can be changed by the user (either every session manually or using .Rprofile). For each of the introduced separators, there is an Add-in function. You can also call them from the console</p>
 <ul>
 <li><code>strcode::insert_l1_break()</code></li>
-<li><code>strcode::insert_l2_break()</code></li>
-<li><code><a href="reference/insert_l_break.html">strcode::insert_l3_break()</a></code></li>
+<li><code><a href="reference/insert_l_break.html">strcode::insert_l2_break()</a></code></li>
+<li><code>strcode::insert_l3_break()</code></li>
 </ul>
 <h2 id="example">Example</h2>
 <p>To demonstrate the improvement in legibility, we give an extended example with some placeholder code.</p>
@@ -287,14 +287,14 @@ test2 &lt;-<span class="st"> </span>function(x) {
 <span class="co">#&gt; Summarized structure of example.R</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; line  level section</span>
-<span class="co">#&gt; 1    #   ____________________________________</span>
-<span class="co">#&gt; 2    #   function test</span>
-<span class="co">#&gt; 5    ##  A: pre-processing</span>
-<span class="co">#&gt; 56   ##  B: actual function</span>
-<span class="co">#&gt; 82   #   ____________________________________</span>
-<span class="co">#&gt; 83   #   function test2</span>
-<span class="co">#&gt; 86   ##  A: pre-processing</span>
-<span class="co">#&gt; 137  ##  B: actual function</span></code></pre></div>
+<span class="co">#&gt; 2    #   _</span>
+<span class="co">#&gt; 3    #   function test</span>
+<span class="co">#&gt; 6    ##  -A: pre-processing</span>
+<span class="co">#&gt; 57   ##  B: actual function</span>
+<span class="co">#&gt; 83   #   ____________________________________</span>
+<span class="co">#&gt; 84   #   function test2</span>
+<span class="co">#&gt; 87   ##  A: pre-processing</span>
+<span class="co">#&gt; 138  ##  B: actual function</span></code></pre></div>
 <ul>
 <li>
 <code>dir_*</code> and <code>file_*</code> specify directories or filenames for reading and writing.</li>

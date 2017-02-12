@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>find_title. strcode</title>
+<title>check_via_read. strcode</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -66,23 +66,44 @@
       </header>
 
       <div class="page-header">
-  <h1>elicit break titles via shiny gadget</h1>
+  <h1>check via reading files</h1>
 </div>
 
 <div class="row">
   <div class="col-md-9">
     
-    <p>A helper function to create a pane to enter a title name</p>
+    <p>check whether a writen correct file is equivalent to a writen one
+produced by strcode</p>
     
 
-    <pre><span class='fu'>find_title</span>(<span class='no'>level</span>)</pre>
+    <pre><span class='fu'>check_via_read</span>(<span class='kw'>directory</span> <span class='kw'>=</span> <span class='st'>"test-dir_in"</span>,
+  <span class='kw'>filename</span> <span class='kw'>=</span> <span class='st'>"code_summary-example-1"</span>, <span class='no'>path_start</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>level</dt>
-      <dd>The level of the code break to be inserted</dd>
+      <dt>directory</dt>
+      <dd>A path relative to &quot;tests/testthat&quot;</dd>
+      <dt>filename</dt>
+      <dd>The name of a file to check. The name of the file to check
+against is <code>filename_correct</code></dd>
+      <dt>path_start</dt>
+      <dd>A string specifiing the location of of testthat relative
+to the project root. See details</dd>
     </dl>
-          </div>
+    
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>When testing is performed manually (that is, not via test routine
+  of RStudio), reading in files needs a directory relative to the project
+  main directory. When running tests via RStudio, the directory must be
+  indicated relative to the testthat folder. Hence, for manual testing,
+  we need a different path than for routine testing. The problem can be
+  solved by assigning a global variable to path_start manually plus setting
+  path_start to <code>NULL</code> at the beginning of the document, so when the
+  tests are run via the RStudio routine, they are set correctly.</p>
+    </div>
+      </div>
   <div class="col-md-3">
   </div>
 </div>
