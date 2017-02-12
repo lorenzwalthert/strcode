@@ -16,13 +16,13 @@ help_create_title(start = "##", fill = "this is a title",
 
 \item{sep}{A separator sequence to separate start and fill.}
 
-\item{end}{A character sequence that indicates how the end of the final
+\item{end}{A character sequence that indicates what the end of the final
 sequence should look like.}
 }
 \description{
 This function returns a string that can be used as a title.
 }
 \details{
-For Rstudio to recognize a herby produced sequence as a title, it must
+For Rstudio to recognize a hereby produced sequence as a title, it must
     start with # and end with at least 4 of the following characters: #, -, =.
 }

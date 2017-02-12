@@ -45,14 +45,14 @@ The breaks characters (\code{___}, \code{...}, \code{. .}) were
  In order to be \href{https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections}{recognised as sections by RStudio},
  all titles end with four hashes (see example below). We put the hashes at
  the end of the line (where end of a line is defined by the global option
- options()$strcode$char_length, which defaults t0 80)
+ options()$strcode$char_length, which defaults to 80)
  and separate it from the section title with spaces to
  achieve a natural representation in the code flow.
  Being recognised as sections by RStudio means
- that at the very botton of the code pane, right next to line / indent count,
- you can see a little table of contents of the current file can be unfold. An
- that you can fold code the sections (just as you can fold function
- declarations).
+ that at the very botton of the code pane, right next to line/indent count,
+ is a little table of contents of the current file which can be expanded to
+ view (and jump to) different code sections. Additionally, you will be able
+ to fold code sections (just as you can fold function declarations in RStudio).
 }
 \examples{
 # This is a minimal example.
