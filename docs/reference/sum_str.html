@@ -73,13 +73,14 @@
   <div class="col-md-9">
     
     <p>Create a summary of one or multiple code files based on the section
-separators and their comments.</p>
+separators and their titles.</p>
     
 
     <pre><span class='fu'>sum_str</span>(<span class='kw'>dir_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>file_in</span> <span class='kw'>=</span> <span class='fu'>getSourceEditorContext</span>()$<span class='no'>path</span>,
   <span class='kw'>file_in_extension</span> <span class='kw'>=</span> <span class='st'>".R"</span>, <span class='kw'>dir_out</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>file_out</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>file_out_extension</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>line_nr</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>granularity</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>lowest_sep</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>file_out_extension</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rm_rh_hashes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>rm_rh_spaces</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>line_nr</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>granularity</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>last_sep</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
@@ -108,16 +109,22 @@ useful if output should be assigned to an object. If not set to &quot;object&quo
       <dd>A file extension for the file to be created.</dd>
       <dt>width</dt>
       <dd>The character width of the output. If NULL, it is set to the
-length of the longest separator comment.</dd>
+length of the longest separator title.</dd>
+      <dt>rm_rh_hashes</dt>
+      <dd>Boolean value indicating whether or not to remove
+righthand hashes in section titles (see details).</dd>
+      <dt>rm_rh_spaces</dt>
+      <dd>Boolean value indicating whether or not to remove
+righthand spaces in section titles (see details).</dd>
       <dt>line_nr</dt>
       <dd>A boolean value that indicates whether the line numbers should
 be printed along with the structure summary.</dd>
       <dt>granularity</dt>
       <dd>Indicates the lowest level of granularity that should be
 included in the summary.</dd>
-      <dt>lowest_sep</dt>
+      <dt>last_sep</dt>
       <dd>A boolean value indicating whether or not the separating
-lines of the lowest level should be printed.</dd>
+lines of the highest granularity should be printed.</dd>
       <dt>title</dt>
       <dd>A boolean value indicating whether the reported summary should
 contain a title or not.</dd>
@@ -133,9 +140,9 @@ particular <code>list.files</code> for reading in multiple files.</dd>
       <h2>Details</h2>
 
       <p>To create the summary, <code>sum_str</code> uses regular expressions.
-  Hence it is crucial that the code separators and the separator comments
+  Hence it is crucial that the code separators and the separator titles
   match the regular expression pattern. We recommend inserting
-  separators and their comments using the RStudio Add-in that is contained
+  separators and their titles using the RStudio Add-in that is contained
   in this package. The definition is rather intuitive as can be seen in the
   example section below. However, we shall provide a formal definition here
   as well.
@@ -144,7 +151,7 @@ particular <code>list.files</code> for reading in multiple files.</dd>
     followed by 4-n spaces where 0 &lt; n &lt; 4. This sequence is followed by one
     or more either <code>.</code> or <code>_</code>.
     </li>
-<li> A comment associated with a code separator is defined as a line
+<li> A title associated with a code separator is defined as a line
     that starts with n hashes, followed by 4-n spaces where 0 &lt; n &lt; 4. This
     sequence is <em>not</em> followed by <code>.</code> or <code>_</code>.
   </li>
@@ -153,15 +160,35 @@ particular <code>list.files</code> for reading in multiple files.</dd>
   do not contain the right number of spaces after the #, indent before any #
   ect.) are not considered by <code>sum_str</code>.</p>
     </div>
+
+    <div class="Removing spaces and hashes">
+      <h2>Removing spaces and hashes</h2>
+
+      <p></p>
+      <p>The add-in contained in this package inserts section titles in a way that
+    that they are recognised by RStudio as sections (for details, see
+    <a href = 'RStudio&#39;s official website'>https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections</a>. One structure that is
+    recognised by RStudio as section is a line starting with a hash and ending
+    with four hashes. This structure is implemented with <code>strcode</code>.
+    Hence when creating the summary, it might be desired to remove the right
+    hand hashes and spaces, which can be specified with the respective options
+    <code>rm_rh_hashes</code> and <code>rm_rh_spaces</code>.</p>
+    </div>
+
+    <div class="See also">
+      <h2>See also</h2>
+
+      <p>insert_l_break</p>
+    </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># the following separators are examples of valid</span>
-<span class='co'># separators and associated comments</span>
+    <pre class="examples"><div class='input'><span class='co'># the following separator is an example of a valid</span>
+<span class='co'># separator and associated title</span>
 
 <span class='co'>#   __________________________________________________</span>
-<span class='co'>#   this is a level 1 comment</span>
+<span class='co'>#   this is a level 1 title                     ####</span>
 <span class='co'>##  . . . . . . . . . . . . . . . . . . . . . . . . .</span>
-<span class='co'>##  note that the comment or the separator character (_, .)</span>
+<span class='co'>##  note that the title or the separator character (_, .)</span>
 <span class='co'>##  always starts at indention 4.</span>
 
 <span class='co'>## Not run: ------------------------------------</span>

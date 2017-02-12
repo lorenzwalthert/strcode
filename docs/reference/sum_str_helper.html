@@ -66,7 +66,8 @@
       </header>
 
       <div class="page-header">
-  <h1>helper function for code summarisation</h1>
+  <h1>helper function for code summarisation
+</h1>
 </div>
 
 <div class="row">
@@ -75,8 +76,9 @@
     <p>Function is called by <code>sum_str()</code> and returns summary of one code file.</p>
     
 
-    <pre><span class='fu'>sum_str_helper</span>(<span class='no'>dir_in</span>, <span class='no'>dir_out</span>, <span class='no'>file_in</span>, <span class='no'>file_out</span>, <span class='no'>file_out_extension</span>, <span class='no'>width</span>,
-  <span class='no'>line_nr</span>, <span class='no'>granularity</span>, <span class='no'>lowest_sep</span>, <span class='no'>title</span>, <span class='no'>header</span>)</pre>
+    <pre><span class='fu'>sum_str_helper</span>(<span class='no'>dir_in</span>, <span class='no'>dir_out</span>, <span class='no'>file_in</span>, <span class='no'>file_out</span>, <span class='no'>file_out_extension</span>,
+  <span class='no'>rm_rh_hashes</span>, <span class='no'>rm_rh_spaces</span>, <span class='no'>width</span>, <span class='no'>line_nr</span>, <span class='no'>granularity</span>, <span class='no'>last_sep</span>, <span class='no'>title</span>,
+  <span class='no'>header</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
@@ -99,18 +101,24 @@ useful if output should be assigned to an object. If not set to &quot;object&quo
 <code>cat</code> will be used.</dd>
       <dt>file_out_extension</dt>
       <dd>A file extension for the file to be created.</dd>
+      <dt>rm_rh_hashes</dt>
+      <dd>Boolean value indicating whether or not to remove
+righthand hashes in section titles (see details).</dd>
+      <dt>rm_rh_spaces</dt>
+      <dd>Boolean value indicating whether or not to remove
+righthand spaces in section titles (see details).</dd>
       <dt>width</dt>
       <dd>The character width of the output. If NULL, it is set to the
-length of the longest separator comment.</dd>
+length of the longest separator title.</dd>
       <dt>line_nr</dt>
       <dd>A boolean value that indicates whether the line numbers should
 be printed along with the structure summary.</dd>
       <dt>granularity</dt>
       <dd>Indicates the lowest level of granularity that should be
 included in the summary.</dd>
-      <dt>lowest_sep</dt>
+      <dt>last_sep</dt>
       <dd>A boolean value indicating whether or not the separating
-lines of the lowest level should be printed.</dd>
+lines of the highest granularity should be printed.</dd>
       <dt>title</dt>
       <dd>A boolean value indicating whether the reported summary should
 contain a title or not.</dd>
