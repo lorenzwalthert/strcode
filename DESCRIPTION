@@ -6,7 +6,7 @@ Authors@R: c(
   person("Lorenz", "Walthert", email = "lorenz.walthert@icloud.com", role = "cre"))
 Description: The strcode (short for structuring code) package contains tools to 
     organize your code better. It consists of an RStudio Add-in to divide code into 
-    sections and a function to get summary of a codebase.
+    sections and a function to get a summary of a codebase.
 License: MIT + file LICENCE
 Encoding: UTF-8
 LazyData: true
