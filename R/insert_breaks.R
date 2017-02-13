@@ -109,8 +109,27 @@ insert_l3_break <- function() {
 #'
 #'A helper function to insert a code break for a given level
 #' @param level The level, a numeric value bounded by 1 and 3
-insert_break <- function(level){
+#' @param insert_with_shiny A boolean value indicating whether to use
+#'   a shiny gadget to add separator and possibly title. If set to \code{FALSE},
+#'   simply a separator will be inserted and the user has to set the title
+#'   himself. To permanently set
+#'   this argument, you can alter the global option strcode$insert_with_shiny,
+#'   which is the location where \code{insert_break} looks up the value when
+#'   used as an RStudio Add-in.
+insert_break <- function(level,
+                         insert_with_shiny = options()$strcode$insert_with_shiny){
 
+  ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  ### elicit title of section (and possible reset level)
+
+  if (insert_with_shiny) {
+    ret_value <- find_title(level)
+    if (ret_value$cancel) return("")
+    title <- ret_value$text1
+    level <- as.numeric(unlist(strsplit(ret_value$level, ""))[nchar(ret_value$level)])
+
+
+  }
   ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
   ### set parameter depending on level
   start <- paste0(rep("#", level), collapse = "")
@@ -120,19 +139,8 @@ insert_break <- function(level){
                       "3" = ". ")
   sep = paste(rep(" ", 4 - level), collapse = "")
 
-  ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-  ### elicit title of section
-  ret_value <- find_title(level)
-  title <- ret_value$text1
-  if (ret_value$cancel) return("")
 
 
-  ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-  ### create title sequence to insert
-  seq_title <- help_create_title(start = start,
-                                 fill = title,
-                                 sep = sep,
-                                 end = "####")
   #   ____________________________________________________________________________
 
 
@@ -141,25 +149,32 @@ insert_break <- function(level){
   seq_break <- help_create_break(start = start,
                                  break_char = break_char,
                                  sep = sep)
-
-  ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-  ### actual insertion
   help_insert(seq_break,
               start_row = 1,
               start_indention = Inf,
               start_indention_margin = 0,
               end_row = 2,
               end_indention = Inf)
-  if (!is.null(seq_title)) {
-    help_insert(seq_title,
-                start_row = 0,
-                start_indention = Inf,
-                start_indention_margin = 0,
-                end_row = 1,
-                end_indention = Inf)
+
+### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+### create title sequence to insert
+  if (insert_with_shiny) {
+    seq_title <- help_create_title(start = start,
+                                   fill = title,
+                                   sep = sep,
+                                   end = "####")
+
+
+    if (!is.null(seq_title)) {
+      help_insert(seq_title,
+                  start_row = 0,
+                  start_indention = Inf,
+                  start_indention_margin = 0,
+                  end_row = 1,
+                  end_indention = Inf)
+    }
   }
 }
-
 ##  ............................................................................
 ##  help_create_break
 #' create a break sequence
@@ -282,7 +297,7 @@ find_title <- function(level) {
           text_focus("text1", label = " ", value = "",
                      placeholder = "Your section title",
                      width = "320px", height = "33px"),
-          selectInput("select_gran", " ", width = "100px",
+          selectInput("level", " ", width = "100px",
                       choices = choices_input,
                       selected = choices_input[level]),
           flex = c(3, 1)
@@ -303,13 +318,15 @@ find_title <- function(level) {
 
     observeEvent(input$done, {
       stopApp(list(text1  = input$text1,
-                   cancel = input$cancel))
+                   cancel = input$cancel,
+                   level  = input$level))
     })
 
     observeEvent(input$text1, {
       if(!is.null(input$text1) && any(grep("\n", input$text1))) {
         stopApp(list(text1 = gsub("\n", "", input$text1),
-                     cancel = input$cancel))
+                     cancel = input$cancel,
+                     level  = input$level))
       }
     })
 

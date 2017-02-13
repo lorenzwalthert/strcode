@@ -4,10 +4,18 @@
 \alias{insert_break}
 \title{Insert a code break of arbitrary level}
 \usage{
-insert_break(level)
+insert_break(level, insert_with_shiny = options()$strcode$insert_with_shiny)
 }
 \arguments{
 \item{level}{The level, a numeric value bounded by 1 and 3}
+
+\item{insert_with_shiny}{A boolean value indicating whether to use
+a shiny gadget to add separator and possibly title. If set to \code{FALSE},
+simply a separator will be inserted and the user has to set the title
+himself. To permanently set
+this argument, you can alter the global option strcode$insert_with_shiny,
+which is the location where \code{insert_break} looks up the value when
+used as an RStudio Add-in.}
 }
 \description{
 A helper function to insert a code break for a given level
