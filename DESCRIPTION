@@ -1,7 +1,7 @@
 Package: strcode
 Type: Package
 Title: Structure and abstract your code
-Version: 0.0.9001
+Version: 0.2.0
 Authors@R: c(
   person("Lorenz", "Walthert", email = "lorenz.walthert@icloud.com", role = "cre"))
 Description: The strcode (short for structuring code) package contains tools to 
