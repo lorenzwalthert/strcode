@@ -1,15 +1,23 @@
 Package: strcode
 Type: Package
-Title: An RStudio Add-in to divide your code into blocks
-Version: 0.1.0
+Title: Structure and abstract your code
+Version: 0.2.0
 Authors@R: c(
   person("Lorenz", "Walthert", email = "lorenz.walthert@icloud.com", role = "cre"))
-Description: An Rstudio Add-in to divide your code into
-    blocks.
+Description: The strcode (short for structuring code) package contains tools to 
+    organize your code better. It consists of an RStudio Add-in to divide code into 
+    sections and a function to get a summary of a codebase.
 License: MIT + file LICENCE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 5.0.1
-Imports: rstudioapi
-
-
+RoxygenNote: 6.0.1
+Imports:
+  rstudioapi,
+  digest,
+  checkmate, 
+  shiny,
+  miniUI
+Suggests: testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

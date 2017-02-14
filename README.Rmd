@@ -13,10 +13,21 @@ library(strcode)
 ```
 
 
-The `strcode` (short for structuring code) package is an 
-[RStudio Add-in](https://rstudio.github.io/rstudioaddins/) 
-that lets you quickly add code block separators so you can organize your code
-better.
+The `strcode` (short for structuring code) package contains tools to organize
+and abstract your code better. It consists of
+
+- An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you 
+  quickly add code block separators and titles (possibly with unique 
+  identifiers) to divide your work into sections.
+  The titles are recognized as sections by RStudio, which enhances the coding
+  experience further.
+- A function `sum_str` that summarizes the code structure based on the 
+  separators and their comments added with the Add-in. For one or more files,
+  it can cat the structure to the console or a file.
+- An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you
+  insert a code anchor, that is, a hash sequence which can be used to uniquely 
+  identify a line in a large code base.
+
 <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
 a guide for good practice in R programming. -->
 
@@ -24,70 +35,129 @@ a guide for good practice in R programming. -->
 
 
 # Installation
-You can install the package from github.
+You can install the package from GitHub.
 ```{r, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("lorenzwalthert/strcode")
 ```
 
-
-
-# Overview
-We suggest three levels of granularity in code structuring. Of course, 
+# Structuring code
+We suggest three levels of granularity for code structuring, whereas
 higher-level blocks can contain lower-level blocks.
 
 - level 1 sections, which are high-level blocks that can be 
-  separated as follows
+  separated as follows:
 ```{r}
 #   ____________________________________________________________________________
-#   I: import xzy
+#   A title                                                                 ####
 ```
 
 - level 2 sections, which are medium-level blocks that can be 
-  separated as follows
+  separated as follows:
 ```{r}
 ##  ............................................................................
-##  A: pre-process t2
+##  A subtitle                                                              ####
 ```
 
 - level 3 sections, which are low-level blocks that can be 
-  separated as follows
+  separated as follows:
 ```{r}
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-### a
+### One more                                                                ####
 ```
 
-You can notice from above that
+
+You can notice from the above that
 
 * The number of `#` used in front of the break character (`___`, `...`, `. .`) 
   corresponds to the level of granularity that is separated.
-* l1 sections have roman numbers, l2 sections upper-case letters and l3 sections
-  letters have lower-case letters.
-* The breaks characters `___`, `...`, `. .` were chosen such that they reflect the level 
-  of granularity, namely `___` has a much higher visual density than `. .`. 
-* Each block has an (optional) short comment on what the next block is about.
+* The breaks characters `___`, `...`, `. .` were chosen such that they reflect 
+  the level of granularity, namely `___` has a much higher visual density than 
+  `. .`. 
+* Each block has an (optional) short title on what that block is about.
+* Every title ends with four `####`. Therefore, the titles are recognized 
+  by RStudio as [sections](https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections).
+  This has the advantages that you can get a quick summary of your code 
+  in Rstudio's code pane and you can fold sections as you can fold 
+  code or function declarations or if statements. See the pictures below for 
+  details.
+  
+The separators all have length 80. The value is looked up in the global 
+option `strcode$char_length` and can therefore be changed by the user.
 
-The separators do all have length 80. The value is looked up in the global 
-option `strcode.char.length` and can be changed by the user (either every 
-session manually or using .Rprofile). \
-For each of the introduced separators, there is an Add-in function. You can also call 
-them from the console 
+By default, breaks and titles are inserted via a Shiny Gadget, but this 
+default can be overridden by setting the option `strcode$insert_with_shiny` 
+to `FALSE` and hence only inserting the break.
 
-* `strcode::insert_l1_break()` 
-* `strcode::insert_l2_break()`
-* `strcode::insert_l3_break()`
+# Anchoring sections
+Sometimes it is required to refer to a code section, which can be done by title.
+A better way, however, is to use a unique hash sequence - let us call it a 
+code anchor - to create an arguably unique reference to that section. 
+A code anchor in `strcode` is enclosed by `#<` and `>#` so all anchors can 
+be found using regular expressions. You can add section breaks 
+that include a hash. That might look like this
+```{r}
+##  .................. #< 685c967d4e78477623b861d533d0937a ># ..................
+##  An anchored section                                                     ####
+```
 
-# Example
+# Insert a code anchor
+Code anchors might prove helpful in other situations where one want to anchor a 
+single line. That is also possible with `strcode`.
+An example of a code anchor is the following:
+
+```{r, eval=FALSE}
+#< 56f5139874167f4f5635b42c37fd6594 >#
+this_is_a_super_important_but_hard_to_describe_line_so_let_me_anchor_it
+```
+The hash sequences in strcode are produced with the R package 
+[digest](https://github.com/eddelbuettel/digest).
+
+# Summarizing code
+Once code has been structured by adding sections (as above), it can easily be 
+summarized or represented in a compact and abstract form. This is particularly 
+handy when the codebase is large, when a lot of people work on the code or when 
+new people join a project. The function `sum_str` is designed for the purpose of 
+extracting separators and respective comments, in order to provide high level 
+code summaries. It is highly customizable and flexible, with a host of options. 
+Thanks to RStudio's API, you can even create summaries of the file you are working on,
+simply by typing `sum_str()` in the console. The file presented in the example 
+section below can be summarized as follows:
+
+```{r}
+sum_str(path_in = "placeholder_code/example.R", 
+        file_out = "",
+        width = 40,
+        granularity = 2,
+        lowest_sep = FALSE, 
+        header = TRUE)
+```
+
+- `path_in` specifies a directory or filenames for looking for content to
+  summarize.
+- `file_out` indicates where to dump the output.
+- `width` gives the width of the output in characters.
+- `granularity = 2`indicates that we want two of three levels of granularity
+  to be contained in the summary and don't include level 3 comments.
+- Similarly, we use `lowest_sep = FALSE` to indicate that we want lowest 
+  separators (given `granularity`) to be omitted between the titles of the 
+  sections.
+- `header` was set to `TRUE`, so the column names were reported as well. Note 
+  that they are slightly off since knitr uses a different tab length. In the R
+  console and more imporantly in the outputed file, they are aliged.
+
+
+## Example of improved legibility
 To demonstrate the improvement in legibility, we give an extended example with 
 some placeholder code.  
 ```{r}
 #   ____________________________________________________________________________
-#   function test 
+#   function test                                                           ####
 test <- function(x) {
 ##  ............................................................................
-##  A: pre-processing
+##  A: pre-processing                                                       ####
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-### a: assertive tests
+### a: assertive tests                                                      ####
   # x
   if(missing(x) || is.null(x)){ 
     x <- character()
@@ -119,12 +189,12 @@ test <- function(x) {
   }
   
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-### b: coercion / remove missing
+### b: coercion / remove missing                                            ####
   x <- as.character(x)
   uniq_x <- unique(na.omit(x), nmax = nmax)
   
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-### c: warnings
+### c: warnings                                                             ####
   
   if(length(breaks) == 1) {
     if(breaks > max(x) - min(x) + 1) {
@@ -136,7 +206,7 @@ test <- function(x) {
   }  
   
 ##  ............................................................................
-##  B: actual function 
+##  B: actual function                                                      ####
    variable < -paste("T", period, "nog_", sector, sep = "")
    variable <- paste(variable, "==", 1, sep = "")
         
@@ -163,12 +233,12 @@ test <- function(x) {
 ##  ............................................................................
 }
 #   ____________________________________________________________________________
-#   function test2
+#   function test2                                                          ####
 test2 <- function(x) {
 ##  ............................................................................
-##  A: pre-processing
+##  A: pre-processing                                                       ####
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-### a: assertive tests
+### a: assertive tests                                                      ####
   # x
   if(missing(x) || is.null(x)){ 
     x <- character()
@@ -200,12 +270,12 @@ test2 <- function(x) {
   }
   
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-### b: coercion / remove missing
+### b: coercion / remove missing                                            ####
   x <- as.character(x)
   uniq_x <- unique(na.omit(x), nmax = nmax)
   
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-### c: warnings
+### c: warnings                                                             ####
   
   if(length(breaks) == 1) {
     if(breaks > max(x) - min(x) + 1) {
@@ -217,7 +287,7 @@ test2 <- function(x) {
   }  
   
 ##  ............................................................................
-##  B: actual function 
+##  B: actual function                                                      ####
    variable < -paste("T", period, "nog_", sector, sep = "")
    variable <- paste(variable, "==", 1, sep = "")
         
@@ -244,4 +314,3 @@ test2 <- function(x) {
 ##  ............................................................................
 }
 ```
-

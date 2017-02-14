@@ -2,66 +2,21 @@
 % Please edit documentation in R/insert_breaks.R
 \name{insert_break}
 \alias{insert_break}
-\alias{insert_l1_break}
-\alias{insert_l2_break}
-\alias{insert_l3_break}
-\title{insert segment, section or subsection break}
+\title{Insert a code break of arbitrary level}
 \usage{
-insert_l1_break()
+insert_break(level, insert_with_shiny = options()$strcode$insert_with_shiny)
+}
+\arguments{
+\item{level}{The level, a numeric value bounded by 1 and 3}
 
-insert_l2_break()
-
-insert_l3_break()
+\item{insert_with_shiny}{A boolean value indicating whether to use
+a shiny gadget to add separator and possibly title. If set to \code{FALSE},
+simply a separator will be inserted and the user has to set the title
+himself. To permanently set
+this argument, you can alter the global option strcode$insert_with_shiny,
+which is the location where \code{insert_break} looks up the value when
+used as an RStudio Add-in.}
 }
 \description{
-A function designed to use as an RStudio
-\href{https://rstudio.github.io/rstudioaddins/}{add-in} for structuring code.
- \cr
-There are three levels of granularity:
-\itemize{
-  \item level 1 sections, which are high-level blocks denoted by \cr
-    ### ______________________
-  \item level 2 sections, which are medium-level blocks denoted by \cr
-    ##  ..............................................
-  \item level 3 sections, which are low-level blocks denoted by \cr
-    #   .. . . . . . . . . . . . . . . . . . . . . . . .
+A helper function to insert a code break for a given level
 }
-For optimal use, we recommend specifying keyboard shortcuts in the add-in
-settings.
-}
-\details{
-The breaks characters (\code{___}, \code{...}, \code{. .}) were
- chosen such that they reflect the level of granularity, namely \code{___}
- has a much higher visual density than \code{. .} \cr
- We recommend starting off by grouping code into level 2 blocks.
- The advantage is that in both directions of granularity, there is another
- layer (\code{___} and \code{...}) left. When the code base grows, there
- might be a need to extend in both directions.
-}
-\examples{
-# This is a minimal example.
-# See the readme for a longer and more detailed example.
-
-##  ......................................................
-##  A: pre-process t2
-### .. . . . . . . . . . . . . . . . . . . . . . . . . . .
-### a: substep 1
-
-
-
-# [your code here]
-
-
-
-### .. . . . . . . . . . . . . . . . . . . . . . . . . . .
-### b: substep 2
-
-
-
-# [your code here ]
-
-
-
-##  ......................................................
-}
-

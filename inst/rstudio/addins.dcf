@@ -14,4 +14,7 @@ Binding: insert_l1_break
 Interactive: false
 
 
-
+Name: insert code anchor
+Description: insert an anchor at the end of the line
+Binding: insert_anchor
+Interactive: false
