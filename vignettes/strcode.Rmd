@@ -1,6 +1,12 @@
 ---
-title: "README"
-output: github_document
+title: "Vignette Title"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, echo = FALSE}
@@ -9,9 +15,8 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "README-"
 )
-library(strcode)
+library("strcode")
 ```
-
 
 The `strcode` (short for structuring code) package contains tools to organize
 and abstract your code better. It consists of
@@ -30,15 +35,6 @@ and abstract your code better. It consists of
 
 <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
 a guide for good practice in R programming. -->
-
-
-
-# Installation
-You can install the package from GitHub.
-```{r, eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("lorenzwalthert/strcode")
-```
 
 # Structuring code
 We suggest three levels of granularity for code structuring, whereas
@@ -124,7 +120,7 @@ simply by typing `sum_str()` in the console. The file presented in the example
 section below can be summarized as follows:
 
 ```{r}
-sum_str(path_in = "placeholder_code/example.R", 
+sum_str(path_in = "../placeholder_code/example.R", 
         file_out = "",
         width = 40,
         granularity = 2,
