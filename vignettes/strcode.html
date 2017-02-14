@@ -10,11 +10,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta name="author" content="Vignette Author" />
+<meta name="author" content="Lorenz Walthert" />
 
 <meta name="date" content="2017-02-14" />
 
-<title>Vignette Title</title>
+<title>strcode</title>
 
 
 
@@ -68,8 +68,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<h1 class="title toc-ignore">Vignette Title</h1>
-<h4 class="author"><em>Vignette Author</em></h4>
+<h1 class="title toc-ignore">strcode</h1>
+<h4 class="author"><em>Lorenz Walthert</em></h4>
 <h4 class="date"><em>2017-02-14</em></h4>
 
 
@@ -126,24 +126,23 @@ this_is_a_super_important_but_hard_to_describe_line_so_let_me_anchor_it</code></
 <div id="summarizing-code" class="section level1">
 <h1>Summarizing code</h1>
 <p>Once code has been structured by adding sections (as above), it can easily be summarized or represented in a compact and abstract form. This is particularly handy when the codebase is large, when a lot of people work on the code or when new people join a project. The function <code>sum_str</code> is designed for the purpose of extracting separators and respective comments, in order to provide high level code summaries. It is highly customizable and flexible, with a host of options. Thanks to RStudio’s API, you can even create summaries of the file you are working on, simply by typing <code>sum_str()</code> in the console. The file presented in the example section below can be summarized as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum_str</span>(<span class="dt">path_in =</span> <span class="st">&quot;../placeholder_code/example.R&quot;</span>, 
-        <span class="dt">file_out =</span> <span class="st">&quot;&quot;</span>,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum_str</span>(<span class="dt">file_out =</span> <span class="st">&quot;strcode.Rmd&quot;</span>,
         <span class="dt">width =</span> <span class="dv">40</span>,
         <span class="dt">granularity =</span> <span class="dv">2</span>,
         <span class="dt">lowest_sep =</span> <span class="ot">FALSE</span>, 
-        <span class="dt">header =</span> <span class="ot">TRUE</span>)
-<span class="co">#&gt; Summarized structure of ../placeholder_code/example.R</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; line  level section</span>
-<span class="co">#&gt; 2    #   _</span>
-<span class="co">#&gt; 3    #   function test</span>
-<span class="co">#&gt; 6    ##  -A: pre-processing</span>
-<span class="co">#&gt; 57   ##  B: actual function</span>
-<span class="co">#&gt; 83   #   ____________________________________</span>
-<span class="co">#&gt; 84   #   function test2</span>
-<span class="co">#&gt; 87   ##  A: pre-processing</span>
-<span class="co">#&gt; 138  ##  B: actual function</span>
-<span class="co">#&gt; 169  ##  test</span></code></pre></div>
+        <span class="dt">header =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Summarized structure of placeholder_code/example.R
+
+line  level section
+<span class="dv">2</span>   <span class="co">#   _</span>
+<span class="dv">3</span>   <span class="co">#   function test</span>
+<span class="dv">6</span>   ##  -A: pre-processing
+<span class="dv">57</span>  ##  B: actual function
+<span class="dv">83</span>  <span class="co">#   ____________________________________</span>
+<span class="dv">84</span>  <span class="co">#   function test2</span>
+<span class="dv">87</span>  ##  A: pre-processing
+<span class="dv">138</span> ##  B: actual function
+<span class="dv">169</span> ##  test</code></pre></div>
 <ul>
 <li><code>path_in</code> specifies a directory or filenames for looking for content to summarize.</li>
 <li><code>file_out</code> indicates where to dump the output.</li>

@@ -26,13 +26,26 @@ library("strcode")
 #  #< 56f5139874167f4f5635b42c37fd6594 >#
 #  this_is_a_super_important_but_hard_to_describe_line_so_let_me_anchor_it
 
-## ------------------------------------------------------------------------
-sum_str(path_in = "../placeholder_code/example.R", 
-        file_out = "",
-        width = 40,
-        granularity = 2,
-        lowest_sep = FALSE, 
-        header = TRUE)
+## ---- eval=FALSE---------------------------------------------------------
+#  sum_str(file_out = "strcode.Rmd",
+#          width = 40,
+#          granularity = 2,
+#          lowest_sep = FALSE,
+#          header = TRUE)
+
+## ---- eval = FALSE-------------------------------------------------------
+#  Summarized structure of placeholder_code/example.R
+#  
+#  line  level section
+#  2	#   _
+#  3	#   function test
+#  6	##  -A: pre-processing
+#  57	##  B: actual function
+#  83	#   ____________________________________
+#  84	#   function test2
+#  87	##  A: pre-processing
+#  138	##  B: actual function
+#  169	##  test
 
 ## ------------------------------------------------------------------------
 #   ____________________________________________________________________________

@@ -1,6 +1,6 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
+title: "strcode"
+author: "Lorenz Walthert"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -119,14 +119,27 @@ Thanks to RStudio's API, you can even create summaries of the file you are worki
 simply by typing `sum_str()` in the console. The file presented in the example 
 section below can be summarized as follows:
 
-```{r}
-sum_str(path_in = "../placeholder_code/example.R", 
-        file_out = "",
+```{r, eval=FALSE}
+sum_str(file_out = "strcode.Rmd",
         width = 40,
         granularity = 2,
         lowest_sep = FALSE, 
         header = TRUE)
 ```
+```{r, eval = FALSE}
+Summarized structure of placeholder_code/example.R
+
+line  level section
+2	#   _
+3	#   function test
+6	##  -A: pre-processing
+57	##  B: actual function
+83	#   ____________________________________
+84	#   function test2
+87	##  A: pre-processing
+138	##  B: actual function
+169	##  test
+````
 
 - `path_in` specifies a directory or filenames for looking for content to
   summarize.

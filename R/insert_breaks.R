@@ -260,8 +260,6 @@ help_create_title <- function(start = "##",
   paste0(substring(paste0(text, extension), 1, length - nchar(end)), end)
 }
 
-}
-
 ##  ............................................................................
 ##  help insert                                                             ----
 # one row below and jumps another row down
