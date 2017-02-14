@@ -64,6 +64,7 @@ higher-level blocks can contain lower-level blocks.
 ### One more                                                                ####
 ```
 
+
 You can notice from the above that
 
 * The number of `#` used in front of the break character (`___`, `...`, `. .`) 
@@ -75,11 +76,10 @@ You can notice from the above that
 * Every title ends with four `####`. Therefore, the titles are recognized 
   by RStudio as [sections](https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections).
   This has the advantages that you can get a quick summary of your code 
-  by Rstudio and you can fold sections as you can fold 
+  in Rstudio's code pane and you can fold sections as you can fold 
   code or function declarations or if statements. See the pictures below for 
   details.
   
-
 The separators all have length 80. The value is looked up in the global 
 option `strcode$char_length` and can therefore be changed by the user.
 
@@ -87,7 +87,31 @@ By default, breaks and titles are inserted via a Shiny Gadget, but this
 default can be overridden by setting the option `strcode$insert_with_shiny` 
 to `FALSE` and hence only inserting the break.
 
-## Summarizing code
+# Anchoring sections
+Sometimes it is required to refer to a code section, which can be done by title.
+A better way, however, is to use a unique hash sequence - let us call it a 
+code anchor - to create an arguably unique reference to that section. 
+A code anchor in `strcode` is enclosed by `#<` and `>#` so all anchors can 
+be found using regular expressions. You can add section breaks 
+that include a hash. That might look like this
+```{r}
+##  .................. #< 685c967d4e78477623b861d533d0937a ># ..................
+##  An anchored section                                                     ####
+```
+
+# Insert a code anchor
+Code anchors might prove helpful in other situations where one want to anchor a 
+single line. That is also possible with `strcode`.
+An example of a code anchor is the following:
+
+```{r, eval=FALSE}
+#< 56f5139874167f4f5635b42c37fd6594 >#
+this_is_a_super_important_but_hard_to_describe_line_so_let_me_anchor_it
+```
+The hash sequences in strcode are produced with the R package 
+[digest](https://github.com/eddelbuettel/digest).
+
+# Summarizing code
 Once code has been structured by adding sections (as above), it can easily be 
 summarized or represented in a compact and abstract form. This is particularly 
 handy when the codebase is large, when a lot of people work on the code or when 
@@ -120,20 +144,6 @@ sum_str(path_in = "placeholder_code/example.R",
   that they are slightly off since knitr uses a different tab length. In the R
   console and more imporantly in the outputed file, they are aliged.
 
-
-# Insert a code anchor
-A code anchor is a hash sequence that can be used to create an arguably unique
-reference in a code base.
-`strcode` helps you inserting such anchors easily. By default, 
-a code anchor is enclosed by `#<` and `>#` so all anchors can be found 
-using regular expressions. An example of a code anchor is the following:
-
-```{r, eval=FALSE}
-#< 56f5139874167f4f5635b42c37fd6594 >#
-this_is_a_super_important_but_hard_to_describe_line_so_let_me_anchor_it
-```
-The hash sequences in strcode are produced with the R package 
-[digest](https://github.com/eddelbuettel/digest).
 
 ## Example of improved legibility
 To demonstrate the improvement in legibility, we give an extended example with 

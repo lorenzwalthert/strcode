@@ -1,4 +1,6 @@
 #' insert a section break with an optional title
+
+
 #   ____________________________________________________________________________
 #'
 #' A function designed to use as an RStudio
@@ -126,6 +128,12 @@ insert_break <- function(level,
     ret_value <- find_title(level)
     if (ret_value$cancel) return("")
     title <- ret_value$text1
+    hash_in_sep <- ret_value$hash_in_sep
+
+    # set options so hash_in_sep is remembered
+    op <- options()$strcode
+    op$hash_in_sep <- hash_in_sep
+    options(strcode = op)
     level <- as.numeric(unlist(strsplit(ret_value$level, ""))[nchar(ret_value$level)])
 
 
@@ -148,7 +156,7 @@ insert_break <- function(level,
   ### create break sequence to insert
   seq_break <- help_create_break(start = start,
                                  break_char = break_char,
-                                 sep = sep)
+                                 sep = sep, hash_in_sep = hash_in_sep)
   help_insert(seq_break,
               start_row = 1,
               start_indention = Inf,
@@ -185,27 +193,40 @@ insert_break <- function(level,
 #' @param sep A separator sequence to separate start and break_char
 #' @param break_char A character (sequence) used to create the actual break
 #' @param length An integer value indicating how long the sequence should be
+#' @param hash_in_sep whether or not a hash should be inserted in the center of
+#'   the separator
 help_create_break <- function(start = "##",
                               sep = " ",
                               break_char = "-",
-                              length = options()$strcode$char_length) {
+                              length = options()$strcode$char_length,
+                              hash_in_sep = FALSE) {
+  #
+  if (hash_in_sep == TRUE) {
+    hash <- get_anchor(enclosing_start = "#<",
+                       enclosing_end = ">#",
+                       length_random_input = .Machine$integer.max)
+    # recalculate length
+    hash_length <- nchar(hash) - 2
+    current_length <- (length - hash_length) / 2
+
+  } else {
+    current_length <- length
+    hash <- NULL
+  }
 
   breaks <- rep(break_char,
                 # ceiling necessary because patern like ". ." will get cut before
-                # length
-                ceiling((length - nchar(start) - nchar(sep))/nchar(break_char)))
+                # current_length
+                ceiling((current_length - nchar(start) - nchar(sep))/nchar(break_char)))
   # if last element in breaks is space, replace it with first element in break_char
   breaks <- unlist(strsplit(breaks, "")) # decompose
   if (breaks[length(breaks)] == " ") {
     breaks[length(breaks)] <- substring(break_char, 1, 1)
   }
   breaks <- paste0(breaks, collapse = "")
-  temp <-
-    paste(start, sep,
-          paste(breaks,
-                collapse = ""),
-          sep = "")
-  substring(temp, 1, length) # truncate pattern to exacly length
+  # paste it all together
+  temp <- paste0(c(start, sep, breaks, " ", hash, " ", breaks), collapse = "")
+  substring(temp, 1, length) # truncate pattern to exacly current_length
 }
 ##  ............................................................................
 ##  help_create_title
@@ -305,9 +326,12 @@ find_title <- function(level) {
         fillRow(
           miniTitleBarCancelButton(),
           miniTitleBarButton("done", "Done"),
+          checkboxInput("hash_in_sep", "Add hash",
+                        value = options()$strcode$hash_in_sep,
+                        width = "100px"),
           p("Hit enter (instead of clicking ok) to confirm the title. An empty
             field will create a separator with no title."),
-          flex = c(1, 1, 4)
+          flex = c(1, 1, 2, 3)
 
           )
       )
@@ -319,6 +343,7 @@ find_title <- function(level) {
     observeEvent(input$done, {
       stopApp(list(text1  = input$text1,
                    cancel = input$cancel,
+                   hash_in_sep = input$hash_in_sep,
                    level  = input$level))
     })
 
@@ -326,6 +351,7 @@ find_title <- function(level) {
       if(!is.null(input$text1) && any(grep("\n", input$text1))) {
         stopApp(list(text1 = gsub("\n", "", input$text1),
                      cancel = input$cancel,
+                     hash_in_sep = input$hash_in_sep,
                      level  = input$level))
       }
     })
