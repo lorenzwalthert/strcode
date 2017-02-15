@@ -6,8 +6,9 @@
 \usage{
 sum_str(path_in = getSourceEditorContext()$path, file_in_extension = ".R",
   dir_out = "", file_out = NULL, file_out_extension = "", width = NULL,
-  rm_rh_hashes = TRUE, rm_rh_spaces = TRUE, line_nr = TRUE,
-  granularity = 3, last_sep = FALSE, title = TRUE, header = TRUE, ...)
+  rm_rh_hashes = TRUE, rm_rh_spaces = TRUE, rm_break_anchors = TRUE,
+  line_nr = TRUE, granularity = 3, last_sep = FALSE, title = TRUE,
+  header = TRUE, ...)
 }
 \arguments{
 \item{path_in}{Either a path to a directory or to a single file. If it is
@@ -36,10 +37,15 @@ useful if output should be assigned to an object. If not set to "object",
 length of the longest separator title.}
 
 \item{rm_rh_hashes}{Boolean value indicating whether or not to remove
-righthand hashes in section titles (see details).}
+righthand hashes in section titles for the summary
+(see section Removing spaces and hashes).}
 
 \item{rm_rh_spaces}{Boolean value indicating whether or not to remove
-righthand spaces in section titles (see details).}
+righthand spaces in section titles for the summary
+(see section Removing spaces and hashes).}
+
+\item{rm_break_anchors}{Boolean value indicating whether or not the anchors
+inserted in code separators should be removed for the summary.}
 
 \item{line_nr}{A boolean value that indicates whether the line numbers should
 be printed along with the structure summary.}

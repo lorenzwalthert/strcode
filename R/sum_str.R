@@ -20,9 +20,13 @@
 #'   \code{cat} will be used.
 #' @param file_out_extension A file extension for the file to be created.
 #' @param rm_rh_hashes Boolean value indicating whether or not to remove
-#'   righthand hashes in section titles (see details).
+#'   righthand hashes in section titles for the summary
+#'   (see section Removing spaces and hashes).
 #' @param rm_rh_spaces Boolean value indicating whether or not to remove
-#'   righthand spaces in section titles (see details).
+#'   righthand spaces in section titles for the summary
+#'   (see section Removing spaces and hashes).
+#' @param rm_break_anchors Boolean value indicating whether or not the anchors
+#'   inserted in code separators should be removed for the summary.
 #' @param width The character width of the output. If NULL, it is set to the
 #'   length of the longest separator title.
 #' @param line_nr A boolean value that indicates whether the line numbers should
@@ -93,6 +97,7 @@ sum_str <- function(path_in = getSourceEditorContext()$path,
                     width = NULL,
                     rm_rh_hashes = TRUE,
                     rm_rh_spaces = TRUE,
+                    rm_break_anchors = TRUE,
                     line_nr = TRUE,
                     granularity = 3,
                     last_sep = FALSE,
@@ -144,6 +149,7 @@ assert_number(granularity, lower = 1, upper = 3)
                    width = width,
                    rm_rh_hashes = rm_rh_hashes,
                    rm_rh_spaces = rm_rh_spaces,
+                   rm_break_anchors = rm_break_anchors,
                    line_nr = line_nr,
                    granularity = granularity,
                    last_sep = last_sep,
@@ -181,6 +187,7 @@ sum_str_helper <- function(path_in,
                            file_out_extension,
                            rm_rh_hashes,
                            rm_rh_spaces,
+                           rm_break_anchors,
                            width,
                            line_nr,
                            granularity,
@@ -224,6 +231,21 @@ sum_str_helper <- function(path_in,
                    call. = FALSE, immediate. = TRUE))
   }
 
+##  .................. #< 3b5746a13447c5269736b631d6a9370d ># ..................
+##  replace hashed seps                                                     ####
+if (rm_break_anchors) {
+  # extract candidates for replacement
+  hash_candid <- intersect(grep("(\\s#<\\s[0-9a-z]{1,33}\\s>#\\s)", lines, perl = TRUE),
+                           cand)
+  # get their level
+  lvl <- nchar(gsub("^(#+)\\s.*$", "\\1", lines[hash_candid], perl = TRUE))
+  replacement <- vapply(lvl, function(x) help_create_break(start = paste0(rep("#", 2), collapse = ""),
+                                           break_char = give_breakchar(x),
+                                           sep = " ", hash_in_sep = FALSE),
+                  FUN.VALUE = character(1))
+  lines[hash_candid] <- replacement
+
+}
 ##  ............................................................................
 ##  modify pattern according to arguments
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .

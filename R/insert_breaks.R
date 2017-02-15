@@ -141,10 +141,7 @@ insert_break <- function(level,
   ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
   ### set parameter depending on level
   start <- paste0(rep("#", level), collapse = "")
-  break_char = switch(as.character(level),
-                      "1" = "_",
-                      "2" = ".",
-                      "3" = ". ")
+  break_char = give_breakchar(level)
   sep = paste(rep(" ", 4 - level), collapse = "")
 
 
@@ -260,6 +257,16 @@ help_create_title <- function(start = "##",
   paste0(substring(paste0(text, extension), 1, length - nchar(end)), end)
 }
 
+#' find breakchar for level
+#'
+#' minimal helper to return breakf for a given level
+#' @param level the level for which the break character should be returned
+give_breakchar <- function(level) {
+  switch(as.character(level),
+       "1" = "_",
+       "2" = ".",
+       "3" = ". ")
+}
 ##  ............................................................................
 ##  help insert                                                             ----
 # one row below and jumps another row down
