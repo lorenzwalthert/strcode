@@ -1,14 +1,18 @@
 README
 ================
 
+[![Build Status](https://travis-ci.org/lorenzwalthert/strcode.svg?branch=master)](https://travis-ci.org/lorenzwalthert/strcode) [![Project Status: WIP ? Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/strcode)](https://cran.r-project.org/package=strcode) [![packageversion](https://img.shields.io/badge/Package%20version-1.1.0-orange.svg?style=flat-square)](commits/master)
+
 The `strcode` (short for structuring code) package contains tools to organize and abstract your code better. It consists of
 
--   An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you quickly add code block separators and titles to divide your work into sections. The titles are recognized as sections by RStudio, which enhances the coding experience further.
+-   An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you quickly add code block separators and titles (possibly with unique identifiers) to divide your work into sections. The titles are recognized as sections by RStudio, which enhances the coding experience further.
 -   A function `sum_str` that summarizes the code structure based on the separators and their comments added with the Add-in. For one or more files, it can cat the structure to the console or a file.
 -   An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you insert a code anchor, that is, a hash sequence which can be used to uniquely identify a line in a large code base.
 
 <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
 a guide for good practice in R programming. -->
+![](https://raw.githubusercontent.com/lorenzwalthert/strcode/master/man/demo/demo_strcode_v0.1.0.gif)
+
 Installation
 ============
 
