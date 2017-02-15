@@ -323,7 +323,7 @@ find_title <- function(level) {
         fillRow(
           text_focus("text1", label = " ", value = "",
                      placeholder = "Your section title",
-                     width = "320px", height = "33px"),
+                     width = "320px", height = "35px"),
           selectInput("level", " ", width = "100px",
                       choices = choices_input,
                       selected = choices_input[level]),
