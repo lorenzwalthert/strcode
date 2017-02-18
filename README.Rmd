@@ -82,7 +82,7 @@ You can notice from the above that
   the level of granularity, namely `___` has a much higher visual density than 
   `. .`. 
 * Each block has an (optional) short title on what that block is about.
-* Every title ends with four `####`. Therefore, the titles are recognized 
+* Every title ends with `####`. Therefore, the titles are recognized 
   by RStudio as [sections](https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections).
   This has the advantages that you can get a quick summary of your code 
   in Rstudio's code pane and you can fold sections as you can fold 

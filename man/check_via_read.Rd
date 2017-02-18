@@ -30,3 +30,4 @@ When testing is performed manually (that is, not via test routine
   path_start to \code{NULL} at the beginning of the document, so when the
   tests are run via the RStudio routine, they are set correctly.
 }
+\keyword{internal}

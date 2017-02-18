@@ -24,3 +24,4 @@ at the target row before \code{x} is inserted.}
 \description{
 A helper function to insert text
 }
+\keyword{internal}

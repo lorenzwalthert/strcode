@@ -10,6 +10,7 @@
 #'
 #'# function is identical to textAreaInput but adds autofocus to tags
 #' @inheritParams shiny::textAreaInput
+#' @keywords internal
 text_focus <- function (inputId, label, value = "", width = NULL, height = NULL,
                         cols = NULL, rows = NULL, placeholder = NULL, resize = NULL)
 {
@@ -54,7 +55,7 @@ text_focus <- function (inputId, label, value = "", width = NULL, height = NULL,
 #'   solved by assigning a global variable to path_start manually plus setting
 #'   path_start to \code{NULL} at the beginning of the document, so when the
 #'   tests are run via the RStudio routine, they are set correctly.
-#'
+#' @keywords internal
 check_via_read <- function(directory = "test-dir_in",
                            filename = "code_summary-example-1",
                            path_start) {

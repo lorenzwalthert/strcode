@@ -23,3 +23,4 @@ the separator}
 the idea of the helper function is to return a string of a line length that is
 composed of the start character and the break_characters
 }
+\keyword{internal}

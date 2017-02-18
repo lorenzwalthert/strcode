@@ -52,6 +52,7 @@ insert_anchor <- function(enclosing_start = "#<",
 #'  the hash. If \code{NULL}, then the reverse of \code{enclosing_start} is used.
 #' @param ... further arguments to be passed to and from other methods, in
 #'   in particular to digest
+#' @keywords internal
 get_anchor <- function(enclosing_start = "#<",
                        enclosing_end = ">#",
                        length_random_input = .Machine$integer.max,

@@ -40,3 +40,4 @@ resizing textareas.}
 \description{
 # function is identical to textAreaInput but adds autofocus to tags
 }
+\keyword{internal}
