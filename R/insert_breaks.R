@@ -42,7 +42,7 @@
 #'  to fold code sections (just as you can fold function declarations in RStudio).
 #'
 #' @name insert_l_break
-#' @seealso sum_str
+#' @seealso \code{\link{sum_str}}
 #' @importFrom rstudioapi insertText getActiveDocumentContext setCursorPosition
 #' @examples
 #' # This is a minimal example.
@@ -129,18 +129,18 @@ insert_break <- function(level,
     ret_value <- find_title(level)
     if (ret_value$cancel) return("")
     title <- ret_value$text1
-    hash_in_sep <- ret_value$hash_in_sep
+    anchor_in_sep <- ret_value$anchor_in_sep
 
-    # set options so hash_in_sep is remembered
+    # set options so anchor_in_sep is remembered
     op <- options()$strcode
-    op$hash_in_sep <- hash_in_sep
+    op$anchor_in_sep <- anchor_in_sep
     options(strcode = op)
     level <- as.numeric(unlist(strsplit(ret_value$level, ""))[nchar(ret_value$level)])
 
 
   } else {
     title <- ""
-    hash_in_sep <- FALSE
+    anchor_in_sep <- FALSE
   }
   ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
   ### set parameter depending on level
@@ -150,14 +150,13 @@ insert_break <- function(level,
 
 
 
-  #   ____________________________________________________________________________
+#   ____________________________________________________________________________
 
-
-  ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-  ### create break sequence to insert
+### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+### create break sequence to insert
   seq_break <- help_create_break(start = start,
                                  break_char = break_char,
-                                 sep = sep, hash_in_sep = hash_in_sep)
+                                 sep = sep, anchor_in_sep = anchor_in_sep)
   help_insert(seq_break,
               start_row = 1,
               start_indention = Inf,
@@ -190,20 +189,20 @@ insert_break <- function(level,
 #'
 #' the idea of the helper function is to return a string of a line length that is
 #' composed of the start character and the break_characters
-#' @param start A sequence of letters to start the sequence
-#' @param sep A separator sequence to separate start and break_char
-#' @param break_char A character (sequence) used to create the actual break
-#' @param length An integer value indicating how long the sequence should be
-#' @param hash_in_sep whether or not a hash should be inserted in the center of
-#'   the separator
+#' @param start A sequence of letters to start the sequence.
+#' @param sep A separator sequence to separate start and break_char.
+#' @param break_char A character (sequence) used to create the actual break.
+#' @param length An integer value indicating how long the sequence should be.
+#' @param anchor_in_sep whether or not a code anchor (that is, a hash) should
+#'   be inserted in the center of the separator.
 #' @keywords internal
 help_create_break <- function(start = "##",
                               sep = " ",
                               break_char = "-",
                               length = options()$strcode$char_length,
-                              hash_in_sep = FALSE) {
+                              anchor_in_sep = FALSE) {
   #
-  if (hash_in_sep == TRUE) {
+  if (anchor_in_sep == TRUE) {
     hash <- get_anchor(enclosing_start = "#<",
                        enclosing_end = ">#",
                        length_random_input = .Machine$integer.max)
@@ -341,10 +340,10 @@ find_title <- function(level) {
         fillRow(
           miniTitleBarCancelButton(),
           miniTitleBarButton("done", "Done"),
-          checkboxInput("hash_in_sep", "Add hash",
-                        value = options()$strcode$hash_in_sep,
+          checkboxInput("anchor_in_sep", "Add anchor",
+                        value = options()$strcode$anchor_in_sep,
                         width = "100px"),
-          p("Hit enter (instead of clicking ok) to confirm the title. An empty
+          p("Hit enter (instead of clicking Done) to confirm the title. An empty
             field will create a separator with no title."),
           flex = c(1, 1, 2, 3)
 
@@ -358,7 +357,7 @@ find_title <- function(level) {
     observeEvent(input$done, {
       stopApp(list(text1  = input$text1,
                    cancel = input$cancel,
-                   hash_in_sep = input$hash_in_sep,
+                   anchor_in_sep = input$anchor_in_sep,
                    level  = input$level))
     })
 
@@ -366,7 +365,7 @@ find_title <- function(level) {
       if(!is.null(input$text1) && any(grep("\n", input$text1))) {
         stopApp(list(text1 = gsub("\n", "", input$text1),
                      cancel = input$cancel,
-                     hash_in_sep = input$hash_in_sep,
+                     anchor_in_sep = input$anchor_in_sep,
                      level  = input$level))
       }
     })

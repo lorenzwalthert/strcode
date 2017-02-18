@@ -5,19 +5,19 @@
 \title{create a break sequence}
 \usage{
 help_create_break(start = "##", sep = " ", break_char = "-",
-  length = options()$strcode$char_length, hash_in_sep = FALSE)
+  length = options()$strcode$char_length, anchor_in_sep = FALSE)
 }
 \arguments{
-\item{start}{A sequence of letters to start the sequence}
+\item{start}{A sequence of letters to start the sequence.}
 
-\item{sep}{A separator sequence to separate start and break_char}
+\item{sep}{A separator sequence to separate start and break_char.}
 
-\item{break_char}{A character (sequence) used to create the actual break}
+\item{break_char}{A character (sequence) used to create the actual break.}
 
-\item{length}{An integer value indicating how long the sequence should be}
+\item{length}{An integer value indicating how long the sequence should be.}
 
-\item{hash_in_sep}{whether or not a hash should be inserted in the center of
-the separator}
+\item{anchor_in_sep}{whether or not a code anchor (that is, a hash) should
+be inserted in the center of the separator.}
 }
 \description{
 the idea of the helper function is to return a string of a line length that is

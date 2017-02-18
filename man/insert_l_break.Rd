@@ -81,5 +81,5 @@ The breaks characters (\code{___}, \code{...}, \code{. .}) were
 ##  ......................................................
 }
 \seealso{
-sum_str
+\code{\link{sum_str}}
 }
