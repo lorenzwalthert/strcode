@@ -23,3 +23,4 @@ in particular to digest}
 \description{
 Helper function to create an anchor string
 }
+\keyword{internal}

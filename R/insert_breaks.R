@@ -110,7 +110,7 @@ insert_l3_break <- function() {
 #' Insert a code break of arbitrary level
 #'
 #'A helper function to insert a code break for a given level
-#' @param level The level, a numeric value bounded by 1 and 3
+#' @param level The level, a numeric value bounded between 1 and 3
 #' @param insert_with_shiny A boolean value indicating whether to use
 #'   a shiny gadget to add separator and possibly title. If set to \code{FALSE},
 #'   simply a separator will be inserted and the user has to set the title
@@ -118,6 +118,7 @@ insert_l3_break <- function() {
 #'   this argument, you can alter the global option strcode$insert_with_shiny,
 #'   which is the location where \code{insert_break} looks up the value when
 #'   used as an RStudio Add-in.
+#' @keywords internal
 insert_break <- function(level,
                          insert_with_shiny = options()$strcode$insert_with_shiny){
 
@@ -195,6 +196,7 @@ insert_break <- function(level,
 #' @param length An integer value indicating how long the sequence should be
 #' @param hash_in_sep whether or not a hash should be inserted in the center of
 #'   the separator
+#' @keywords internal
 help_create_break <- function(start = "##",
                               sep = " ",
                               break_char = "-",
@@ -242,6 +244,7 @@ help_create_break <- function(start = "##",
 #' @details
 #'   For Rstudio to recognize a hereby produced sequence as a title, it must
 #'     start with # and end with at least 4 of the following characters: #, -, =.
+#' @keywords internal
 help_create_title <- function(start = "##",
                               fill = "this is a title",
                               length = options()$strcode$char_length,
@@ -264,6 +267,7 @@ help_create_title <- function(start = "##",
 #'
 #' minimal helper to return breakf for a given level
 #' @param level the level for which the break character should be returned
+#' @keywords internal
 give_breakchar <- function(level) {
   switch(as.character(level),
        "1" = "_",
@@ -283,6 +287,7 @@ give_breakchar <- function(level) {
 #'   at the target row before \code{x} is inserted.
 #' @param end_row the row where the cursor should be after the insertion
 #' @param end_indention The end position within the row
+#' @keywords internal
 help_insert <- function(x,
                         start_row = 1,
                         start_indention = Inf,
@@ -318,6 +323,7 @@ help_insert <- function(x,
 #' A helper function to create a pane to enter a title name
 #' @param level The level of the code break to be inserted
 #' @import shiny miniUI
+#' @keywords internal
 find_title <- function(level) {
   choices_input <- paste("level", 1:3)
   ui <- miniPage(

@@ -12,3 +12,4 @@ give_breakchar(level)
 \description{
 minimal helper to return breakf for a given level
 }
+\keyword{internal}

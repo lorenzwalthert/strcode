@@ -12,3 +12,4 @@ find_title(level)
 \description{
 A helper function to create a pane to enter a title name
 }
+\keyword{internal}
