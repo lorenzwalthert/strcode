@@ -55,6 +55,12 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../articles/index.html">Articles</a>
+</li>
+<li>
+  <a href="../news/index.html">News</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -75,20 +81,20 @@
     <p>Insert a hash anchor</p>
     
 
-    <pre><span class='fu'>insert_anchor</span>(<span class='kw'>length_random_input</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>integer.max</span>,
-  <span class='kw'>enclosing_start</span> <span class='kw'>=</span> <span class='st'>"#&lt;"</span>, <span class='kw'>enclosing_end</span> <span class='kw'>=</span> <span class='st'>"&gt;#"</span>, <span class='no'>...</span>)</pre>
+    <pre><span class='fu'>insert_anchor</span>(<span class='kw'>enclosing_start</span> <span class='kw'>=</span> <span class='st'>"#&lt;"</span>, <span class='kw'>enclosing_end</span> <span class='kw'>=</span> <span class='st'>"&gt;#"</span>,
+  <span class='kw'>length_random_input</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>integer.max</span>, <span class='no'>...</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>length_random_input</dt>
-      <dd>A number giving the range from which to withdraw
-a random number.</dd>
       <dt>enclosing_start</dt>
       <dd>A string that specifies the left-hand side enclosing
 of the hash</dd>
       <dt>enclosing_end</dt>
       <dd>A string that specifies the right-hand-side enclosing of
 the hash. If <code>NULL</code>, then the reverse of <code>enclosing_start</code> is used.</dd>
+      <dt>length_random_input</dt>
+      <dd>A number giving the range from which to draw
+a random number.</dd>
       <dt>...</dt>
       <dd>further arguments to be passed to and from other methods, in
 in particular to digest</dd>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>help_create_title. strcode</title>
+<title>All news. strcode</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -71,43 +71,33 @@
       
       </header>
 
-      <div class="page-header">
-  <h1>create a title sequence</h1>
-</div>
-
-<div class="row">
+      <div class="row">
   <div class="col-md-9">
-    
-    <p>This function returns a string that can be used as a title.</p>
-    
-
-    <pre><span class='fu'>help_create_title</span>(<span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"##"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"this is a title"</span>,
-  <span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'>options</span>()$<span class='no'>strcode</span>$<span class='no'>char_length</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"sep_here"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"----"</span>)</pre>
-    
-    <h2>Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>start</dt>
-      <dd>A sequence of letters to start the sequence</dd>
-      <dt>fill</dt>
-      <dd>A sequence to fill the sequence with. This is the actual title.</dd>
-      <dt>length</dt>
-      <dd>An integer value indicating how long the sequence should be</dd>
-      <dt>sep</dt>
-      <dd>A separator sequence to separate start and fill.</dd>
-      <dt>end</dt>
-      <dd>A character sequence that indicates what the end of the final
-sequence should look like.</dd>
-    </dl>
-    
-    <div class="Details">
-      <h2>Details</h2>
-
-      <p>For Rstudio to recognize a hereby produced sequence as a title, it must
-    start with # and end with at least 4 of the following characters: #, -, =.</p>
-    </div>
-      </div>
-  <div class="col-md-3">
+    <div id="strcode-0.2.0" class="section level1">
+<h1>strcode 0.2.0</h1>
+<div id="major-changes" class="section level2">
+<h2>Major Changes</h2>
+<ul>
+<li>code separators can now be inserted via shiny</li>
+<li>code separators can now contain code anchors to uniquely identify a code section</li>
+<li>code anchors can also be inserted as stand alones</li>
+<li>code sections that are inserted with shiny and and have titles are regocnized as code sections by RStudio</li>
+<li>code files can now be summarized with a function <code>sum_str</code>
+</li>
+</ul>
+</div>
+</div>
   </div>
+
+  <div class="col-md-3 hidden-xs">
+    <div id="tocnav">
+      <h2>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#strcode-0.2.0">0.2.0</a></li>
+      </ul>
+    </div>
+  </div>
+
 </div>
 
       <footer>

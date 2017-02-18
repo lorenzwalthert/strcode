@@ -55,6 +55,12 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../articles/index.html">Articles</a>
+</li>
+<li>
+  <a href="../news/index.html">News</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -77,18 +83,21 @@ composed of the start character and the break_characters</p>
     
 
     <pre><span class='fu'>help_create_break</span>(<span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"##"</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>" "</span>, <span class='kw'>break_char</span> <span class='kw'>=</span> <span class='st'>"-"</span>,
-  <span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'>options</span>()$<span class='no'>strcode</span>$<span class='no'>char_length</span>)</pre>
+  <span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'>options</span>()$<span class='no'>strcode</span>$<span class='no'>char_length</span>, <span class='kw'>anchor_in_sep</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>start</dt>
-      <dd>A sequence of letters to start the sequence</dd>
+      <dd>A sequence of letters to start the sequence.</dd>
       <dt>sep</dt>
-      <dd>A separator sequence to separate start and break_char</dd>
+      <dd>A separator sequence to separate start and break_char.</dd>
       <dt>break_char</dt>
-      <dd>A character (sequence) used to create the actual break</dd>
+      <dd>A character (sequence) used to create the actual break.</dd>
       <dt>length</dt>
-      <dd>An integer value indicating how long the sequence should be</dd>
+      <dd>An integer value indicating how long the sequence should be.</dd>
+      <dt>anchor_in_sep</dt>
+      <dd>whether or not a code anchor (that is, a hash) should
+be inserted in the center of the separator.</dd>
     </dl>
           </div>
   <div class="col-md-3">

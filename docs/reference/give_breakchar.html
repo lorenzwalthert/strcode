@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>help_create_title. strcode</title>
+<title>give_breakchar. strcode</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -72,40 +72,23 @@
       </header>
 
       <div class="page-header">
-  <h1>create a title sequence</h1>
+  <h1>find breakchar for level</h1>
 </div>
 
 <div class="row">
   <div class="col-md-9">
     
-    <p>This function returns a string that can be used as a title.</p>
+    <p>minimal helper to return breakf for a given level</p>
     
 
-    <pre><span class='fu'>help_create_title</span>(<span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"##"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"this is a title"</span>,
-  <span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'>options</span>()$<span class='no'>strcode</span>$<span class='no'>char_length</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"sep_here"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"----"</span>)</pre>
+    <pre><span class='fu'>give_breakchar</span>(<span class='no'>level</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>start</dt>
-      <dd>A sequence of letters to start the sequence</dd>
-      <dt>fill</dt>
-      <dd>A sequence to fill the sequence with. This is the actual title.</dd>
-      <dt>length</dt>
-      <dd>An integer value indicating how long the sequence should be</dd>
-      <dt>sep</dt>
-      <dd>A separator sequence to separate start and fill.</dd>
-      <dt>end</dt>
-      <dd>A character sequence that indicates what the end of the final
-sequence should look like.</dd>
+      <dt>level</dt>
+      <dd>the level for which the break character should be returned</dd>
     </dl>
-    
-    <div class="Details">
-      <h2>Details</h2>
-
-      <p>For Rstudio to recognize a hereby produced sequence as a title, it must
-    start with # and end with at least 4 of the following characters: #, -, =.</p>
-    </div>
-      </div>
+          </div>
   <div class="col-md-3">
   </div>
 </div>

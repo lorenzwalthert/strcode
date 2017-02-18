@@ -55,6 +55,12 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../articles/index.html">Articles</a>
+</li>
+<li>
+  <a href="../news/index.html">News</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -76,21 +82,21 @@
     <p>Function is called by <code>sum_str()</code> and returns summary of one code file.</p>
     
 
-    <pre><span class='fu'>sum_str_helper</span>(<span class='no'>dir_in</span>, <span class='no'>dir_out</span>, <span class='no'>file_in</span>, <span class='no'>file_out</span>, <span class='no'>file_out_extension</span>,
-  <span class='no'>rm_rh_hashes</span>, <span class='no'>rm_rh_spaces</span>, <span class='no'>width</span>, <span class='no'>line_nr</span>, <span class='no'>granularity</span>, <span class='no'>last_sep</span>, <span class='no'>title</span>,
+    <pre><span class='fu'>sum_str_helper</span>(<span class='no'>path_in</span>, <span class='no'>dir_out</span>, <span class='no'>file_out</span>, <span class='no'>file_out_extension</span>, <span class='no'>rm_rh_hashes</span>,
+  <span class='no'>rm_rh_spaces</span>, <span class='no'>rm_break_anchors</span>, <span class='no'>width</span>, <span class='no'>line_nr</span>, <span class='no'>granularity</span>, <span class='no'>last_sep</span>, <span class='no'>title</span>,
   <span class='no'>header</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>dir_in</dt>
-      <dd>The directory where the file can be found.</dd>
+      <dt>path_in</dt>
+      <dd>Either a path to a directory or to a single file. If it is
+a directory path, all files in that directory will be summarised. If it
+is a single file path, only the resepective file will be summarised.
+The default value uses the RStudio API to produce a summary of content from
+the source editor. This requires that the file is saved before
+<code>sum_str</code> is called.</dd>
       <dt>dir_out</dt>
       <dd>The directory to print the output to. &quot;&quot; implies the console.</dd>
-      <dt>file_in</dt>
-      <dd>The name of a file which should be summarized.
-The default value uses the RStudio API to produce a summary of content from
-the source editor. This requires that
-the file is saved before <code>sum_str</code> is called.</dd>
       <dt>file_out</dt>
       <dd>A connection or character string naming the file to print to.
 If set to <code>NULL</code>, the name will be <code>paste0(&quot;code-summary_&quot;, file_in)</code>.
@@ -103,10 +109,15 @@ useful if output should be assigned to an object. If not set to &quot;object&quo
       <dd>A file extension for the file to be created.</dd>
       <dt>rm_rh_hashes</dt>
       <dd>Boolean value indicating whether or not to remove
-righthand hashes in section titles (see details).</dd>
+righthand hashes in section titles for the summary
+(see section Removing spaces and hashes).</dd>
       <dt>rm_rh_spaces</dt>
       <dd>Boolean value indicating whether or not to remove
-righthand spaces in section titles (see details).</dd>
+righthand spaces in section titles for the summary
+(see section Removing spaces and hashes).</dd>
+      <dt>rm_break_anchors</dt>
+      <dd>Boolean value indicating whether or not the anchors
+inserted in code separators should be removed for the summary.</dd>
       <dt>width</dt>
       <dd>The character width of the output. If NULL, it is set to the
 length of the longest separator title.</dd>

@@ -55,6 +55,12 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../articles/index.html">Articles</a>
+</li>
+<li>
+  <a href="../news/index.html">News</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -75,12 +81,20 @@
     <p>A helper function to insert a code break for a given level</p>
     
 
-    <pre><span class='fu'>insert_break</span>(<span class='no'>level</span>)</pre>
+    <pre><span class='fu'>insert_break</span>(<span class='no'>level</span>, <span class='kw'>insert_with_shiny</span> <span class='kw'>=</span> <span class='fu'>options</span>()$<span class='no'>strcode</span>$<span class='no'>insert_with_shiny</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>level</dt>
-      <dd>The level, a numeric value bounded by 1 and 3</dd>
+      <dd>The level, a numeric value bounded between 1 and 3</dd>
+      <dt>insert_with_shiny</dt>
+      <dd>A boolean value indicating whether to use
+a shiny gadget to add separator and possibly title. If set to <code>FALSE</code>,
+simply a separator will be inserted and the user has to set the title
+himself. To permanently set
+this argument, you can alter the global option strcode$insert_with_shiny,
+which is the location where <code>insert_break</code> looks up the value when
+used as an RStudio Add-in.</dd>
     </dl>
           </div>
   <div class="col-md-3">

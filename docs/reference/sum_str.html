@@ -55,6 +55,12 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../articles/index.html">Articles</a>
+</li>
+<li>
+  <a href="../news/index.html">News</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -76,22 +82,21 @@
 separators and their titles.</p>
     
 
-    <pre><span class='fu'>sum_str</span>(<span class='kw'>dir_in</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>file_in</span> <span class='kw'>=</span> <span class='fu'>getSourceEditorContext</span>()$<span class='no'>path</span>,
-  <span class='kw'>file_in_extension</span> <span class='kw'>=</span> <span class='st'>".R"</span>, <span class='kw'>dir_out</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>file_out</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>file_out_extension</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rm_rh_hashes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>rm_rh_spaces</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>line_nr</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>granularity</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>last_sep</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre><span class='fu'>sum_str</span>(<span class='kw'>path_in</span> <span class='kw'>=</span> <span class='fu'>getSourceEditorContext</span>()$<span class='no'>path</span>, <span class='kw'>file_in_extension</span> <span class='kw'>=</span> <span class='st'>".R"</span>,
+  <span class='kw'>dir_out</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>file_out</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>file_out_extension</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>rm_rh_hashes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>rm_rh_spaces</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>rm_break_anchors</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>line_nr</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>granularity</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>last_sep</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>header</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>dir_in</dt>
-      <dd>The directory where the file(s) can be found.</dd>
-      <dt>file_in</dt>
-      <dd>The name of a file which should be summarized. If this is
-<code>NULL</code>, the summary will be for all files in the specified directory.
+      <dt>path_in</dt>
+      <dd>Either a path to a directory or to a single file. If it is
+a directory path, all files in that directory will be summarised. If it
+is a single file path, only the resepective file will be summarised.
 The default value uses the RStudio API to produce a summary of content from
-the source editor. This requires that
-the file is saved before <code>sum_str</code> is called.</dd>
+the source editor. This requires that the file is saved before
+<code>sum_str</code> is called.</dd>
       <dt>file_in_extension</dt>
       <dd>If <code>file_in</code> is <code>NULL</code>, all files with the
 <code>file_in_extension</code> are considered, defaults to &quot;.R&quot;.</dd>
@@ -112,10 +117,15 @@ useful if output should be assigned to an object. If not set to &quot;object&quo
 length of the longest separator title.</dd>
       <dt>rm_rh_hashes</dt>
       <dd>Boolean value indicating whether or not to remove
-righthand hashes in section titles (see details).</dd>
+righthand hashes in section titles for the summary
+(see section Removing spaces and hashes).</dd>
       <dt>rm_rh_spaces</dt>
       <dd>Boolean value indicating whether or not to remove
-righthand spaces in section titles (see details).</dd>
+righthand spaces in section titles for the summary
+(see section Removing spaces and hashes).</dd>
+      <dt>rm_break_anchors</dt>
+      <dd>Boolean value indicating whether or not the anchors
+inserted in code separators should be removed for the summary.</dd>
       <dt>line_nr</dt>
       <dd>A boolean value that indicates whether the line numbers should
 be printed along with the structure summary.</dd>
@@ -167,9 +177,7 @@ particular <code>list.files</code> for reading in multiple files.</dd>
       <p></p>
       <p>The add-in contained in this package inserts section titles in a way that
     that they are recognised by RStudio as sections (for details, see
-    RStudio&#39;s
-    <a href = 'official website'>https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections</a>.
-    One structure that is
+    <a href = 'RStudio&#39;s official website'>https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections</a>. One structure that is
     recognised by RStudio as section is a line starting with a hash and ending
     with four hashes. This structure is implemented with <code>strcode</code>.
     Hence when creating the summary, it might be desired to remove the right
