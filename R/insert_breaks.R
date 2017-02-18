@@ -137,6 +137,9 @@ insert_break <- function(level,
     level <- as.numeric(unlist(strsplit(ret_value$level, ""))[nchar(ret_value$level)])
 
 
+  } else {
+    title <- ""
+    hash_in_sep <- FALSE
   }
   ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
   ### set parameter depending on level
