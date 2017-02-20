@@ -241,7 +241,7 @@ if (rm_break_anchors) {
   lvl <- nchar(gsub("^(#+)\\s.*$", "\\1", lines[hash_candid], perl = TRUE))
   replacement <- vapply(lvl, function(x) help_create_break(start = paste0(rep("#", 2), collapse = ""),
                                            break_char = give_breakchar(x),
-                                           sep = paste(rep(" ", 4 - level), collapse = ""), anchor_in_sep = FALSE),
+                                           sep = paste(rep(" ", 4 - x), collapse = ""), anchor_in_sep = FALSE),
                   FUN.VALUE = character(1))
   lines[hash_candid] <- replacement
 
