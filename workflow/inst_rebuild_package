@@ -1,0 +1,9 @@
+notes for rebuilding whole package
+- devtools::document() if not enabeled in built config
+- clean and rebuilt
+- manually knittr README
+- build vignettes
+- run pkgdown
+- run R CMD Check
+- commit
+- push

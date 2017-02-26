@@ -11,7 +11,7 @@ The `strcode` (short for structuring code) package contains tools to organize an
 
 <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
 a guide for good practice in R programming. -->
-<img src="/Users/lorenz/datasciencecoursera/strcode/demos/strcode_v0.2.0_video_to_gif2_large.gif" width="650px" />
+<img src="https://raw.githubusercontent.com/lorenzwalthert/strcode/master/demos/strcode_v0.2.0_video_to_gif2_large.gif" width="650px" />
 
 Installation
 ============
@@ -63,7 +63,7 @@ By default, breaks and titles are inserted via a Shiny Gadget, but this default 
 Anchoring sections
 ==================
 
-Sometimes it is required to refer to a code section, which can be done by title. A better way, however, is to use a unique hash sequence - let us call it a code anchor - to create an arguably unique reference to that section. A code anchor in `strcode` is enclosed by `#<` and `>#` so all anchors can be found using regular expressions. You can add section breaks that include a hash. That might look like this
+Sometimes it is required to refer to a code section, which can be done by title. A better way, however, is to use a unique hash sequence - let us call it a code anchor - to create an arguably unique reference to that section. A code anchor in `strcode` is enclosed by `#<` and `>#` so all anchors can be found using regular expressions. You can add section breaks that include a hash. That might look like this:
 
 ``` r
 ##  .................. #< 685c967d4e78477623b861d533d0937a ># ..................

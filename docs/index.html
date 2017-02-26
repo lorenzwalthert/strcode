@@ -83,7 +83,7 @@
 <li>An <a href="https://rstudio.github.io/rstudioaddins/">RStudio Add-in</a> that lets you insert a code anchor, that is, a hash sequence which can be used to uniquely identify a line in a large code base.</li>
 </ul>
 <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
-a guide for good practice in R programming. --><p><img src="/Users/lorenz/datasciencecoursera/strcode/demos/strcode_v0.2.0_video_to_gif2_large.gif" width="650px"></p>
+a guide for good practice in R programming. --><p><img src="https://raw.githubusercontent.com/lorenzwalthert/strcode/master/demos/strcode_v0.2.0_video_to_gif2_large.gif" width="650px"></p>
 <h1 id="installation">Installation</h1>
 <p>You can install the package from GitHub.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
@@ -115,7 +115,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">"lorenzwalther
 <p>The separators all have length 80. The value is looked up in the global option <code>strcode$char_length</code> and can therefore be changed by the user.</p>
 <p>By default, breaks and titles are inserted via a Shiny Gadget, but this default can be overridden by setting the option <code>strcode$insert_with_shiny</code> to <code>FALSE</code> and hence only inserting the break.</p>
 <h1 id="anchoring-sections">Anchoring sections</h1>
-<p>Sometimes it is required to refer to a code section, which can be done by title. A better way, however, is to use a unique hash sequence - let us call it a code anchor - to create an arguably unique reference to that section. A code anchor in <code>strcode</code> is enclosed by <code>#&lt;</code> and <code>&gt;#</code> so all anchors can be found using regular expressions. You can add section breaks that include a hash. That might look like this</p>
+<p>Sometimes it is required to refer to a code section, which can be done by title. A better way, however, is to use a unique hash sequence - let us call it a code anchor - to create an arguably unique reference to that section. A code anchor in <code>strcode</code> is enclosed by <code>#&lt;</code> and <code>&gt;#</code> so all anchors can be found using regular expressions. You can add section breaks that include a hash. That might look like this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##  .................. #&lt; 685c967d4e78477623b861d533d0937a &gt;# ..................
 ##  An anchored section                                                     ####</code></pre></div>
 <h1 id="insert-a-code-anchor">Insert a code anchor</h1>
