@@ -37,10 +37,7 @@ and abstract your code better. It consists of
 a guide for good practice in R programming. -->
 
 ```{r, out.width = "650px", echo = FALSE}
-wd <- getwd()
-start <- sub("^(.*)/strcode/.*$", "\\1", wd)
-
-knitr::include_graphics(paste0(start, "/demos/strcode_v0.2.0_video_to_gif2_large.gif"))
+knitr::include_graphics(here("demos/strcode_v0.2.0_video_to_gif2_large.gif"))
 ```
 
 

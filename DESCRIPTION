@@ -19,5 +19,6 @@ Imports:
   miniUI
 Suggests: testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    here
 VignetteBuilder: knitr
