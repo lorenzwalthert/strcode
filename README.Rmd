@@ -37,7 +37,7 @@ and abstract your code better. It consists of
 a guide for good practice in R programming. -->
 
 ```{r, out.width = "650px", echo = FALSE}
-knitr::include_graphics(here("demos/strcode_v0.2.0_video_to_gif2_large.gif"))
+knitr::include_graphics("https://raw.githubusercontent.com/lorenzwalthert/strcode/master/demos/strcode_v0.2.0_video_to_gif2_large.gif")
 ```
 
 
