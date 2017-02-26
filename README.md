@@ -11,7 +11,7 @@ The `strcode` (short for structuring code) package contains tools to organize an
 
 <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
 a guide for good practice in R programming. -->
-<img src="demos/strcode_v0.2.0_video_to_gif2_large.gif" width="650px" />
+<img src="/Users/lorenz/datasciencecoursera/strcode/demos/strcode_v0.2.0_video_to_gif2_large.gif" width="650px" />
 
 Installation
 ============
@@ -54,7 +54,7 @@ You can notice from the above that
 -   The number of `#` used in front of the break character (`___`, `...`, `. .`) corresponds to the level of granularity that is separated.
 -   The breaks characters `___`, `...`, `. .` were chosen such that they reflect the level of granularity, namely `___` has a much higher visual density than `. .`.
 -   Each block has an (optional) short title on what that block is about.
--   Every title ends with four `####`. Therefore, the titles are recognized by RStudio as [sections](https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections). This has the advantages that you can get a quick summary of your code in Rstudio's code pane and you can fold sections as you can fold code or function declarations or if statements. See the pictures below for details.
+-   Every title ends with `####`. Therefore, the titles are recognized by RStudio as [sections](https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections). This has the advantages that you can get a quick summary of your code in Rstudio's code pane and you can fold sections as you can fold code or function declarations or if statements. See the pictures below for details.
 
 The separators all have length 80. The value is looked up in the global option `strcode$char_length` and can therefore be changed by the user.
 
