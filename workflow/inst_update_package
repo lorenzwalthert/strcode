@@ -2,5 +2,5 @@ Notes to update the package:
 - check you are on the right branch
 - update the version number in the DESCRIPTION file
 - update NEWS.md
-- follow instructions in workflow/inst_rebuld_package
+- follow instructions in workflow/inst_rebuild_package
 - merge branch into master
