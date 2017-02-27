@@ -1,7 +1,7 @@
-notes for rebuilding whole package
-- devtools::document() if not enabeled in built config
-- clean and rebuilt
-- manually knittr README
+Notes for rebuilding whole package:
+- devtools::document() if not enabeled in build config
+- clean and rebuild
+- manually knit README.Rmd
 - build vignettes
 - run pkgdown
 - run R CMD Check
