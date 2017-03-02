@@ -340,17 +340,34 @@ find_title <- function(level) {
         fillRow(
           miniTitleBarCancelButton(),
           miniTitleBarButton("done", "Done"),
+          miniTitleBarButton("show", "Help"),
           checkboxInput("anchor_in_sep", "Add anchor",
                         value = options()$strcode$anchor_in_sep,
                         width = "100px"),
-          p("Hit enter (instead of clicking Done) to confirm the title. An empty
-            field will create a separator with no title."),
-          flex = c(1, 1, 2, 3)
-
-          )
-      )
+          checkboxInput("add_semantics", "Add semantics",
+                        value = FALSE,
+                        width = "150px"),
+          flex = c(1, 1, 1, 1.5, 2)
+        ),
+        fillRow(
+          conditionalPanel("input.add_semantics",
+                           text_focus("pandoc_id", label = " ", value = "",
+                                      placeholder = "section identifier",
+                                      width = "320px", height = "35px"),
+                           selectizeInput("classes", label = "classes",
+                           choices = paste("class", 1:10), width = "320px",
+                          multiple = TRUE),
+                           selectizeInput("keyvaluepairs", width = "320px",
+                                          label = "key-value pairs",
+                           choices = "", multiple = TRUE,
+                           options = list(create = TRUE,
+                                          persist = FALSE,
+                                          createFilter = "^[a-zA-Z1-9]+\\s*=\\s*[a-zA-Z1-9]+$"))
+                           )
+        )
+        ,flex = c(0.8, 0.5, 3))
     )
-    )
+  )
 
   server <- function(input, output, session) {
 
@@ -359,6 +376,18 @@ find_title <- function(level) {
                    cancel = input$cancel,
                    anchor_in_sep = input$anchor_in_sep,
                    level  = input$level))
+    })
+
+    observeEvent(input$show, {
+      showModal(modalDialog(
+        title = "Help",
+        "Hit enter (instead of clicking Done) to confirm the title.
+        An empty field will create a separator with no title.
+        If the field of the section identifier remains empty, a
+        hash is generated as an identifier. Valid key value pairs
+        take the form key = value where key and value can only contain
+        numbers and letters"
+      ))
     })
 
     observeEvent(input$text1, {
