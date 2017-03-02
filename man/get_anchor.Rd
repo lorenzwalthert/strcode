@@ -4,8 +4,8 @@
 \alias{get_anchor}
 \title{Creat anchor sequence}
 \usage{
-get_anchor(enclosing_start = "#<", enclosing_end = ">#",
-  length_random_input = .Machine$integer.max, ...)
+get_anchor(enclosing_start = "#< ", enclosing_end = " >#",
+  range_input = .Machine$integer.max, nchar_output = NULL, ...)
 }
 \arguments{
 \item{enclosing_start}{A string that specifies the left-hand side enclosing
@@ -14,8 +14,11 @@ of the hash}
 \item{enclosing_end}{A string that specifies the right-hand-side enclosing of
 the hash. If \code{NULL}, then the reverse of \code{enclosing_start} is used.}
 
-\item{length_random_input}{A number giving the range from which to draw
+\item{range_input}{A number giving the range from which to draw
 a random number.}
+
+\item{nchar_output}{A number indicating how long the hash sequene should be.
+\code{NULL} indicates no limitation.}
 
 \item{...}{further arguments to be passed to and from other methods, in
 in particular to digest}

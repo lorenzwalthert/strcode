@@ -4,8 +4,8 @@
 \alias{insert_anchor}
 \title{Insert a hash anchor}
 \usage{
-insert_anchor(enclosing_start = "#<", enclosing_end = ">#",
-  length_random_input = .Machine$integer.max, ...)
+insert_anchor(enclosing_start = "#< ", enclosing_end = " >#",
+  range_input = .Machine$integer.max, ...)
 }
 \arguments{
 \item{enclosing_start}{A string that specifies the left-hand side enclosing
@@ -14,7 +14,7 @@ of the hash}
 \item{enclosing_end}{A string that specifies the right-hand-side enclosing of
 the hash. If \code{NULL}, then the reverse of \code{enclosing_start} is used.}
 
-\item{length_random_input}{A number giving the range from which to draw
+\item{range_input}{A number giving the range from which to draw
 a random number.}
 
 \item{...}{further arguments to be passed to and from other methods, in
@@ -25,7 +25,7 @@ Insert a hash anchor
 }
 \details{
 The function draws a random number using sample from the range of
-  \code{length_random_input}. Then, this number is hashed by calling the
+  \code{range_input}. Then, this number is hashed by calling the
   \code{digest} hash-function from the \code{digest} package. This hash
   is then wrapped between \code{enclosing_start} and \code{enclosing_end}.
 }

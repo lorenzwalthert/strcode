@@ -351,7 +351,7 @@ find_title <- function(level) {
         ),
         fillRow(
           conditionalPanel("input.add_semantics",
-                           text_focus("pandoc_id", label = " ", value = "",
+                           text_focus("pandoc_id", label = " ", value = get_anchor("", "", nchar_output = 5),
                                       placeholder = "section identifier",
                                       width = "320px", height = "35px"),
                            selectizeInput("classes", label = "classes",
