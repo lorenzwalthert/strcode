@@ -406,7 +406,7 @@ find_title <- function(level) {
   }
 
   runGadget(ui, server,
-            viewer = paneViewer(minHeight = 200),
+            viewer = paneViewer(minHeight = 400),
             stopOnCancel = FALSE)
 }
 
