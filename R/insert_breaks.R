@@ -1,4 +1,19 @@
 #' insert a section break with an optional title
+##  ................... #<500bb473a14472205039d5352232e984># ...................
+##   {#70df3 .class 3 .class 5 .class 2 .class 1}                           ####
+
+##  ................... #<dc20487256806dc1264029e376d216d5># ...................
+##   {#49815 .class 3 .class 4 .class 5}                                    ####
+
+##  ................... #<59908497d13ca3a89a5adbbd7ec1909f># ...................
+##  gg {#f9c36 .class 4 .class 2 .class 3}                                  ####
+
+##  ................... #<1015bd2838198dda9c783f60b49e74a2># ...................
+
+#   ___________________ #<a4cb11bd4af757755434bca4ab087b8e># ___________________
+
+##  ............................................................................
+
 
 
 #   ____________________________________________________________________________
@@ -128,7 +143,22 @@ insert_break <- function(level,
   if (insert_with_shiny) {
     ret_value <- find_title(level)
     if (ret_value$cancel) return("")
-    title <- ret_value$text1
+##  ............................................................................
+
+    if (ret_value$add_semantics) {
+      # create fill
+      create <- setNames(Map(create_creators,
+                             start = c("", "#", ".", "")),
+                         c("get_title", "get_id", "get_class","get_attribute"))
+      fill <- create_fill(title = ret_value$text1,
+                  id = ret_value$id,
+                  classes = ret_value$classes,
+                  attributes = ret_value$keyvaluepairs,
+                  function_container = create)
+
+    } else {
+      fill <- ret_value$text1
+    }
     anchor_in_sep <- ret_value$anchor_in_sep
 
     # set options so anchor_in_sep is remembered
@@ -139,7 +169,7 @@ insert_break <- function(level,
 
 
   } else {
-    title <- ""
+    fill <- ""
     anchor_in_sep <- FALSE
   }
   ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -165,12 +195,13 @@ insert_break <- function(level,
               end_indention = Inf)
 
 ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-### create title sequence to insert
+### create fill sequence to insert
   if (insert_with_shiny) {
     seq_title <- help_create_title(start = start,
-                                   fill = title,
+                                   fill = fill,
                                    sep = sep,
-                                   end = "####")
+                                   end = "####",
+                                   enforce_length = !ret_value$add_semantics)
 
 
     if (!is.null(seq_title)) {
@@ -248,18 +279,19 @@ help_create_title <- function(start = "##",
                               fill = "this is a title",
                               length = options()$strcode$char_length,
                               sep = "sep_here",
-                              end = "----") {
+                              end = "----",
+                              enforce_length = TRUE) {
   # create a text that starts with start, adds sep and then spaces up to margin
   # too long texts will be truncated
   if (fill == "") return(NULL)
   text <- paste0(start, sep, fill)
 
   extension <- paste0(rep(" ",
-                          max(0, length - length(start) - length(end) - length(sep))),
+                          max(0, length - nchar(end) - nchar(text))),
                       collapse = "")
+  str_length <- ifelse(enforce_length, length - nchar(end), nchar(extension) + nchar(text))
 
-
-  paste0(substring(paste0(text, extension), 1, length - nchar(end)), end)
+  paste0(substring(paste0(text, extension), 1, str_length), end)
 }
 
 #' find breakchar for level
@@ -322,9 +354,11 @@ help_insert <- function(x,
 #' A helper function to create a pane to enter a title name
 #' @param level The level of the code break to be inserted
 #' @import shiny miniUI
+#' @importFrom stats setNames
 #' @keywords internal
 find_title <- function(level) {
   choices_input <- paste("level", 1:3)
+  class_choices <- paste("class", 1:10)
   ui <- miniPage(
     miniContentPanel(
       fillCol(
@@ -334,7 +368,7 @@ find_title <- function(level) {
                      width = "320px", height = "35px"),
           selectInput("level", " ", width = "100px",
                       choices = choices_input,
-                      selected = choices_input[level]),
+                      selected = rm_space(choices_input)[level]),
           flex = c(3, 1)
         ),
         fillRow(
@@ -355,7 +389,8 @@ find_title <- function(level) {
                                       placeholder = "enter a unique identifier",
                                       width = "320px", height = "35px"),
                            selectizeInput("classes", label = "classes",
-                           choices = paste("class", 1:10), width = "320px",
+                           choices = setNames(rm_space(class_choices), class_choices),
+                           width = "320px",
                           multiple = TRUE),
                            selectizeInput("keyvaluepairs", width = "320px",
                                           label = "key-value pairs",
@@ -370,12 +405,17 @@ find_title <- function(level) {
   )
 
   server <- function(input, output, session) {
+    listout <- quote(list(text1  = gsub("\n", "", input$text1),
+                    cancel = input$cancel,
+                    anchor_in_sep = input$anchor_in_sep,
+                    add_semantics = input$add_semantics,
+                    id = input$pandoc_id,
+                    level  = input$level,
+                    classes = input$classes,
+                    keyvaluepairs = input$keyvaluepairs))
 
     observeEvent(input$done, {
-      stopApp(list(text1  = input$text1,
-                   cancel = input$cancel,
-                   anchor_in_sep = input$anchor_in_sep,
-                   level  = input$level))
+      stopApp(eval(listout))
     })
 
     observeEvent(input$show, {
@@ -392,16 +432,12 @@ find_title <- function(level) {
 
     observeEvent(input$text1, {
       if(!is.null(input$text1) && any(grep("\n", input$text1))) {
-        stopApp(list(text1 = gsub("\n", "", input$text1),
-                     cancel = input$cancel,
-                     anchor_in_sep = input$anchor_in_sep,
-                     level  = input$level))
+        stopApp(eval(listout))
       }
     })
 
     observeEvent(input$cancel, {
-      stopApp(list(text1 = "",
-                   cancel = input$cancel))
+      stopApp(eval(listout))
     })
   }
 

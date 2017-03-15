@@ -70,3 +70,81 @@ check_via_read <- function(directory = "test-dir_in",
   length(unique(compare)) == 1
 }
 
+
+##  ............................................................................
+##  create fill string for semantics                                        ####
+
+#' create creators
+#'
+#' Function factory for creating fill string
+#' @param start The starting character. Essential in defining the type of
+#'  object the function should create.
+#' @keywords internal
+
+create_creators <- function(start) {
+  function(text) {
+    paste0(start, text)
+  }
+}
+
+
+#' enclose text by characters
+#'
+#' @param ... The objects to be enclosed.
+#' @param left The lhs-closing character.
+#' @param right The rhs-closing character.
+#' @keywords internal
+encl <- function(..., left = "{", right = "}") {
+  dots <- list(...)
+  could_have_spaces <- paste0(left, paste(dots, collapse = " "), right)
+  gsub(paste0("\\s*", right, "$"), right, could_have_spaces)
+
+}
+
+#' remove whitespace
+#'
+#' @param x character vector to remove white space
+#' @keywords internal
+rm_space <- function(x) {
+  gsub(" ", "", x)
+}
+
+
+#' vapply and paste
+#'
+#' @param ... arguments to be passed to vapply
+#' @param collapse how to collapse the content via paste
+#' @keywords internal
+
+papply <- function(..., collapse = " ") {
+  paste0(vapply(..., FUN.VALUE = character(1),
+                USE.NAMES = FALSE), collapse = collapse)
+}
+
+#' create the final fill string from title, id, classes and attributes
+#'
+#' @param title The title.
+#' @param id The id.
+#' @param classes Character vector with classes.
+#' @param attributes Character vector with attributes.
+#' @param function_container The list that contains the required functions
+#'   get_*
+#' @details The function_container is created with \code{create_creators}.
+#' @keywords internal
+
+create_fill <- function(title = "title",
+                        id = "fj3",
+                        classes,
+                        attributes,
+                        function_container) {
+  with(function_container, paste(
+    get_title(title),
+    encl(get_id(id),
+         papply(classes, get_class),
+         papply(rm_space(attributes), get_attribute))
+    )
+  )
+}
+
+
+
