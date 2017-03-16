@@ -1,22 +1,4 @@
 #' insert a section break with an optional title
-##  ................... #<500bb473a14472205039d5352232e984># ...................
-##   {#70df3 .class 3 .class 5 .class 2 .class 1}                           ####
-
-##  ................... #<dc20487256806dc1264029e376d216d5># ...................
-##   {#49815 .class 3 .class 4 .class 5}                                    ####
-
-##  ................... #<59908497d13ca3a89a5adbbd7ec1909f># ...................
-##  gg {#f9c36 .class 4 .class 2 .class 3}                                  ####
-
-##  ................... #<1015bd2838198dda9c783f60b49e74a2># ...................
-
-#   ___________________ #<a4cb11bd4af757755434bca4ab087b8e># ___________________
-
-##  ............................................................................
-
-
-
-#   ____________________________________________________________________________
 #'
 #' A function designed to use as an RStudio
 #' \href{https://rstudio.github.io/rstudioaddins/}{add-in} for structuring code.
@@ -147,14 +129,14 @@ insert_break <- function(level,
 
     if (ret_value$add_semantics) {
       # create fill
-      create <- setNames(Map(create_creators,
+      creators <- setNames(Map(create_creators,
                              start = c("", "#", ".", "")),
                          c("get_title", "get_id", "get_class","get_attribute"))
       fill <- create_fill(title = ret_value$text1,
                   id = ret_value$id,
                   classes = ret_value$classes,
                   attributes = ret_value$keyvaluepairs,
-                  function_container = create)
+                  function_container = creators)
 
     } else {
       fill <- ret_value$text1
@@ -368,7 +350,7 @@ find_title <- function(level) {
                      width = "320px", height = "35px"),
           selectInput("level", " ", width = "100px",
                       choices = choices_input,
-                      selected = rm_space(choices_input)[level]),
+                      selected = choices_input[level]),
           flex = c(3, 1)
         ),
         fillRow(
