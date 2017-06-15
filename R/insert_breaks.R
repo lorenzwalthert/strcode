@@ -339,8 +339,10 @@ help_insert <- function(x,
 #' @importFrom stats setNames
 #' @keywords internal
 find_title <- function(level) {
-  choices_input <- paste("level", 1:3)
-  class_choices <- paste("test", 1:10)
+  #choices_input <- paste("level", 1:3)
+  #class_choices <- paste("class", 1:10)
+  choices_input <- paste("Class","Association")
+  class_choices <- paste("Process","InputPort","OutputPort","DataLink","SeqCtrlLink","Workflow","User")
   ui <- miniPage(
     miniContentPanel(
       fillCol(
