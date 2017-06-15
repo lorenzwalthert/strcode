@@ -340,7 +340,7 @@ help_insert <- function(x,
 #' @keywords internal
 find_title <- function(level) {
   choices_input <- paste("level", 1:3)
-  class_choices <- paste("class", 1:10)
+  class_choices <- paste("test", 1:10)
   ui <- miniPage(
     miniContentPanel(
       fillCol(
