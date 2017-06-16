@@ -156,9 +156,12 @@ insert_break <- function(level,
   }
   ### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
   ### set parameter depending on level
-  start <- paste0(rep("#", level), collapse = "")
-  break_char = give_breakchar(level)
-  sep = paste(rep(" ", 4 - level), collapse = "")
+  #start <- paste0(rep("#", level), collapse = "")
+  #break_char = give_breakchar(level)
+  #sep = paste(rep(" ", 4 - level), collapse = "")
+  start <- paste0(rep("#", 3), collapse = "")
+  break_char = give_breakchar(3)
+  sep = paste(rep(" ", 4 - 3), collapse = "")
 
 
 
