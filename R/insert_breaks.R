@@ -341,7 +341,7 @@ help_insert <- function(x,
 find_title <- function(level) {
   #choices_input <- paste("level", 1:3)
   #class_choices <- paste("class", 1:10)
-  choices_input <- paste(c("Class","Association"))
+  choices_input <- paste(c("Workflow","Trace","Data Structure"))
   class_choices <- paste(c("Process","InputPort","OutputPort","DataLink","SeqCtrlLink","Workflow","User"))
   ui <- miniPage(
     miniContentPanel(
