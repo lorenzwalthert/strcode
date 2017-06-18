@@ -347,9 +347,9 @@ find_title <- function(level) {
   #class_choices <- paste("class", 1:10)
   choices_input <- paste(c("Workflow","Trace","Data Structure"))
   #class_choices <- paste(c("Process","InputPort","OutputPort","DataLink","SeqCtrlLink","Workflow","User","hasSubProcess","sourcePToCL",
-                           "CLtoDestP","hasInPort","hasOutPort","hasDefaultParam","DLToInPort","outPortToDL","inPortToDL","DLToOutPort",
-                           "wasAttributedTo","wasDerivedFrom","ProcessExec","dataOnLink","used","wasGeneratedBy","wasAssociatedWith",
-                           "wasInformedBy","isPartOf","Data","Collection","wasDerivedFrom","hadMember"))
+  #                         "CLtoDestP","hasInPort","hasOutPort","hasDefaultParam","DLToInPort","outPortToDL","inPortToDL","DLToOutPort",
+  #                         "wasAttributedTo","wasDerivedFrom","ProcessExec","dataOnLink","used","wasGeneratedBy","wasAssociatedWith",
+  #                         "wasInformedBy","isPartOf","Data","Collection","wasDerivedFrom","hadMember"))
   class_choices <- paste(c("provone:Process","provone:InputPort","provone:OutputPort","provone:DataLink","provone:SeqCtrlLink",
                            "provone:Workflow","provone:User","provone:ProcessExec","provone:Data","provone:Collection","provone:Visualization"))
   ui <- miniPage(
