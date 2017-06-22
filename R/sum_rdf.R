@@ -7,7 +7,7 @@
 #'   is a single file path, only the resepective file will be summarised.
 #'   The default value uses the RStudio API to produce a summary of content from
 #'   the source editor. This requires that the file is saved before
-#'   \code{sum_str} is called.
+#'   \code{sum_rdf} is called.
 #' @param file_in_extension If \code{file_in} is \code{NULL}, all files with the
 #'   \code{file_in_extension} are considered, defaults to ".R".
 #' @param dir_out The directory to print the output to. "" implies the console.
@@ -41,7 +41,7 @@
 #'   indicate the name of the columns (line, level, section).
 #' @param ... futher arguments to be passed from and to other methods, in
 #'   particular \code{\link{list.files}} for reading in multiple files.
-#' @details To create the summary, \code{sum_str} uses regular expressions.
+#' @details To create the summary, \code{sum_rdf} uses regular expressions.
 #'   Hence it is crucial that the code separators and the separator titles
 #'   match the regular expression pattern. We recommend inserting
 #'   separators and their titles using the RStudio Add-in that is contained
@@ -58,7 +58,7 @@
 #'   }
 #'   Lines that do not satisfy these requirements (e.g. do not start with #s,
 #'   do not contain the right number of spaces after the #, indent before any #
-#'   ect.) are not considered by \code{sum_str}.
+#'   ect.) are not considered by \code{sum_rdf}.
 #' @section Removing spaces and hashes:
 #'   The add-in contained in this package inserts section titles in a way that
 #'     that they are recognised by RStudio as sections (for details, see
@@ -82,14 +82,14 @@
 #' \dontrun{
 #' # Open a new .R file in RStudio, insert some code breaks
 #' # using the Add-in of this package, save the file and run:
-#' sum_str() # get a summary of the source editor.
+#' sum_rdf() # get a summary of the source editor.
 #' }
 #' @importFrom rstudioapi getSourceEditorContext
 #' @export
 #'
 #   ____________________________________________________________________________
 #   user function                                                           ####
-sum_str <- function(path_in = getSourceEditorContext()$path,
+sum_rdf <- function(path_in = getSourceEditorContext()$path,
                     file_in_extension = ".R",
                     dir_out = "",
                     file_out = NULL,
@@ -142,7 +142,7 @@ assert_number(granularity, lower = 1, upper = 3)
     if (dir_out != "") {
       cat(g, sep = " \n")
     }
-    sum_str_helper(path_in = g,
+    sum_rdf_helper(path_in = g,
                    dir_out = dir_out,
                    file_out = file_out,
                    file_out_extension = file_out_extension,
@@ -165,11 +165,11 @@ assert_number(granularity, lower = 1, upper = 3)
 }
 #' helper function for code summarisation
 #   ____________________________________________________________________________
-#   helper function: sum_str_helper                                         ####
+#   helper function: sum_rdf_helper                                         ####
 #' return code summary for one file
 #'
-#' Function is called by \code{sum_str()} and returns summary of one code file.
-#' @inheritParams sum_str
+#' Function is called by \code{sum_rdf()} and returns summary of one code file.
+#' @inheritParams sum_rdf
 #' @details The core of the function is described best as follows: after a file
 #' was read in and stored in a vector *lines* whereas each element describes a
 #' line of code, the candidate lines (in the sense that they might be contained
@@ -181,7 +181,7 @@ assert_number(granularity, lower = 1, upper = 3)
 #' the subset of *lines* that we finally want to output.
 #' @keywords internal
 #' @import checkmate
-sum_str_helper <- function(path_in,
+sum_rdf_helper <- function(path_in,
                            dir_out,
                            file_out,
                            file_out_extension,
@@ -344,7 +344,7 @@ if (rm_break_anchors) {
 #'
 #' This helper function takes a string (vector) as an input and searches for the
 #' highest or lowest granularity. Granularity is defined in terms of a hash/
-#' space sequence (see \code{\link{sum_str}}). The search is implemented using
+#' space sequence (see \code{\link{sum_rdf}}). The search is implemented using
 #' a recursive approach.
 #' @param direction either "up" or "down". Down means the algorithm starts with
 #' the pattern containing a certain number of hashes (specified in
