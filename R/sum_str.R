@@ -1,3 +1,6 @@
+#test:
+testfunction=function(){paste(test123)}
+
 #' Summarize the code structure
 #'
 #' Create a summary of one or multiple code files based on the section
