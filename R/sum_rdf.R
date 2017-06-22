@@ -238,7 +238,7 @@ if (rm_break_anchors) {
   hash_candid <- intersect(grep("(\\s#<\\s[0-9a-z]{1,33}\\s>#\\s)", lines, perl = TRUE),
                            cand)
   # get their level
-  lvl <- nchar(gsub("^(#+)\\s.*$", "\\1", lines[hash_candid], perl = TRUE))
+  lvl <- nchar(gsub("^(#+)\\s.*$", "\\2", lines[hash_candid], perl = TRUE))
   replacement <- vapply(lvl, function(x) help_create_break(start = paste0(rep("#", x), collapse = ""),
                                            break_char = give_breakchar(x),
                                            sep = paste(rep(" ", 4 - x), collapse = ""), anchor_in_sep = FALSE),
