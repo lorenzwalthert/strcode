@@ -1,5 +1,5 @@
 #test:
-testfunction <- function(){paste(test123)}
+testfunction <- function(x="none"){paste(x)}
 
 #' Summarize the code structure
 #'
