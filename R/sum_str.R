@@ -331,7 +331,11 @@ if (rm_break_anchors) {
 ##  ............................................................................
 ##  output the pattern
   if (dir_out == "" && file_out == "object") {
-    lines
+    #lines
+    for (i in 1:length(lines)){
+      print i
+      }
+    
   } else {
     cat(lines, file = path_out, sep = "\n")
   }
