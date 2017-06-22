@@ -1,6 +1,3 @@
-#test:
-testfunction <- function(x="none"){paste(x)}
-
 #' Summarize the code structure
 #'
 #' Create a summary of one or multiple code files based on the section
