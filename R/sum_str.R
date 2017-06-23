@@ -331,7 +331,7 @@ if (rm_break_anchors) {
 ##  ............................................................................
 ##  output the pattern
   if (dir_out == "" && file_out == "object") {
-    class(lines)
+    lines
   } else {
     cat(lines, file = path_out, sep = "\n")
   }
