@@ -335,7 +335,51 @@ if (rm_break_anchors) {
 ##  output the pattern
   if (rdf){
     #localwd=getwd()
-    write(lines,file="temptestfile.txt")
+    write(lines,file="RDF_output_file.txt")
+    templines=readLines("RDF_output_file.txt")
+lines_content=templines[4:length(templines)]
+lines_split=strsplit(lines_content, " ")
+# RDF word list:
+ProvONElist=c("provone:Process","provone:InputPort","provone:OutputPort",
+              "provone:DataLink","provone:SeqCtrlLink","provone:Workflow",
+              "provone:User","provone:ProcessExec","provone:Data",
+              "provone:Collection","provone:Visualization")
+lines_rdf=""
+for (j in 1:length(lines_split)){
+  line_rdf=""
+  lines_split[[j]]
+  #title
+  title=lines_split[[j]][2]
+  #ID
+  ID=gsub("\\{","",lines_split[[j]][3])
+  for (i in 4:length(lines_split[[j]])){
+    tempword=""
+    if (i==4){
+      tempword=gsub("\\}","",lines_split[[j]][4])
+      tempword=gsub("\\.","",tempword)
+      line_rdf=paste(ID,"a",tempword,";","\n")
+    }
+    else {
+      tempword=gsub("\\.","",lines_split[[j]][i])
+      if (i==length(lines_split[[j]])){
+        tempword=gsub("\\}","",tempword)
+      }
+      if (tempword %in% ProvONElist){
+        temp_line=paste("rdf:type",tempword,";")
+      }
+      else {
+        temp_line=paste("_",tempword,";")
+      }
+      temp_line=paste("\t",temp_line,"\n")
+      line_rdf=paste(line_rdf,temp_line)
+    }
+    
+  }
+  line_rdf=paste(line_rdf,"\t","rdfs:label","\"",title,"\"",".\n")
+  lines_rdf=paste(lines_rdf,line_rdf)
+}
+write(lines_rdf,file="RDF_output_file.txt")
+
   }
   # original below (delet else):
   else if (dir_out == "" && file_out == "object") {
