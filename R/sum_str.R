@@ -155,7 +155,8 @@ assert_number(granularity, lower = 1, upper = 3)
                    granularity = granularity,
                    last_sep = last_sep,
                    title = title,
-                   header = header)
+                   header = header,
+                   rdf=rdf)
   })
 
   if (dir_out == "" && !is.null(file_out) && file_out == "object") {
