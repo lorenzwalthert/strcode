@@ -195,7 +195,8 @@ sum_str_helper <- function(path_in,
                            granularity,
                            last_sep,
                            title,
-                           header) {
+                           header,
+                           rdf) {
 
 ##  ............................................................................
 ##  argument interaction                                                    ####
