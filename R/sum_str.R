@@ -335,8 +335,10 @@ if (rm_break_anchors) {
 ##  output the pattern
   if (rdf){
     #localwd=getwd()
-    write(lines,file="RDF_output_file.txt")
-    templines=readLines("RDF_output_file.txt")
+    datetime <- format(Sys.time(), "%Y_%m_%d_%H_%M_%S")
+    outputfile2 <- paste("RDF_output_file_",datetime,".txt",sep="")
+    write(lines,file=outputfile2)
+    templines=readLines(outputfile2)
 lines_content=templines[4:length(templines)]
 lines_split=strsplit(lines_content, " ")
 # RDF word list:
@@ -378,8 +380,10 @@ for (j in 1:length(lines_split)){
   line_rdf=paste(line_rdf,"\t","rdfs:label","\"",title,"\"",".\n")
   lines_rdf=paste(lines_rdf,line_rdf)
 }
-write(lines_rdf,file="RDF_output_file.txt")
-
+write(lines_rdf,file=outputfile2)
+print("Create a RDF file successfully. Please find the output file in:")
+print(getwd())
+print(paste("Your file name is:",outputfile2))
   }
   # original below (delet else):
   else if (dir_out == "" && file_out == "object") {
