@@ -103,6 +103,7 @@ sum_str <- function(path_in = getSourceEditorContext()$path,
                     last_sep = FALSE,
                     title = TRUE,
                     header = TRUE,
+                    rdf = FALSE,
                     ...) {
 
 ##  ............................................................................
@@ -330,7 +331,12 @@ if (rm_break_anchors) {
 
 ##  ............................................................................
 ##  output the pattern
-  if (dir_out == "" && file_out == "object") {
+  if (rdf){
+    #localwd=getwd()
+    write(lines,file="temptestfile.txt")
+  }
+  # original below (delet else):
+  else if (dir_out == "" && file_out == "object") {
     lines
   } else {
     cat(lines, file = path_out, sep = "\n")
