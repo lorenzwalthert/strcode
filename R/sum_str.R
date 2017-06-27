@@ -341,12 +341,49 @@ if (rm_break_anchors) {
     templines=readLines(outputfile2)
 lines_content=templines[4:length(templines)]
 lines_split=strsplit(lines_content, " ")
+
+schemalist=list()
+
+schemas=c(rdfs="@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .",
+          xsd="@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .",
+          owl="@prefix owl:     <http://www.w3.org/2002/07/owl#> .",
+          dcterms="@prefix dcterms: <http://purl.org/dc/terms/> .",
+          prov="@prefix prov:    <http://www.w3.org/ns/prov#> .",
+          wfms="@prefix wfms:    <http://www.wfms.org/registry.xsd> .",
+          rdf="@prefix rdf:       <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .",
+          provone="@prefix provone: <http://dataone.org/ns/provone#> .",
+          skos="@prefix skos:    <http://www.w3.org/2004/02/skos/core#> ")
+
+for (i in 1:length(lines_split)){
+  schemalist[[i]]=grep(":",lines_split[[i]])
+}
+schemahad=0
+lines_rdf=""
+count0=1
+for (i in 1:length(schemalist)){
+  #print (i)
+  for (j in 1:length(schemalist[[i]])){
+    #print (j)
+    tempstr=lines_split[[i]][(schemalist[[i]])[j]]
+    #print(tempstr)
+    tempschemastr=gsub("\\.","",strsplit(tempstr,'\\:')[[1]][1])
+    schemas[tempschemastr]
+    if (tempschemastr %in% schemahad) {#print("!")
+    }
+    else{schemahad[count0]=tempschemastr
+    count0=count0+1}
+  }
+}
+for (i in 1:length(schemahad)){
+  lines_rdf=paste(lines_rdf,schemas[schemahad[i]],"\n")
+}
+
 # RDF word list:
 ProvONElist=c("provone:Process","provone:InputPort","provone:OutputPort",
               "provone:DataLink","provone:SeqCtrlLink","provone:Workflow",
               "provone:User","provone:ProcessExec","provone:Data",
               "provone:Collection","provone:Visualization")
-lines_rdf=""
+#lines_rdf=""
 for (j in 1:length(lines_split)){
   line_rdf=""
   lines_split[[j]]
@@ -359,7 +396,7 @@ for (j in 1:length(lines_split)){
     if (i==4){
       tempword=gsub("\\}","",lines_split[[j]][4])
       tempword=gsub("\\.","",tempword)
-      line_rdf=paste(ID,"a",tempword,";","\n")
+      line_rdf=paste("\n",ID,"a",tempword,";","\n")
     }
     else {
       tempword=gsub("\\.","",lines_split[[j]][i])
