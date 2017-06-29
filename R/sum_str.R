@@ -342,6 +342,10 @@ if (rm_break_anchors) {
 lines_content=templines[4:length(templines)]
 lines_split=strsplit(lines_content, " ")
 
+baseURI="http://example.org/base/"
+UserID="UserID"
+FullURI=paste0(baseURI,UserID)
+
 schemalist=list()
 
 schemas=c(rdfs="@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .",
@@ -391,6 +395,9 @@ for (j in 1:length(lines_split)){
   title=lines_split[[j]][2]
   #ID
   ID=gsub("\\{","",lines_split[[j]][3])
+  if (j==1){
+    ID=paset0("\<",FullURI,"\>")
+  }
   for (i in 4:length(lines_split[[j]])){
     tempword=""
     if (i==4){
