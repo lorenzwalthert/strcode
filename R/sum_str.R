@@ -422,7 +422,8 @@ for (j in 1:length(lines_split)){
     }
     
   }
-  line_rdf=paste(line_rdf,"\t","rdfs:label","\"",title,"\"",".\n")
+  title=paste0("\"",title,"\"")
+  line_rdf=paste(line_rdf,"\t","rdfs:label",title,".\n")
   lines_rdf=paste(lines_rdf,line_rdf)
 }
 write(lines_rdf,file=outputfile2)
