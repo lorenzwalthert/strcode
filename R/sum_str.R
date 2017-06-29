@@ -396,7 +396,7 @@ for (j in 1:length(lines_split)){
   #ID
   ID=gsub("\\{","",lines_split[[j]][3])
   if (j==1){
-    ID=paste0("\<",FullURI,"\>")
+    ID=paste0("<",FullURI,">")
     #ID=gsub("\\","",ID)
   }
   for (i in 4:length(lines_split[[j]])){
