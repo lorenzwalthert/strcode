@@ -361,7 +361,10 @@ schemas=c(rdfs="@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .",
 for (i in 1:length(lines_split)){
   schemalist[[i]]=grep(":",lines_split[[i]])
 }
+lines_split=lines_split[which(schemalist>0)]
+lines_split
 schemalist=schemalist[which(schemalist>0)]
+schemalist
 schemahad=0
 lines_rdf=""
 count0=1
