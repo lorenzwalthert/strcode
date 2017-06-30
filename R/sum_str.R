@@ -105,6 +105,9 @@ sum_str <- function(path_in = getSourceEditorContext()$path,
                     header = TRUE,
                     rdf = FALSE,
                     graph=FALSE,
+                    domain=FALSE,
+                    baseURI="http://example.org/base/",
+                    UserID="UserID"
                     ...) {
 
 ##  ............................................................................
@@ -158,7 +161,10 @@ assert_number(granularity, lower = 1, upper = 3)
                    title = title,
                    header = header,
                    rdf=rdf,
-                   graph=graph)
+                   graph=graph,
+                  domain=domain,
+                  baseURI=baseURI,
+                  UserID=UserID)
   })
 
   if (dir_out == "" && !is.null(file_out) && file_out == "object") {
@@ -199,7 +205,10 @@ sum_str_helper <- function(path_in,
                            title,
                            header,
                            rdf,
-                           graph) {
+                           graph,
+                          domain,
+                          baseURI,
+                          UserID) {
 
 ##  ............................................................................
 ##  argument interaction                                                    ####
@@ -345,8 +354,8 @@ if (rm_break_anchors) {
 lines_content=templines[4:length(templines)]
 lines_split=strsplit(lines_content, " ")
 
-baseURI="http://example.org/base/"
-UserID="UserID"
+baseURI=baseURI
+UserID=UserID
 FullURI=paste0(baseURI,UserID)
 
 schemalist=list()
@@ -441,13 +450,16 @@ for (j in 1:length(lines_split)){
   line_rdf=""
   #lines_split[[j]]
   #title
-  title0=lines_split[[j]][2]
+    if (domain){
+    title0=paste0("<",FullURI,">")
+    }
+    else{
+      title0=lines_split[[j]][2]
+    }  
 
   #ID
   ID=gsub("\\{","",lines_split[[j]][3])
-  #if (j==1){
-  #  ID=paste0("<",FullURI,">")
-  #}
+
   for (i in 4:length(lines_split[[j]])){
   #for (i in 4:4){
     tempword=""
