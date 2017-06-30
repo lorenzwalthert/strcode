@@ -107,7 +107,7 @@ sum_str <- function(path_in = getSourceEditorContext()$path,
                     graph=FALSE,
                     domain=FALSE,
                     baseURI="http://example.org/base/",
-                    UserID="UserID"
+                    UserID="UserID",
                     ...) {
 
 ##  ............................................................................
