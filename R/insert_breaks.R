@@ -390,7 +390,7 @@ find_title <- function(level) {
                            choices = "", multiple = TRUE,
                            options = list(create = TRUE,
                                           persist = FALSE,
-                                          createFilter = "^[a-zA-Z1-9]+\\s*=\\s*[a-zA-Z1-9]+$"))
+                                          createFilter = "^[a-zA-Z0-9]+\\s*=\\s*[a-zA-Z0-9]+$"))
                            )
         )
         ,flex = c(0.8, 0.5, 3))
