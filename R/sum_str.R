@@ -439,8 +439,6 @@ ProvONElist=c("provone:Process","provone:InputPort","provone:OutputPort",
               "provone:DataLink","provone:SeqCtrlLink","provone:Workflow",
               "provone:User","provone:ProcessExec","provone:Data",
               "provone:Collection","provone:Visualization")
-#lines_rdf=""
-#for (j in 1:1){
 nodesnames=""
 nodesclasses=""
 nodesfrom=""
@@ -450,14 +448,13 @@ for (j in 1:length(lines_split)){
   line_rdf=""
   #lines_split[[j]]
   #title
-    if (j==1){
-      if (domain){
+    if (j==1&domain){
     title0=FullURI
     }
     else{
       title0=lines_split[[j]][2]
     }  
-    }
+    
     
 
   #ID
