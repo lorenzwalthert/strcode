@@ -450,12 +450,15 @@ for (j in 1:length(lines_split)){
   line_rdf=""
   #lines_split[[j]]
   #title
-    if (domain){
-    title0=paste0("<",FullURI,">")
+    if (j==1){
+      if (domain){
+    title0=FullURI
     }
     else{
       title0=lines_split[[j]][2]
     }  
+    }
+    
 
   #ID
   ID=gsub("\\{","",lines_split[[j]][3])
