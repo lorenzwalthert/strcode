@@ -357,14 +357,49 @@ schemas=c(rdfs="@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .",
           rdf="@prefix rdf:       <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .",
           provone="@prefix provone: <http://dataone.org/ns/provone#> .",
           skos="@prefix skos:    <http://www.w3.org/2004/02/skos/core#> ")
-
+# Using ":" to find class
 for (i in 1:length(lines_split)){
-  schemalist[[i]]=grep(":",lines_split[[i]])
+    schemalist[[i]]=grep(":",lines_split[[i]])
 }
-lines_split=lines_split[which(schemalist>0)]
-lines_split
-schemalist=schemalist[which(schemalist>0)]
+tempcount0=0
+schemalist1=list()
+for (i in 1:length(schemalist)){
+  if (length(schemalist[[i]])>0){
+    tempcount0=tempcount0+1
+    schemalist1[[tempcount0]]=schemalist[[i]]
+  }
+}
+schemalist1
+
+tempcount0=0
+lines_split1=list()
+for (i in 1:length(schemalist)){
+  if (length(schemalist[[i]])>0){
+    tempcount0=tempcount0+1
+    lines_split1[[tempcount0]]=lines_split[[i]]
+  }
+}
+lines_split1
+
+lines_split=lines_split1
+schemalist=schemalist1
+lines_split1=schemalist
+for (i in 1:length(lines_split)){
+  tempcount0=0
+  for (j in 1:length(lines_split[[i]])){
+    if (nchar(lines_split[[i]][j])>0){
+      tempcount0=tempcount0+1
+      lines_split1[[i]][tempcount0]=lines_split[[i]][j]
+    }
+  }
+}
+lines_split1
+
+for (i in 1:length(lines_split1)){
+  schemalist[[i]]=grep(":",lines_split1[[i]])
+}
 schemalist
+lines_split=lines_split1
 schemahad=0
 lines_rdf=""
 count0=1
@@ -401,7 +436,6 @@ for (j in 1:length(lines_split)){
   ID=gsub("\\{","",lines_split[[j]][3])
   if (j==1){
     ID=paste0("<",FullURI,">")
-    #ID=gsub("\\","",ID)
   }
   for (i in 4:length(lines_split[[j]])){
     tempword=""
