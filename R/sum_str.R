@@ -348,7 +348,8 @@ if (rm_break_anchors) {
   if (rdf|graph){
     #localwd=getwd()
     datetime <- format(Sys.time(), "%Y_%m_%d_%H_%M_%S")
-    outputfile2 <- paste("RDF_output_file_",datetime,".txt",sep="")
+    format=".ttl" #".txt"
+    outputfile2 <- paste("RDF_output_file_",datetime,format,sep="")
     write(lines,file=outputfile2)
     templines=readLines(outputfile2)
 lines_content=templines[4:length(templines)]
