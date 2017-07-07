@@ -555,7 +555,7 @@ plot(g3, edge.arrow.size=.2, edge.curved=.4)
     
 
   }
-  else if (rdf="ttl"|graph){
+  else if (rdf=="ttl"|graph){
     datetime <- format(Sys.time(), "%Y_%m_%d_%H_%M_%S")
     fileformat=".ttl" #".txt"
     outputfile2 <- paste("RDF_output_file_",datetime,fileformat,sep="")
