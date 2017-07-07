@@ -528,7 +528,7 @@ for (j in 1:length(lines_split)){
   #line_rdf=paste(line_rdf,"\t","rdfs:label",title,".\n")
   lines_rdf=paste(lines_rdf,line_rdf)
 }
-if (rdf){
+if (rdf=="test"){
   write(lines_rdf,file=outputfile2)
 print("Create a RDF file successfully. Please find the output file in:")
 print(getwd())
@@ -820,7 +820,7 @@ for (i in 1:length(line_rdf_vector)){
   lines_rdf=paste(lines_rdf,line_rdf_vector[i])
 }
 
-if (rdf="ttl"){
+if (rdf=="ttl"){
   write(lines_rdf,file=outputfile2)
 print("Create a RDF file successfully. Please find the output file in:")
 print(getwd())
