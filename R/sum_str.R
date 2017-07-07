@@ -345,7 +345,7 @@ if (rm_break_anchors) {
 
 ##  ............................................................................
 ##  output the pattern
-  if (rdf|graph){
+  if (rdf=="test"){
     #localwd=getwd()
     datetime <- format(Sys.time(), "%Y_%m_%d_%H_%M_%S")
     fileformat=".ttl" #".txt"
@@ -555,6 +555,284 @@ plot(g3, edge.arrow.size=.2, edge.curved=.4)
     
 
   }
+  else if (rdf="ttl"|graph){
+    datetime <- format(Sys.time(), "%Y_%m_%d_%H_%M_%S")
+    fileformat=".ttl" #".txt"
+    outputfile2 <- paste("RDF_output_file_",datetime,fileformat,sep="")
+    write(lines,file=outputfile2)
+    templines=readLines(outputfile2)
+lines_content=templines[4:length(templines)]
+lines_split=strsplit(lines_content, " ")
+
+baseURI=baseURI
+UserID=UserID
+FullURI=paste0(baseURI,UserID,"/")
+
+schemalist=list()
+
+schemas=c(rdfs="@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .",
+          xsd="@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .",
+          owl="@prefix owl:     <http://www.w3.org/2002/07/owl#> .",
+          dcterms="@prefix dcterms: <http://purl.org/dc/terms/> .",
+          prov="@prefix prov:    <http://www.w3.org/ns/prov#> .",
+          wfms="@prefix wfms:    <http://www.wfms.org/registry.xsd> .",
+          rdf="@prefix rdf:       <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .",
+          provone="@prefix provone: <http://dataone.org/ns/provone#> .",
+          skos="@prefix skos:    <http://www.w3.org/2004/02/skos/core#> ")
+# Using ":" to find class
+for (i in 1:length(lines_split)){
+  schemalist[[i]]=grep(":",lines_split[[i]])
+}
+tempcount0=0
+schemalist1=list()
+for (i in 1:length(schemalist)){
+  if (length(schemalist[[i]])>0){
+    tempcount0=tempcount0+1
+    schemalist1[[tempcount0]]=schemalist[[i]]
+  }
+}
+schemalist1
+
+tempcount0=0
+lines_split1=list()
+for (i in 1:length(schemalist)){
+  if (length(schemalist[[i]])>0){
+    tempcount0=tempcount0+1
+    lines_split1[[tempcount0]]=lines_split[[i]]
+  }
+}
+lines_split1
+
+lines_split=lines_split1
+schemalist=schemalist1
+lines_split1=schemalist
+for (i in 1:length(lines_split)){
+  tempcount0=0
+  for (j in 1:length(lines_split[[i]])){
+    if (nchar(lines_split[[i]][j])>0){
+      tempcount0=tempcount0+1
+      lines_split1[[i]][tempcount0]=lines_split[[i]][j]
+    }
+  }
+}
+lines_split1
+
+for (i in 1:length(lines_split1)){
+  schemalist[[i]]=grep(":",lines_split1[[i]])
+}
+schemalist
+lines_split=lines_split1
+
+infolist=lines_split
+for (i in 1:length(infolist)){
+  templevel=strsplit(infolist[[i]][1],"\\t")
+  infolist[[i]][1]=nchar(templevel[[1]][2])
+  #infodf$level[i]=lines_split[[i]][1]
+}
+for (i in 1:length(infolist)){
+  infolist[[i]][3]=gsub("\\{","",infolist[[i]][3])
+  infolist[[i]][3]=gsub("\\#","",infolist[[i]][3])
+  #infodf$level[i]=lines_split[[i]][1]
+}
+for (i in 1:length(infolist)){
+  infolist[[i]][length(infolist[[i]])]=gsub("\\}","",infolist[[i]][length(infolist[[i]])])
+  infolist[[i]][length(infolist[[i]])]=gsub("\\.","",infolist[[i]][length(infolist[[i]])])
+  #infodf$level[i]=lines_split[[i]][1]
+}
+infolist
+
+schemahad=0
+lines_rdf=""
+count0=1
+# add prefix
+for (i in 1:length(schemalist)){
+  #print (i)
+  for (j in 1:length(schemalist[[i]])){
+    #print (j)
+    tempstr=lines_split[[i]][(schemalist[[i]])[j]]
+    #print(tempstr)
+    tempschemastr=gsub("\\.","",strsplit(tempstr,'\\:')[[1]][1])
+    schemas[tempschemastr]
+    if (tempschemastr %in% schemahad) {#print("!")
+    }
+    else{schemahad[count0]=tempschemastr
+    count0=count0+1}
+  }
+}
+for (i in 1:length(schemahad)){
+  lines_rdf=paste(lines_rdf,schemas[schemahad[i]],"\n")
+}
+
+# RDF word list:
+ProvONElist=c("provone:Process","provone:InputPort","provone:OutputPort",
+              "provone:DataLink","provone:SeqCtrlLink","provone:Workflow",
+              "provone:User","provone:ProcessExec","provone:Data",
+              "provone:Collection","provone:Visualization")
+
+nodesnames=nodesclasses=nodesfrom=nodesto=nodesproperty=parentclass=property=line_rdf_vector=""
+templevel=parentlevel=parentindex=0
+levelvector=rep(0,3)
+
+for (j in 1:length(infolist)){
+  line_rdf=""
+  title0=infolist[[j]][2]
+  ID=infolist[[j]][3]
+  parentlevel=templevel
+  templevel=infolist[[j]][1]
+  tempclass=infolist[[j]][4]
+  if (infolist[[j]][1]==1){
+    if (levelvector[1]==0){
+      levelvector[1]=j
+    }
+  }
+  if (infolist[[j]][1]==2){
+    if (levelvector[2]==0){
+      levelvector[2]=j
+    }
+  }
+  if (infolist[[j]][1]==3){
+    if (levelvector[3]==0){
+      levelvector[3]=j
+    }
+  }
+  if (as.numeric(parentlevel)!=0){
+  if (as.numeric(templevel)>as.numeric(parentlevel)){
+    parentindex=j-1
+    parentclass=infolist[[j-1]][4]
+  }
+  else if (templevel==parentlevel){
+    parentindex=levelvector[as.numeric(templevel)-1]
+    parentclass=infolist[[as.numeric(parentindex)]][4]
+  }
+  else {
+    levelvector[templevel]=j
+    parentindex=levelvector[as.numeric(templevel)-1]
+  }
+  }
+  # judge association:
+  if (parentclass=="provone:Process"&tempclass=="provone:Process"){
+    property="provone:hasSubProcess"
+  }
+  else if (parentclass=="provone:Process"&(tempclass=="provone:Data"|tempclass=="provone:Visualization")){
+    property="provone:wasDerivedFrom"
+  }
+  
+  if (property=="provone:hasSubProcess"){
+    nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
+    nodesto=paste0(nodesto,infolist[[j]][2]," ")
+    nodesproperty=paste0(nodesproperty,property," ")
+  }
+  else if(property=="provone:wasDerivedFrom"){
+    nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
+    nodesto=paste0(nodesto,infolist[[j]][2]," ")
+    nodesproperty=paste0(nodesproperty,property," ")
+    nodesfrom=paste0(nodesfrom,infolist[[j]][2]," ")
+    nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
+    nodesproperty=paste0(nodesproperty,"provone:hasMember"," ")
+  }
+
+  for (i in 4:length(infolist[[j]])){
+    tempword=""
+    tempentity=""
+    temp_line=""
+    if (i==4){
+      tempword=infolist[[j]][4]
+      nodesnames=paste0(nodesnames,title0," ")
+      nodesclasses=paste0(nodesclasses,tempword," ")
+      
+      entityname=paste0(FullURI,ID)  
+      title=paste0("<",entityname,">")
+      line_rdf=paste("\n",title,"a",tempword)
+      
+      if (i==length(infolist[[j]])){
+        line_rdf=paste(line_rdf,";","\n")
+        #line_rdf=paste(line_rdf,"\t","rdfs:label",title0,".","\n")
+        line_rdf=paste(line_rdf,"\t","rdfs:label",title0,";","\n")#,".","\n")
+      }
+      else{
+        line_rdf=paste(line_rdf,";","\n")
+      }
+      
+    }# out of if i==4
+    else { # i>4
+      tempword=infolist[[j]][i]
+      # old association
+      if (grepl("=",tempword)){
+        
+        #tempwordlist=strsplit(tempword,"=")
+        #tempentity=paste0("<",tempwordlist[[1]][2],">")
+        #temp_line=paste(tempwordlist[[1]][1],tempentity)
+        
+        #nodesfrom=paste0(nodesfrom,title0," ")
+        #nodesto=paste0(nodesto,tempwordlist[[1]][2]," ")
+        #nodesproperty=paste0(nodesproperty,tempwordlist[[1]][1]," ")
+      }
+      #end session
+      if (i==length(infolist[[j]])){
+        temp_line=paste("\t",temp_line,";","\n")
+        #temp_line=paste(temp_line,"\t","rdfs:label",title0,".","\n")
+        temp_line=paste(temp_line,"\t","rdfs:label",title0,";","\n")#,".","\n")
+      }
+      else {
+        temp_line=paste("\t",temp_line,";","\n")
+      }
+    }
+    line_rdf=paste(line_rdf,temp_line)
+    line_rdf_vector[j]=line_rdf
+  }
+  #lines_rdf=paste(lines_rdf,line_rdf)
+}
+
+library(igraph)
+nodesnames2=strsplit(nodesnames," ")
+nodesclasses2=strsplit(nodesclasses," ")
+nodes <- data.frame(name = nodesnames2[[1]],
+                    class = nodesclasses2[[1]])
+nodes
+nodesfrom2=strsplit(nodesfrom," ")
+nodesto2=strsplit(nodesto," ")
+nodesproperty2=strsplit(nodesproperty," ")
+nesting <- data.frame(from = nodesfrom2[[1]],
+                      to = nodesto2[[1]],
+                      property = nodesproperty2[[1]])
+nesting
+g3 <- graph_from_data_frame(nesting, directed=TRUE, vertices=nodes)
+E(g3)$label <- E(g3)$property
+
+titles=IDs=0
+for (i in 1:length(infolist)){
+  titles[i]=infolist[[i]][2]
+  IDs[i]=infolist[[i]][3]
+}
+
+for (i in 1:length(line_rdf_vector)){
+  tempnumber=which(nesting$from==titles[i])
+  for (j in 1:length(tempnumber)){
+    entityname2=paste0("<",FullURI,IDs[which(titles==nesting$to[tempnumber[j]])],">")
+    if (j==length(tempnumber)){
+      line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nesting$property[tempnumber[j]],entityname2,".","\n")}
+    else{line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nesting$property[tempnumber[j]],entityname2,";","\n")}
+    
+  }
+}
+
+for (i in 1:length(line_rdf_vector)){
+  lines_rdf=paste(lines_rdf,line_rdf_vector[i])
+}
+
+if (rdf="ttl"){
+  write(lines_rdf,file=outputfile2)
+print("Create a RDF file successfully. Please find the output file in:")
+print(getwd())
+print(paste("Your file name is:",outputfile2))
+}
+if (graph){
+print(g3, e=TRUE, v=TRUE)
+plot(g3, edge.arrow.size=.2, edge.curved=.4)
+  }
+    
+
+  } 
   # original below (delet else):
   else if (dir_out == "" && file_out == "object") {
     lines
