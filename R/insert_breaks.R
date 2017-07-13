@@ -136,6 +136,7 @@ insert_break <- function(level,
                   id = ret_value$id,
                   classes = ret_value$classes,
                   attributes = ret_value$keyvaluepairs,
+                  json_ld = ret_value$json_ld,
                   function_container = creators)
 
     } else {
@@ -379,7 +380,8 @@ find_title <- function(level) {
                            choices = "", multiple = TRUE,
                            options = list(create = TRUE,
                                           persist = FALSE,
-                                          createFilter = "^[a-zA-Z1-9]+\\s*=\\s*[a-zA-Z1-9]+$"))
+                                          createFilter = "^[a-zA-Z1-9]+\\s*=\\s*[a-zA-Z1-9]+$")),
+                          checkboxInput("json_ld", "JSON-LD")
                            )
         )
         ,flex = c(0.8, 0.5, 3))
@@ -387,14 +389,15 @@ find_title <- function(level) {
   )
 
   server <- function(input, output, session) {
-    listout <- quote(list(text1  = gsub("\n", "", input$text1),
-                    cancel = input$cancel,
-                    anchor_in_sep = input$anchor_in_sep,
-                    add_semantics = input$add_semantics,
-                    id = input$pandoc_id,
-                    level  = input$level,
-                    classes = input$classes,
-                    keyvaluepairs = input$keyvaluepairs))
+    listout <- quote(list(text1 = gsub("\n", "", input$text1),
+                          cancel = input$cancel,
+                          anchor_in_sep = input$anchor_in_sep,
+                          add_semantics = input$add_semantics,
+                          id = input$pandoc_id,
+                          level = input$level,
+                          classes = input$classes,
+                          keyvaluepairs = input$keyvaluepairs,
+                          json_ld = input$json_ld))
 
     observeEvent(input$done, {
       stopApp(eval(listout))
