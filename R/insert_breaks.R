@@ -136,9 +136,9 @@ insert_break <- function(level,
                            c("get_id", "get_class", "get_title", "get_attribute"))
       tempstring=ret_value$id      
       
-      fill <- create_fill(id = paste0("\"@id\":",ret_value$id,","),
-                          classes = paste0("\"@type\":",ret_value$classes,","),
-                          title = paste0("\"label\":",ret_value$text1,","),
+      fill <- create_fill(id = ret_value$id,
+                          classes = ret_value$classes,
+                          title = ret_value$text1,
                           attributes = ret_value$keyvaluepairs,
                     json_ld = ret_value$json_ld,
                     function_container = creators)
