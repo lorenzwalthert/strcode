@@ -404,7 +404,8 @@ find_title <- function(level) {
                            )
         )
         ,flex = c(0.8, 0.5, 3)
-      ),
+      )
+      #,
       #fillRow(
       #  selectInput("style", " ", width = "200px",
       #                choices = styles_input,
