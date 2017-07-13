@@ -352,7 +352,7 @@ help_insert <- function(x,
 #' @keywords internal
 find_title <- function(level) {
   #XJ Original codes:
-  styles_input <- paste(c("Default","JSON-LD"))
+  #styles_input <- paste(c("Default","JSON-LD"))
   choices_input <- paste("level", 1:3)
   #class_choices <- paste("class", 1:10)
   #choices_input <- paste(c("Workflow","Trace","Data Structure"))
