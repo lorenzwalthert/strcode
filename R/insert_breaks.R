@@ -139,7 +139,7 @@ insert_break <- function(level,
       fill <- create_fill(id = ret_value$id,
                     classes = ret_value$classes,
                     attributes = ret_value$keyvaluepairs,
- +                  json_ld = ret_value$json_ld,
+                    json_ld = ret_value$json_ld,
                     function_container = creators)
       #fill <- create_fill(id = paste0("\"@id\":",ret_value$id,"\,"),
       #                    classes = paste0("\"@type\":",ret_value$classes,"\,"),
