@@ -429,7 +429,7 @@ find_title <- function(level) {
                     id = input$pandoc_id,
                     level  = input$level,
                     classes = input$classes,
-                    keyvaluepairs = input$keyvaluepairs,
+                    keyvaluepairs = input$keyvaluepairs
                     #style=input$style
                     #jsonld_style=input$jsonld_style,
                     #default_style=input$default_style    
