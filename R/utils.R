@@ -139,17 +139,24 @@ create_fill <- function(title = "title",
                         json_ld = FALSE,
                         function_container) {
    if (json_ld) {
-     fun <- paste
+      with(function_container, paste(
+    
+    encl(get_id(id),
+         papply(classes, get_class),
+         get_title(title),
+         papply(rm_space(attributes), get_attribute))
+    )
+  )
    } else {
-     fun <- encl
-   }
-  with(function_container, paste(
+      with(function_container, paste(
     get_title(title),
-    fun(get_id(id),
+    encl(get_id(id),
          papply(classes, get_class),
          papply(rm_space(attributes), get_attribute))
     )
   )
+   }
+ 
 }
 
 
