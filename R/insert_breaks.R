@@ -134,12 +134,18 @@ insert_break <- function(level,
                              start = c("", "", "", "")),  
                          #c("get_title", "get_id", "get_class","get_attribute"))
                            c("get_id", "get_class", "get_title", "get_attribute"))
-      #tempstring=ret_value$id      
-      fill <- create_fill(id = paste0("\"@id\":",ret_value$id,"\,"),
-                          classes = paste0("\"@type\":",ret_value$classes,"\,"),
-                          title = paste0("\"label\":",ret_value$text1,"\,"),
-                          attributes = ret_value$keyvaluepairs,
-                          function_container = creators)
+      tempstring=ret_value$id      
+      
+      fill <- create_fill(id = ret_value$id,
+                    classes = ret_value$classes,
+                    attributes = ret_value$keyvaluepairs,
+ +                  json_ld = ret_value$json_ld,
+                    function_container = creators)
+      #fill <- create_fill(id = paste0("\"@id\":",ret_value$id,"\,"),
+      #                    classes = paste0("\"@type\":",ret_value$classes,"\,"),
+      #                    title = paste0("\"label\":",ret_value$text1,"\,"),
+      #                    attributes = ret_value$keyvaluepairs,
+      #                    function_container = creators)
 
     } else {
       fill <- ret_value$text1
@@ -400,7 +406,8 @@ find_title <- function(level) {
                            choices = "", multiple = TRUE,
                            options = list(create = TRUE,
                                           persist = FALSE,
-                                          createFilter = "^[a-zA-Z0-9:]+\\s*=\\s*[a-zA-Z0-9]+$"))
+                                          createFilter = "^[a-zA-Z0-9:]+\\s*=\\s*[a-zA-Z0-9]+$")),
+                           checkboxInput("json_ld", "JSON-LD")
                            )
         )
         ,flex = c(0.8, 0.5, 3)
@@ -429,7 +436,8 @@ find_title <- function(level) {
                     id = input$pandoc_id,
                     level  = input$level,
                     classes = input$classes,
-                    keyvaluepairs = input$keyvaluepairs
+                    keyvaluepairs = input$keyvaluepairs,
+                          json_ld = input$json_ld
                     #style=input$style
                     #,jsonld_style=input$jsonld_style,
                     #default_style=input$default_style    
