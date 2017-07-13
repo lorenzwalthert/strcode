@@ -141,9 +141,9 @@ create_fill <- function(title = "title",
    if (json_ld) {
       with(function_container, paste(
     
-    encl(get_id(id),
-         papply(classes, get_class),
-         get_title(title),
+    encl(paste0("\"@id\":",get_id(id),","),
+         paste0("\"@type\":",papply(classes, get_class),","),
+         paste0("\"label\":",get_title(title),","),
          papply(rm_space(attributes), get_attribute))
     )
   )
