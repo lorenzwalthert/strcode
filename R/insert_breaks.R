@@ -424,7 +424,10 @@ find_title <- function(level) {
                     id = input$pandoc_id,
                     level  = input$level,
                     classes = input$classes,
-                    keyvaluepairs = input$keyvaluepairs))
+                    keyvaluepairs = input$keyvaluepairs,
+                    jsonld_style=input$jsonld_style,
+                    default_style=input$default_style    
+                         ))
 
     observeEvent(input$done, {
       stopApp(eval(listout))
