@@ -270,7 +270,8 @@ help_create_title <- function(start = "##",
   # create a text that starts with start, adds sep and then spaces up to margin
   # too long texts will be truncated
   if (fill == "") return(NULL)
-  text <- paste0(start, sep, fill)
+  #text <- paste0(start, sep, fill)
+  text <- paste0(start, "{", fill)
 
   extension <- paste0(rep(" ",
                           max(0, length - nchar(end) - nchar(text))),
