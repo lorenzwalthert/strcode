@@ -405,19 +405,19 @@ find_title <- function(level) {
         )
         ,flex = c(0.8, 0.5, 3)
       )
-      ,
-      fillRow(
+      #,
+      #fillRow(
       #  selectInput("style", " ", width = "200px",
       #                choices = styles_input,
       #                selected = styles_input[level])
-      checkboxInput("jsonld_style", "JSON-LD style",
-                        value = FALSE,
-                        width = "150px"),
-      checkboxInput("default_style", "Default style",
-                        value = TRUE,
-                        width = "150px"),
-      flex = c(1, 1.5)
-      ),
+      #checkboxInput("jsonld_style", "JSON-LD style",
+      #                  value = FALSE,
+      #                  width = "150px"),
+      #checkboxInput("default_style", "Default style",
+      #                  value = TRUE,
+      #                  width = "150px"),
+      #flex = c(1, 1.5)
+      #),
     )
   )
 
@@ -431,8 +431,8 @@ find_title <- function(level) {
                     classes = input$classes,
                     keyvaluepairs = input$keyvaluepairs
                     #style=input$style
-                    ,jsonld_style=input$jsonld_style,
-                    default_style=input$default_style    
+                    #,jsonld_style=input$jsonld_style,
+                    #default_style=input$default_style    
                          ))
 
     observeEvent(input$done, {
