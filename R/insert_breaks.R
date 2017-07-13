@@ -132,9 +132,9 @@ insert_break <- function(level,
       creators <- setNames(Map(create_creators,
                              start = c("", "#", ".", "")),
                          c("get_title", "get_id", "get_class","get_attribute"))
-      fill <- create_fill(title = paste0("@title:",ret_value$text1),
+      fill <- create_fill(title = paste0("@label:",ret_value$text1),
                   id = paste0("@id:",ret_value$id),
-                  classes = ret_value$classes,
+                  classes = paste0("@type:",ret_value$classes),
                   attributes = ret_value$keyvaluepairs,
                   function_container = creators)
 
