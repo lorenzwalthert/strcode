@@ -138,7 +138,10 @@ create_fill <- function(title = "title",
                         attributes,
                         function_container) {
   with(function_container, paste(
-    
+    #get_title(title),
+    #encl(get_id(id),
+    #     papply(classes, get_class),
+    #     papply(rm_space(attributes), get_attribute))
     encl(get_id(id),
          papply(classes, get_class),get_title(title),
          papply(rm_space(attributes), get_attribute))
