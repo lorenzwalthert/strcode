@@ -402,7 +402,14 @@ find_title <- function(level) {
                                           createFilter = "^[a-zA-Z0-9:]+\\s*=\\s*[a-zA-Z0-9]+$"))
                            )
         )
-        ,flex = c(0.8, 0.5, 3))
+        ,flex = c(0.8, 0.5, 3)
+      ),
+      fillRow(
+      checkboxInput("jsonld_style", "JSON-LD style",
+                        value = FALSE,
+                        width = "150px"),
+        flex = c(1)
+      ),
     )
   )
 
