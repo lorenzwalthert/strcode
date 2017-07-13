@@ -143,7 +143,7 @@ create_fill <- function(title = "title",
     
     encl(paste0("\"@id\":",get_id(id),","),
          paste0("\"@type\":",papply(classes, get_class),","),
-         paste0("\"label\":",get_title(title),","),
+         paste0("\"label\":",get_title(title)),
          papply(rm_space(attributes), get_attribute))
     )
   )
