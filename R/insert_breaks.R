@@ -411,7 +411,7 @@ find_title <- function(level) {
       checkboxInput("default_style", "Default style",
                         value = TRUE,
                         width = "150px"),
-        flex = c(1,1)
+        flex = c(1, 1.5)
       ),
     )
   )
