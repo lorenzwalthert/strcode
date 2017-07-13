@@ -408,7 +408,10 @@ find_title <- function(level) {
       checkboxInput("jsonld_style", "JSON-LD style",
                         value = FALSE,
                         width = "150px"),
-        flex = c(1)
+      checkboxInput("default_style", "Default style",
+                        value = TRUE,
+                        width = "150px"),
+        flex = c(1,1)
       ),
     )
   )
