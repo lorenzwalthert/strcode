@@ -273,10 +273,10 @@ help_create_title <- function(start = "##",
   # too long texts will be truncated
   if (fill == "") return(NULL)
   
-  #text <- paste0(start, sep, fill)
-  text <- paste0(start, sep, paste0("\"@id\":",ret_value$id),
-                 paste0("\"@type\":",ret_value$classes),
-                 paste0("\"label\":",ret_value$text1),ret_value$keyvaluepairs)
+  text <- paste0(start, sep, fill)
+  #text <- paste0(start, sep, paste0("\"@id\":",ret_value$id),
+  #               paste0("\"@type\":",ret_value$classes),
+  #               paste0("\"label\":",ret_value$text1),ret_value$keyvaluepairs)
   
   
 
