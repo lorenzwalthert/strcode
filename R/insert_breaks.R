@@ -130,12 +130,14 @@ insert_break <- function(level,
     if (ret_value$add_semantics) {
       # create fill
       creators <- setNames(Map(create_creators,
-                             start = c("", "#", ".", "")),
-                         c("get_title", "get_id", "get_class","get_attribute"))
+                             #start = c("", "#", ".", "")),
+                             start = c("", "", "", "")),  
+                         #c("get_title", "get_id", "get_class","get_attribute"))
+                           c("get_id", "get_class", "get_title", "get_attribute"))
       #tempstring=ret_value$id      
-      fill <- create_fill(id = paste0("@id:",ret_value$id),
-                          classes = paste0("@type:",ret_value$classes),
-                          title = paste0("label:",ret_value$text1),
+      fill <- create_fill(id = paste0("\\"@id\\":",ret_value$id),
+                          classes = paste0("\\"@type\\":",ret_value$classes),
+                          title = paste0("\\"label\\":",ret_value$text1),
                           attributes = ret_value$keyvaluepairs,
                           function_container = creators)
 
@@ -270,8 +272,7 @@ help_create_title <- function(start = "##",
   # create a text that starts with start, adds sep and then spaces up to margin
   # too long texts will be truncated
   if (fill == "") return(NULL)
-  #text <- paste0(start, sep, fill)
-  text <- paste0(start, "{", fill)
+  text <- paste0(start, sep, fill)
 
   extension <- paste0(rep(" ",
                           max(0, length - nchar(end) - nchar(text))),
