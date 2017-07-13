@@ -352,6 +352,7 @@ help_insert <- function(x,
 #' @keywords internal
 find_title <- function(level) {
   #XJ Original codes:
+  styles_input <- paste(c("Default","JSON-LD"))
   choices_input <- paste("level", 1:3)
   #class_choices <- paste("class", 1:10)
   #choices_input <- paste(c("Workflow","Trace","Data Structure"))
@@ -405,13 +406,16 @@ find_title <- function(level) {
         ,flex = c(0.8, 0.5, 3)
       ),
       fillRow(
-      checkboxInput("jsonld_style", "JSON-LD style",
-                        value = FALSE,
-                        width = "150px"),
-      checkboxInput("default_style", "Default style",
-                        value = TRUE,
-                        width = "150px"),
-        flex = c(1, 1.5)
+        selectInput("style", " ", width = "200px",
+                      choices = styles_input,
+                      selected = styles_input[level])
+      #checkboxInput("jsonld_style", "JSON-LD style",
+      #                  value = FALSE,
+      #                  width = "150px"),
+      #checkboxInput("default_style", "Default style",
+      #                  value = TRUE,
+      #                  width = "150px"),
+      #  flex = c(1, 1.5)
       ),
     )
   )
@@ -425,8 +429,9 @@ find_title <- function(level) {
                     level  = input$level,
                     classes = input$classes,
                     keyvaluepairs = input$keyvaluepairs,
-                    jsonld_style=input$jsonld_style,
-                    default_style=input$default_style    
+                    style=input$style
+                    #jsonld_style=input$jsonld_style,
+                    #default_style=input$default_style    
                          ))
 
     observeEvent(input$done, {
