@@ -408,7 +408,7 @@ find_title <- function(level) {
                            options = list(create = TRUE,
                                           persist = FALSE,
                                           createFilter = "^[a-zA-Z0-9:]+\\s*=\\s*[a-zA-Z0-9]+$")),
-                           checkboxInput("json_ld", "JSON-LD")
+                           checkboxInput("json_ld", "JSON-LD"，width = "80px")
                            )
         )
         ,flex = c(0.8, 0.5, 3)
