@@ -403,7 +403,7 @@ find_title <- function(level) {
                            width = "320px",
                           multiple = TRUE),
                            selectizeInput("keyvaluepairs", width = "320px",
-                                          label = "key-value pairs",
+                                          label = "Manually input: property=value",
                            choices = "", multiple = TRUE,
                            options = list(create = TRUE,
                                           persist = FALSE,
