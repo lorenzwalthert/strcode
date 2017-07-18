@@ -130,10 +130,10 @@ insert_break <- function(level,
     if (ret_value$add_semantics) {
       # create fill
       creators <- setNames(Map(create_creators,
-                             #start = c("", "#", ".", "")),
-                             start = c("", "", "", "")),  
-                         #c("get_title", "get_id", "get_class","get_attribute"))
-                           c("get_id", "get_class", "get_title", "get_attribute"))
+                             start = c("", "#", ".", "")),
+                             #start = c("", "", "", "")),  
+                             c("get_title", "get_id", "get_class","get_attribute"))
+                            #c("get_id", "get_class", "get_title", "get_attribute"))
       tempstring=ret_value$id      
       
       fill <- create_fill(id = ret_value$id,
