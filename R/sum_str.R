@@ -742,7 +742,7 @@ for (j in 1:length(infolist)){
     property="provone:wasDerivedFrom"
   }
   else if (as.numeric(parentlevel)!=0){
-    property="str:belongTo"
+    property="str:has"
   }
   
   if (property=="provone:hasSubProcess"){
@@ -764,7 +764,7 @@ for (j in 1:length(infolist)){
     nodesproperty=paste0(nodesproperty,property," ")
     nodesfrom=paste0(nodesfrom,infolist[[j]][2]," ")
     nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
-    nodesproperty=paste0(nodesproperty,"str:has"," ")
+    nodesproperty=paste0(nodesproperty,"str:belongTo"," ")
   }  
 
   for (i in 4:length(infolist[[j]])){
