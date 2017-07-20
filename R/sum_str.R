@@ -641,6 +641,24 @@ for (i in 1:length(infolist)){
 }
 infolist
 
+infolist1=infolist
+for (i in grep("\":",infolist)){
+  infolist[[i]][2]=infolist1[[i]][4]
+  infolist[[i]][3]=infolist1[[i]][2]
+  infolist[[i]][4]=infolist1[[i]][3]
+}
+
+#strsplit(infolist[[4]][2], "\":")[[1]][2]
+for (j in 1:length(infolist)){
+#for (j in 4:4){
+  for (i in 1:length(strsplit(infolist[[j]], "\":"))){
+    if (length(strsplit(infolist[[j]], "\":")[[i]])>1){
+      infolist1[[j]][i]=strsplit(infolist[[j]], "\":")[[i]][2]
+  }
+}
+}
+infolist=infolist1
+    
 schemahad=0
 lines_rdf=""
 count0=1
