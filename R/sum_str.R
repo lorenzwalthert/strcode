@@ -749,6 +749,9 @@ for (j in 1:length(infolist)){
     nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
     nodesto=paste0(nodesto,infolist[[j]][2]," ")
     nodesproperty=paste0(nodesproperty,property," ")
+    nodesfrom=paste0(nodesfrom,infolist[[j]][2]," ")
+    nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
+    nodesproperty=paste0(nodesproperty,"provone:wasDerivedFrom"," ")
   }
   else if(property=="provone:wasDerivedFrom"){
     nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
