@@ -792,9 +792,10 @@ for (j in 1:length(infolist)){
       # old association
       if (grepl("=",tempword)){
         
-        #tempwordlist=strsplit(tempword,"=")
+        tempwordlist=strsplit(tempword,"=")
         #tempentity=paste0("<",tempwordlist[[1]][2],">")
         #temp_line=paste(tempwordlist[[1]][1],tempentity)
+        temp_line=paste(tempwordlist[[1]][1],tempwordlist[[1]][2])
         
         #nodesfrom=paste0(nodesfrom,title0," ")
         #nodesto=paste0(nodesto,tempwordlist[[1]][2]," ")
