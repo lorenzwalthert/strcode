@@ -716,6 +716,9 @@ for (j in 1:length(infolist)){
   else if (parentclass=="provone:Process"&(tempclass=="provone:Data"|tempclass=="provone:Visualization")){
     property="provone:wasDerivedFrom"
   }
+  else if (as.numeric(parentlevel)!=0){
+    property="."
+  }
   
   if (property=="provone:hasSubProcess"){
     nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
@@ -730,6 +733,11 @@ for (j in 1:length(infolist)){
     nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
     nodesproperty=paste0(nodesproperty,"provone:hasMember"," ")
   }
+  else if (as.numeric(parentlevel)!=0){
+    nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
+    nodesto=paste0(nodesto,infolist[[j]][2]," ")
+    nodesproperty=paste0(nodesproperty,property," ")
+  }  
 
   for (i in 4:length(infolist[[j]])){
     tempword=""
