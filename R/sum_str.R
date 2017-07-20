@@ -663,12 +663,18 @@ infolist=infolist1
 schemahad=0
 lines_rdf=""
 count0=1
+    
+schemalist1=list()
+for (i in 1:length(infolist)){
+  schemalist1[[i]]=grep(":",infolist[[i]])
+}
+schemalist=schemalist1
 # add prefix
 for (i in 1:length(schemalist)){
   #print (i)
   for (j in 1:length(schemalist[[i]])){
     #print (j)
-    tempstr=lines_split[[i]][(schemalist[[i]])[j]]
+    tempstr=infolist[[i]][(schemalist[[i]])[j]]
     #print(tempstr)
     tempschemastr=gsub("\\.","",strsplit(tempstr,'\\:')[[1]][1])
     schemas[tempschemastr]
