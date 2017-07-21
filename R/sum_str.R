@@ -820,6 +820,7 @@ for (j in 1:length(infolist)){
         }
       }
       #end session
+      if (nchar(temp_line)>0){
       if (i==length(infolist[[j]])){
         temp_line=paste("\t",temp_line,";","\n")
         #temp_line=paste(temp_line,"\t","rdfs:label",title0,".","\n")
@@ -828,6 +829,7 @@ for (j in 1:length(infolist)){
       }
       else {
         temp_line=paste("\t",temp_line,";","\n")
+      }
       }
     }
     line_rdf=paste(line_rdf,temp_line)
@@ -841,7 +843,7 @@ nodesnames2=strsplit(nodesnames," ")
 nodesclasses2=strsplit(nodesclasses," ")
 nodes <- data.frame(name = nodesnames2[[1]],
                     class = nodesclasses2[[1]])
-print (nodes)    
+#print (nodes)    
 nodesfrom2=strsplit(nodesfrom," ")
 nodesto2=strsplit(nodesto," ")
 nodesproperty2=strsplit(nodesproperty," ")
@@ -864,10 +866,10 @@ for (i in 1:(length(nodesfrom2[[1]])-1)){
     }
   }
 }
-print (nodesfrom2)
-print (nodesto2)
-print (nodesproperty2)
-print (except) 
+#print (nodesfrom2)
+#print (nodesto2)
+#print (nodesproperty2)
+#print (except) 
 for (i in 1:length(nodesfrom2[[1]])){
   if (i %in% except){}
   else {
@@ -883,7 +885,7 @@ nesting <- data.frame(from = nodesfrom3,
                       to = nodesto3,
                       property = nodesproperty3)
    
-print (nesting)
+#print (nesting)
 g3 <- graph_from_data_frame(nesting, directed=TRUE, vertices=nodes)
 E(g3)$label <- E(g3)$property
 
