@@ -794,6 +794,7 @@ for (j in 1:length(infolist)){
       if (i==length(infolist[[j]])){
         line_rdf=paste(line_rdf,";","\n")
         #line_rdf=paste(line_rdf,"\t","rdfs:label",title0,".","\n")
+        title0=paaste0("\"",title0,"\"")
         line_rdf=paste(line_rdf,"\t","rdfs:label",title0,";","\n")#,".","\n")
       }
       else{
@@ -821,6 +822,7 @@ for (j in 1:length(infolist)){
       if (i==length(infolist[[j]])){
         temp_line=paste("\t",temp_line,";","\n")
         #temp_line=paste(temp_line,"\t","rdfs:label",title0,".","\n")
+        title0=paaste0("\"",title0,"\"")
         temp_line=paste(temp_line,"\t","rdfs:label",title0,";","\n")#,".","\n")
       }
       else {
