@@ -846,6 +846,7 @@ nodesto2=strsplit(nodesto," ")
 nodesproperty2=strsplit(nodesproperty," ")
 #nodesdf=data.frame(from=nodesfrom2[[1]],to=nodesto2[[1]],property=nodesproperty2[[1]])
 exceptnum=except=nodesfrom3=nodesto3=nodesproperty3=nodesnm=0
+exceptwords=c("str:has","str:belongTo")
 #diagonal matrix
 for (i in 1:(length(nodesfrom2[[1]])-1)){
   #print (i)
@@ -854,7 +855,10 @@ for (i in 1:(length(nodesfrom2[[1]])-1)){
     if (i!=j){
       if((nodesfrom2[[1]][i]==nodesfrom2[[1]][j])&(nodesto2[[1]][i]==nodesto2[[1]][j])){
         exceptnum=exceptnum+1
-        except[exceptnum]=min(i,j)
+        if (nodesproperty2[[1]][i] %in% exceptwords){
+          except[exceptnum]=i
+        }
+        else { except[exceptnum]=j}
       }
     }
   }
