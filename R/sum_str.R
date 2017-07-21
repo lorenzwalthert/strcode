@@ -859,6 +859,9 @@ for (i in 1:(length(nodesfrom2[[1]])-1)){
     }
   }
 }
+print (nodesfrom2)
+print (nodesto2)
+print (nodesproperty2)
 print (except) 
 for (i in 1:length(nodesfrom2[[1]])){
   if (i %in% except){}
