@@ -846,9 +846,9 @@ nodesproperty2=strsplit(nodesproperty," ")
 exceptnum=except=nodesfrom3=nodesto3=nodesproperty3=nodesnm=0
 #diagonal matrix
 for (i in 1:(length(nodesfrom2[[1]])-1)){
-  print (i)
+  #print (i)
   for (j in ((i+1):length(nodesfrom2[[1]]))){
-    print (j)
+    #print (j)
     if (i!=j){
       if(nodesfrom2[[1]][i]==nodesfrom2[[1]][j]&nodesto2[[1]][i]==nodesto2[[1]][j]){
         exceptnum=exceptnum+1
