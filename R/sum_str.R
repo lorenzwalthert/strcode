@@ -820,17 +820,21 @@ for (j in 1:length(infolist)){
         }
       }
       #end session
-      if (nchar(temp_line)>0){
+      
       if (i==length(infolist[[j]])){
+        if (nchar(temp_line)>0){
         temp_line=paste("\t",temp_line,";","\n")
+          }
         #temp_line=paste(temp_line,"\t","rdfs:label",title0,".","\n")
         title0=paste0("\"",title0,"\"")
         temp_line=paste(temp_line,"\t","rdfs:label",title0,";","\n")#,".","\n")
       }
       else {
+        if (nchar(temp_line)>0){
         temp_line=paste("\t",temp_line,";","\n")
+          }
       }
-      }
+      
     }
     line_rdf=paste(line_rdf,temp_line)
     line_rdf_vector[j]=line_rdf
