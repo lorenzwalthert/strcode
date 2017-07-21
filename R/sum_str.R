@@ -838,14 +838,40 @@ nodesnames2=strsplit(nodesnames," ")
 nodesclasses2=strsplit(nodesclasses," ")
 nodes <- data.frame(name = nodesnames2[[1]],
                     class = nodesclasses2[[1]])
-nodes
+    
 nodesfrom2=strsplit(nodesfrom," ")
 nodesto2=strsplit(nodesto," ")
 nodesproperty2=strsplit(nodesproperty," ")
+#nodesdf=data.frame(from=nodesfrom2[[1]],to=nodesto2[[1]],property=nodesproperty2[[1]])
+exceptnum=except=nodesfrom3=nodesto3=nodesproperty3=nodesnm=0
+#diagonal matrix
+for (i in 1:(length(nodesfrom2[[1]])-1)){
+  print (i)
+  for (j in ((i+1):length(nodesfrom2[[1]]))){
+    print (j)
+    if (i!=j){
+      if(nodesfrom2[[1]][i]==nodesfrom2[[1]][j]&nodesto2[[1]][i]==nodesto2[[1]][j]){
+        exceptnum=exceptnum+1
+        except[exceptnum]=min(i,j)
+      }
+    }
+  }
+}
+
+for (i in 1:length(nodesfrom2[[1]])){
+  if (i %in% except){}
+  else {
+    nodesnm=nodesnm+1
+    nodesfrom3[nodesnm]=nodesfrom2[[1]][i]
+    nodesto3[nodesnm]=nodesto2[[1]][i]
+    nodesproperty3[nodesnm]=nodesproperty2[[1]][i]
+    }
+}
+    
 nesting <- data.frame(from = nodesfrom2[[1]],
                       to = nodesto2[[1]],
                       property = nodesproperty2[[1]])
-nesting
+    
 g3 <- graph_from_data_frame(nesting, directed=TRUE, vertices=nodes)
 E(g3)$label <- E(g3)$property
 
