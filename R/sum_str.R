@@ -868,10 +868,12 @@ for (i in 1:length(nodesfrom2[[1]])){
     }
 }
     
-nesting <- data.frame(from = nodesfrom2[[1]],
-                      to = nodesto2[[1]],
-                      property = nodesproperty2[[1]])
-    
+
+nesting <- data.frame(from = nodesfrom3,
+                      to = nodesto3,
+                      property = nodesproperty3)
+   
+ 
 g3 <- graph_from_data_frame(nesting, directed=TRUE, vertices=nodes)
 E(g3)$label <- E(g3)$property
 
