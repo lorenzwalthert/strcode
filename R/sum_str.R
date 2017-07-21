@@ -815,7 +815,7 @@ for (j in 1:length(infolist)){
           nodesto=paste0(nodesto,tempwordlist[[1]][2]," ")
           nodesproperty=paste0(nodesproperty,tempwordlist[[1]][1]," ")
         }
-        temp_line=paste(tempwordlist[[1]][1],tempwordlist[[1]][2])
+        #temp_line=paste(tempwordlist[[1]][1],tempwordlist[[1]][2])
         
       }
       #end session
