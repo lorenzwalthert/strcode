@@ -693,6 +693,14 @@ ProvONElist=c("provone:Process","provone:InputPort","provone:OutputPort",
               "provone:DataLink","provone:SeqCtrlLink","provone:Workflow",
               "provone:User","provone:ProcessExec","provone:Data",
               "provone:Collection","provone:Visualization")
+# Association word list:
+Associationlist=c("provone:hasSubProcess","provone:sourcePToCL","provone:CLtoDestP",
+                  "provone:hasInPort","provone:hasOutPort","provone:hasDefaultParam",
+                  "provone:DLToInPort","provone:outPortToDL","provone:inPortToDL",
+                  "provone:DLToOutPort","provone:wasAttributedTo","provone:wasDerivedFrom",
+                  "provone:dataOnLink","provone:used","provone:wasGeneratedBy",
+                  "provone:wasAssociatedWith","provone:wasInformedBy","provone:isPartOf",
+                  "provone:hadMember")
 
 nodesnames=nodesclasses=nodesfrom=nodesto=nodesproperty=parentclass=property=line_rdf_vector=""
 templevel=parentlevel=parentindex=0
@@ -797,15 +805,17 @@ for (j in 1:length(infolist)){
       tempword=infolist[[j]][i]
       # old association
       if (grepl("=",tempword)){
-        
         tempwordlist=strsplit(tempword,"=")
         #tempentity=paste0("<",tempwordlist[[1]][2],">")
-        #temp_line=paste(tempwordlist[[1]][1],tempentity)
+        
+        if (tempwordlist[[1]][1] %in% Associationlist)
+        { 
+          nodesfrom=paste0(nodesfrom,title0," ")
+          nodesto=paste0(nodesto,tempwordlist[[1]][2]," ")
+          nodesproperty=paste0(nodesproperty,tempwordlist[[1]][1]," ")
+        }
         temp_line=paste(tempwordlist[[1]][1],tempwordlist[[1]][2])
         
-        #nodesfrom=paste0(nodesfrom,title0," ")
-        #nodesto=paste0(nodesto,tempwordlist[[1]][2]," ")
-        #nodesproperty=paste0(nodesproperty,tempwordlist[[1]][1]," ")
       }
       #end session
       if (i==length(infolist[[j]])){
