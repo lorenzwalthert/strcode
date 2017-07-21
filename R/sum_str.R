@@ -838,7 +838,7 @@ nodesnames2=strsplit(nodesnames," ")
 nodesclasses2=strsplit(nodesclasses," ")
 nodes <- data.frame(name = nodesnames2[[1]],
                     class = nodesclasses2[[1]])
-    
+print (nodes)    
 nodesfrom2=strsplit(nodesfrom," ")
 nodesto2=strsplit(nodesto," ")
 nodesproperty2=strsplit(nodesproperty," ")
@@ -857,7 +857,7 @@ for (i in 1:(length(nodesfrom2[[1]])-1)){
     }
   }
 }
-
+print (except) 
 for (i in 1:length(nodesfrom2[[1]])){
   if (i %in% except){}
   else {
@@ -873,7 +873,7 @@ nesting <- data.frame(from = nodesfrom3,
                       to = nodesto3,
                       property = nodesproperty3)
    
- 
+print (nesting)
 g3 <- graph_from_data_frame(nesting, directed=TRUE, vertices=nodes)
 E(g3)$label <- E(g3)$property
 
