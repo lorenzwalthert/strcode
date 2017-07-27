@@ -106,7 +106,7 @@ encl <- function(..., left = "{", right = "}") {
 #' @param x character vector to remove white space
 #' @keywords internal
 rm_space <- function(x) {
-  gsub(" ", "", x)
+  gsub(" ", "%20", x)
 }
 
 
