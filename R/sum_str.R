@@ -108,6 +108,7 @@ sum_str <- function(path_in = getSourceEditorContext()$path,
                     domain=FALSE,
                     baseURI="http://example.org/base/",
                     UserID="UserID",
+                    AL="default"
                     ...) {
 
 ##  ............................................................................
@@ -164,7 +165,8 @@ assert_number(granularity, lower = 1, upper = 3)
                    graph=graph,
                   domain=domain,
                   baseURI=baseURI,
-                  UserID=UserID)
+                  UserID=UserID,
+                  AL=AL)
   })
 
   if (dir_out == "" && !is.null(file_out) && file_out == "object") {
@@ -208,7 +210,8 @@ sum_str_helper <- function(path_in,
                            graph,
                           domain,
                           baseURI,
-                          UserID) {
+                          UserID,
+                          AL) {
 
 ##  ............................................................................
 ##  argument interaction                                                    ####
