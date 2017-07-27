@@ -262,7 +262,7 @@ if (rm_break_anchors) {
   lvl <- nchar(gsub("^(#+)\\s.*$", "\\1", lines[hash_candid], perl = TRUE))
   replacement <- vapply(lvl, function(x) help_create_break(start = paste0(rep("#", x), collapse = ""),
                                            break_char = give_breakchar(x),
-                                           sep = paste(rep(" ", 4 - x), collapse = ""), anchor_in_sep = FALSE),
+                                           sep = paste(rep(" ", 8 - x), collapse = ""), anchor_in_sep = FALSE),
                   FUN.VALUE = character(1))
   lines[hash_candid] <- replacement
 
@@ -274,7 +274,7 @@ if (rm_break_anchors) {
   remove <- c()
   if (granularity < 3) { # if there are any lines to remove
     hashes <- (granularity + 1):3
-    spaces <- 4 - hashes
+    spaces <-  8- hashes
 
     # this variable stores the indices of all lines that should be dropped.
     for (i in 1:length(hashes)) {
@@ -287,7 +287,7 @@ if (rm_break_anchors) {
 ### remove last separator
   if (last_sep == FALSE) {
     hashes <- min(find_gran("down", lines = lines), granularity)
-    spaces <- 4 - hashes
+    spaces <- 8 - hashes
     sub_pattern <- paste0("^#{", hashes, "}\\s{", spaces, "}[\\._].*$")
     remove <- append(remove, grep(sub_pattern, lines, perl = TRUE))
   }
@@ -534,6 +534,26 @@ for (j in 1:length(infolist)){
   if (infolist[[j]][1]==3){
     if (levelvector[3]==0){
       levelvector[3]=j
+    }
+  }
+  if (infolist[[j]][1]==4){
+    if (levelvector[4]==0){
+      levelvector[4]=j
+    }
+  }
+  if (infolist[[j]][1]==5){
+    if (levelvector[5]==0){
+      levelvector[5]=j
+    }
+  }
+  if (infolist[[j]][1]==6){
+    if (levelvector[6]==0){
+      levelvector[6]=j
+    }
+  }
+  if (infolist[[j]][1]==7){
+    if (levelvector[7]==0){
+      levelvector[7]=j
     }
   }
   if (as.numeric(parentlevel)!=0){
