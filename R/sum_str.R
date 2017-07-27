@@ -705,11 +705,11 @@ Associationlist=c("provone:hasSubProcess","provone:sourcePToCL","provone:CLtoDes
                   "provone:wasAssociatedWith","provone:wasInformedBy","provone:isPartOf",
                   "provone:hadMember")
 # Association library:
-AL=paste0("ParentClass,","ChildClass,","Ways,","Property,","ReverseProperty\n",
+DefaultAL=paste0("ParentClass,","ChildClass,","Ways,","Property,","ReverseProperty\n",
           "\"provone:Process\",","\"provone:Process\",","2,","\"provone:hasSubProcess\",","\"provone:wasDerivedFrom\"\n",
           "\"provone:Process\",","\"provone:Data\",","2,","\"provone:wasDerivedFrom\",","\"provone:hasMember\"\n",
           "\"provone:Process\",","\"provone:Visualization\",","2,","\"provone:wasDerivedFrom\",","\"provone:hasMember\"\n")
-write(AL,file="DefaultAssociationLibrary.txt")
+write(DefaultAL,file="DefaultAssociationLibrary.txt")
 
 nodesnames=nodesclasses=nodesfrom=nodesto=nodesproperty=parentclass=property=line_rdf_vector=""
 templevel=parentlevel=parentindex=0
