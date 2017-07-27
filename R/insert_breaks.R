@@ -157,8 +157,8 @@ insert_break <- function(level,
     op <- options()$strcode
     op$anchor_in_sep <- anchor_in_sep
     options(strcode = op)
-    level <- as.numeric(unlist(strsplit(ret_value$level, ""))[nchar(ret_value$level)])
-
+    #level <- as.numeric(unlist(strsplit(ret_value$level, ""))[nchar(ret_value$level)])
+    level=as.numeric(gsub("level ","",ret_value$level,))
 
   } else {
     fill <- ""
