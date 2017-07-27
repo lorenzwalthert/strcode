@@ -168,7 +168,7 @@ insert_break <- function(level,
   ### set parameter depending on level
   start <- paste0(rep("#", level), collapse = "")
   break_char = give_breakchar(level)
-  sep = paste(rep(" ", 4 - level), collapse = "")
+  sep = paste(rep(" ", 8 - level), collapse = "")
   #start <- paste0(rep("#", 3), collapse = "")
   #break_char = give_breakchar(3)
   #sep = paste(rep(" ", 4 - 3), collapse = "")
@@ -360,7 +360,7 @@ help_insert <- function(x,
 find_title <- function(level) {
   #XJ Original codes:
   #styles_input <- paste(c("Default","JSON-LD"))
-  choices_input <- paste("level", 1:3)
+  choices_input <- paste("level", 1:7)
   #class_choices <- paste("class", 1:10)
   #choices_input <- paste(c("Workflow","Trace","Data Structure"))
   #class_choices <- paste(c("Process","InputPort","OutputPort","DataLink","SeqCtrlLink","Workflow","User","hasSubProcess","sourcePToCL",
