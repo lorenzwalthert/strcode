@@ -157,8 +157,8 @@ insert_break <- function(level,
     op <- options()$strcode
     op$anchor_in_sep <- anchor_in_sep
     options(strcode = op)
-    #level <- as.numeric(unlist(strsplit(ret_value$level, ""))[nchar(ret_value$level)])
-    level=as.numeric(gsub("level ","",ret_value$level,))
+    level <- as.numeric(unlist(strsplit(ret_value$level, ""))[nchar(ret_value$level)])
+    #level=as.numeric(gsub("level ","",ret_value$level,))
 
   } else {
     fill <- ""
@@ -304,7 +304,11 @@ give_breakchar <- function(level) {
   switch(as.character(level),
        "1" = "_",
        "2" = ".",
-       "3" = ". ")
+       "3" = ".. ",
+       "4" = "... ",
+       "5" = ".... ",
+       "6" = "..... ",
+       "7" = "...... ",)
 }
 ##  ............................................................................
 ##  help insert                                                             ----
