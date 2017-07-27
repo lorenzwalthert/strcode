@@ -512,7 +512,7 @@ write(DefaultAL,file="DefaultAssociationLibrary.txt")
 
 nodesnames=nodesclasses=nodesfrom=nodesto=nodesproperty=parentclass=property=line_rdf_vector=""
 templevel=parentlevel=parentindex=0
-levelvector=rep(0,3)
+levelvector=rep(0,7)
 
 for (j in 1:length(infolist)){
   line_rdf=""
