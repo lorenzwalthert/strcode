@@ -755,7 +755,7 @@ for (j in 1:length(infolist)){
   if (AL=="default"){
     AssociationsLib=read.table("DefaultAssociationLibrary.txt",sep=",",header=TRUE)
   }
-  else (AL=="user") {
+  else if (AL=="user") {
     AssociationsLib=read.table("AssociationsLibrary.txt",sep=",",header=TRUE)
   }
 
