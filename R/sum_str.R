@@ -245,7 +245,7 @@ sum_str_helper <- function(path_in,
 ##  get pattern
 
   lines <- readLines(con = path_in)
-  sub_pattern <- "^#   [^ ]|^##  [^ ]|^### [^ ]"
+  sub_pattern <- "^#       [^ ]|^##      [^ ]|^###     [^ ]|^####    [^ ]|^#####   [^ ]|^######  [^ ]|^####### [^ ]"
   cand <- grep(sub_pattern, lines, perl = FALSE) # extract candiates id
   if (length(cand) == 0) {
     return(warning("No line matching the required pattern",
