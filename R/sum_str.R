@@ -624,8 +624,10 @@ for (j in 1:length(infolist)){
       nodesnames=paste0(nodesnames,title0," ")
       nodesclasses=paste0(nodesclasses,tempword," ")
       
-      entityname=paste0(FullURI,ID)  
-      title=paste0("<",entityname,">")
+      #entityname=paste0(FullURI,ID)  
+      #title=paste0("<",entityname,">")
+      entityname=paste0(prefix,":",ID)  
+      title=paste0(entityname)
       line_rdf=paste("\n",title,"a",tempword)
       
       if (i==length(infolist[[j]])){
@@ -739,7 +741,8 @@ for (i in 1:length(infolist)){
 for (i in 1:length(line_rdf_vector)){
   tempnumber=which(nesting$from==titles[i])
   for (j in 1:length(tempnumber)){
-    entityname2=paste0("<",FullURI,IDs[which(titles==nesting$to[tempnumber[j]])],">")
+    #entityname2=paste0("<",FullURI,IDs[which(titles==nesting$to[tempnumber[j]])],">")
+    entityname2=paste0(prefix,":",IDs[which(titles==nesting$to[tempnumber[j]])])
     if (j==length(tempnumber)){
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nesting$property[tempnumber[j]],entityname2,".","\n")}
     else{line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nesting$property[tempnumber[j]],entityname2,";","\n")}
