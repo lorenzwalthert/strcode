@@ -701,6 +701,12 @@ Associationlist=c("provone:hasSubProcess","provone:sourcePToCL","provone:CLtoDes
                   "provone:dataOnLink","provone:used","provone:wasGeneratedBy",
                   "provone:wasAssociatedWith","provone:wasInformedBy","provone:isPartOf",
                   "provone:hadMember")
+# Association library:
+AL=paste0("ParentClass,","ChildClass,","Ways,","Property,","ReverseProperty\n",
+          "\"provone:Process\",","\"provone:Process\",","2,","\"provone:hasSubProcess\",","\"provone:wasDerivedFrom\"\n",
+          "\"provone:Process\",","\"provone:Data\",","2,","\"provone:wasDerivedFrom\",","\"provone:hasMember\"\n",
+          "\"provone:Process\",","\"provone:Visualization\",","2,","\"provone:wasDerivedFrom\",","\"provone:hasMember\"\n")
+write(AL,file="DefaultAssociationLibrary.txt")
 
 nodesnames=nodesclasses=nodesfrom=nodesto=nodesproperty=parentclass=property=line_rdf_vector=""
 templevel=parentlevel=parentindex=0
@@ -743,40 +749,69 @@ for (j in 1:length(infolist)){
   }
   }
   # judge association:
-  if (parentclass=="provone:Process"&tempclass=="provone:Process"){
-    property="provone:hasSubProcess"
+  if (AL=="default"){
+    AssociationsLib=read.table("DefaultAssociationLibrary.txt",sep=",",header=TRUE)
   }
-  else if (parentclass=="provone:Process"&(tempclass=="provone:Data"|tempclass=="provone:Visualization")){
-    property="provone:wasDerivedFrom"
+  else (AL=="user") {
+    AssociationsLib=read.table("AssociationsLibrary.txt",sep=",",header=TRUE)
+  }
+
+  AssociationNUM=which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)])
+  if (length(AssociationNUM)>0){
+    property=as.character(AssociationsLib$Property[AssociationNUM])
+    if (AssociationsLib$Ways[AssociationNUM]==2){
+      nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
+      nodesto=paste0(nodesto,infolist[[j]][2]," ")
+      nodesproperty=paste0(nodesproperty,property," ")
+      nodesfrom=paste0(nodesfrom,infolist[[j]][2]," ")
+      nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
+      nodesproperty=paste0(nodesproperty,AssociationsLib$ReverseProperty," ")
+    }
   }
   else if (as.numeric(parentlevel)!=0){
     property="str:has"
-  }
-  
-  if (property=="provone:hasSubProcess"){
-    nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
-    nodesto=paste0(nodesto,infolist[[j]][2]," ")
-    nodesproperty=paste0(nodesproperty,property," ")
-    nodesfrom=paste0(nodesfrom,infolist[[j]][2]," ")
-    nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
-    nodesproperty=paste0(nodesproperty,"provone:wasDerivedFrom"," ")
-  }
-  else if(property=="provone:wasDerivedFrom"){
-    nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
-    nodesto=paste0(nodesto,infolist[[j]][2]," ")
-    nodesproperty=paste0(nodesproperty,property," ")
-    nodesfrom=paste0(nodesfrom,infolist[[j]][2]," ")
-    nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
-    nodesproperty=paste0(nodesproperty,"provone:hasMember"," ")
-  }
-  else if (as.numeric(parentlevel)!=0){
     nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
     nodesto=paste0(nodesto,infolist[[j]][2]," ")
     nodesproperty=paste0(nodesproperty,property," ")
     nodesfrom=paste0(nodesfrom,infolist[[j]][2]," ")
     nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
     nodesproperty=paste0(nodesproperty,"str:belongTo"," ")
-  }  
+  }
+    
+  #if (parentclass=="provone:Process"&tempclass=="provone:Process"){
+  #  property="provone:hasSubProcess"
+  #}
+  #else if (parentclass=="provone:Process"&(tempclass=="provone:Data"|tempclass=="provone:Visualization")){
+  #  property="provone:wasDerivedFrom"
+  #}
+  #else if (as.numeric(parentlevel)!=0){
+  #  property="str:has"
+  #}
+  
+  #if (property=="provone:hasSubProcess"){
+  #  nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
+  #  nodesto=paste0(nodesto,infolist[[j]][2]," ")
+  #  nodesproperty=paste0(nodesproperty,property," ")
+  #  nodesfrom=paste0(nodesfrom,infolist[[j]][2]," ")
+  #  nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
+  #  nodesproperty=paste0(nodesproperty,"provone:wasDerivedFrom"," ")
+  #}
+  #else if(property=="provone:wasDerivedFrom"){
+  #  nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
+  #  nodesto=paste0(nodesto,infolist[[j]][2]," ")
+  #  nodesproperty=paste0(nodesproperty,property," ")
+  #  nodesfrom=paste0(nodesfrom,infolist[[j]][2]," ")
+  #  nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
+  #  nodesproperty=paste0(nodesproperty,"provone:hasMember"," ")
+  #}
+  #else if (as.numeric(parentlevel)!=0){
+  #  nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
+  #  nodesto=paste0(nodesto,infolist[[j]][2]," ")
+  #  nodesproperty=paste0(nodesproperty,property," ")
+  #  nodesfrom=paste0(nodesfrom,infolist[[j]][2]," ")
+  #  nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
+  #  nodesproperty=paste0(nodesproperty,"str:belongTo"," ")
+  #}  
 
   for (i in 4:length(infolist[[j]])){
     tempword=""
