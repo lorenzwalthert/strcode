@@ -108,6 +108,7 @@ sum_str <- function(path_in = getSourceEditorContext()$path,
                     domain=FALSE,
                     baseURI="http://example.org/base/",
                     UserID="UserID",
+                    prefix="user",
                     AL="default",
                     ...) {
 
@@ -163,10 +164,11 @@ assert_number(granularity, lower = 1, upper = 3)
                    header = header,
                    rdf=rdf,
                    graph=graph,
-                  domain=domain,
-                  baseURI=baseURI,
-                  UserID=UserID,
-                  AL=AL)
+                   domain=domain,
+                   baseURI=baseURI,
+                   UserID=UserID,
+                   prefix=prefix,
+                   AL=AL)
   })
 
   if (dir_out == "" && !is.null(file_out) && file_out == "object") {
@@ -208,10 +210,11 @@ sum_str_helper <- function(path_in,
                            header,
                            rdf,
                            graph,
-                          domain,
-                          baseURI,
-                          UserID,
-                          AL) {
+                           domain,
+                           baseURI,
+                           UserID,
+                           prefix,
+                           AL) {
 
 ##  ............................................................................
 ##  argument interaction                                                    ####
@@ -348,217 +351,7 @@ if (rm_break_anchors) {
 
 ##  ............................................................................
 ##  output the pattern
-  if (rdf=="test"){
-    #localwd=getwd()
-    datetime <- format(Sys.time(), "%Y_%m_%d_%H_%M_%S")
-    fileformat=".ttl" #".txt"
-    outputfile2 <- paste("RDF_output_file_",datetime,fileformat,sep="")
-    write(lines,file=outputfile2)
-    templines=readLines(outputfile2)
-lines_content=templines[4:length(templines)]
-lines_split=strsplit(lines_content, " ")
-
-baseURI=baseURI
-UserID=UserID
-FullURI=paste0(baseURI,UserID)
-
-schemalist=list()
-
-schemas=c(rdfs="@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .",
-          xsd="@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .",
-          owl="@prefix owl:     <http://www.w3.org/2002/07/owl#> .",
-          dcterms="@prefix dcterms: <http://purl.org/dc/terms/> .",
-          prov="@prefix prov:    <http://www.w3.org/ns/prov#> .",
-          wfms="@prefix wfms:    <http://www.wfms.org/registry.xsd> .",
-          rdf="@prefix rdf:       <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .",
-          provone="@prefix provone: <http://dataone.org/ns/provone#> .",
-          skos="@prefix skos:    <http://www.w3.org/2004/02/skos/core#> ")
-# Using ":" to find class
-for (i in 1:length(lines_split)){
-    schemalist[[i]]=grep(":",lines_split[[i]])
-}
-tempcount0=0
-schemalist1=list()
-for (i in 1:length(schemalist)){
-  if (length(schemalist[[i]])>0){
-    tempcount0=tempcount0+1
-    schemalist1[[tempcount0]]=schemalist[[i]]
-  }
-}
-schemalist1
-
-tempcount0=0
-lines_split1=list()
-for (i in 1:length(schemalist)){
-  if (length(schemalist[[i]])>0){
-    tempcount0=tempcount0+1
-    lines_split1[[tempcount0]]=lines_split[[i]]
-  }
-}
-lines_split1
-
-lines_split=lines_split1
-schemalist=schemalist1
-lines_split1=schemalist
-for (i in 1:length(lines_split)){
-  tempcount0=0
-  for (j in 1:length(lines_split[[i]])){
-    if (nchar(lines_split[[i]][j])>0){
-      tempcount0=tempcount0+1
-      lines_split1[[i]][tempcount0]=lines_split[[i]][j]
-    }
-  }
-}
-lines_split1
-
-for (i in 1:length(lines_split1)){
-  schemalist[[i]]=grep(":",lines_split1[[i]])
-}
-schemalist
-lines_split=lines_split1
-schemahad=0
-
-lines_rdf=""
-count0=1
-for (i in 1:length(schemalist)){
-  #print (i)
-  for (j in 1:length(schemalist[[i]])){
-    #print (j)
-    tempstr=lines_split[[i]][(schemalist[[i]])[j]]
-    #print(tempstr)
-    tempschemastr=gsub("\\.","",strsplit(tempstr,'\\:')[[1]][1])
-    schemas[tempschemastr]
-    if (tempschemastr %in% schemahad) {#print("!")
-    }
-    else{schemahad[count0]=tempschemastr
-    count0=count0+1}
-  }
-}
-for (i in 1:length(schemahad)){
-  lines_rdf=paste(lines_rdf,schemas[schemahad[i]],"\n")
-}
-
-# RDF word list:
-ProvONElist=c("provone:Process","provone:InputPort","provone:OutputPort",
-              "provone:DataLink","provone:SeqCtrlLink","provone:Workflow",
-              "provone:User","provone:ProcessExec","provone:Data",
-              "provone:Collection","provone:Visualization")
-nodesnames=""
-nodesclasses=""
-nodesfrom=""
-nodesto=""
-nodesproperty=""
-for (j in 1:length(lines_split)){
-  line_rdf=""
-  #lines_split[[j]]
-  #title
-    if (j==1&domain){
-    title0=FullURI
-    }
-    else{
-      title0=lines_split[[j]][2]
-    }  
-    
-    
-
-  #ID
-  ID=gsub("\\{","",lines_split[[j]][3])
-
-  for (i in 4:length(lines_split[[j]])){
-  #for (i in 4:4){
-    tempword=""
-    tempentity=""
-    temp_line=""
-    if (i==4){
-      tempword=gsub("\\}","",lines_split[[j]][4])
-      tempword=gsub("\\.","",tempword)
-      #line_rdf=paste("\n",ID,"a",tempword,";","\n")
-      
-      nodesnames=paste0(nodesnames,title0," ")
-      nodesclasses=paste0(nodesclasses,tempword," ")
-      
-      title=paste0("<",title0,">")
-      line_rdf=paste("\n",title,"a",tempword)
-      if (i==length(lines_split[[j]])){
-        line_rdf=paste(line_rdf,".","\n")
-        #print (1)
-      }
-      else{
-        line_rdf=paste(line_rdf,";","\n")
-        #print (2)
-        #print (line_rdf)
-      }
-    }
-    else {
-      #print ("!")
-      tempword=gsub("\\.","",lines_split[[j]][i])
-      if (i==length(lines_split[[j]])){
-        tempword=gsub("\\}","",tempword)
-      }
-      if (grepl("=",tempword)){
-        
-        tempwordlist=strsplit(tempword,"=")
-        tempentity=paste0("<",tempwordlist[[1]][2],">")
-        temp_line=paste(tempwordlist[[1]][1],tempentity)
-        
-        nodesfrom=paste0(nodesfrom,title0," ")
-        nodesto=paste0(nodesto,tempwordlist[[1]][2]," ")
-        nodesproperty=paste0(nodesproperty,tempwordlist[[1]][1]," ")
-      }
-      #if (tempword %in% ProvONElist){
-      #  temp_line=paste("rdf:type",tempword,";")
-      #}
-      #else {
-      #  temp_line=paste("_",tempword,";")
-      #}
-      
-      #end session
-      if (i==length(lines_split[[j]])){
-        temp_line=paste("\t",temp_line,".","\n")
-      }
-      else {
-        temp_line=paste("\t",temp_line,";","\n")
-      }
-      #print ("!!")
-      #print (i)
-      #print (temp_line)
-    }
-    
-    line_rdf=paste(line_rdf,temp_line)
-  }
-  #title=paste0("\"",title,"\"")
-  #line_rdf=paste(line_rdf,"\t","rdfs:label",title,".\n")
-  #line_rdf=paste(line_rdf,"\t","rdfs:label",title,".\n")
-  lines_rdf=paste(lines_rdf,line_rdf)
-}
-if (rdf=="test"){
-  write(lines_rdf,file=outputfile2)
-print("Create a RDF file successfully. Please find the output file in:")
-print(getwd())
-print(paste("Your file name is:",outputfile2))
-}
-if (graph){
-  nodesnames2=strsplit(nodesnames," ")
-nodesclasses2=strsplit(nodesclasses," ")
-nodes <- data.frame(name = nodesnames2[[1]],
-                    class = nodesclasses2[[1]])
-nodes
-nodesfrom2=strsplit(nodesfrom," ")
-nodesto2=strsplit(nodesto," ")
-nodesproperty2=strsplit(nodesproperty," ")
-nesting <- data.frame(from = nodesfrom2[[1]],
-                      to = nodesto2[[1]],
-                      property = nodesproperty2[[1]])
-nesting
-g3 <- graph_from_data_frame(nesting, directed=TRUE, vertices=nodes)
-E(g3)$label <- E(g3)$property
-print(g3, e=TRUE, v=TRUE)
-plot(g3, edge.arrow.size=.2, edge.curved=.4)
-  }
-    
-
-  }
-  else if (rdf=="ttl"|graph){
+ if (rdf=="ttl"|graph){
     datetime <- format(Sys.time(), "%Y_%m_%d_%H_%M_%S")
     fileformat=".ttl" #".txt"
     outputfile2 <- paste("RDF_output_file_",datetime,fileformat,sep="")
@@ -570,6 +363,7 @@ lines_split=strsplit(lines_content, " ")
 baseURI=baseURI
 UserID=UserID
 FullURI=paste0(baseURI,UserID,"/")
+prefix=prefix
 
 schemalist=list()
 
@@ -581,7 +375,10 @@ schemas=c(rdfs="@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .",
           wfms="@prefix wfms:    <http://www.wfms.org/registry.xsd> .",
           rdf="@prefix rdf:       <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .",
           provone="@prefix provone: <http://dataone.org/ns/provone#> .",
-          skos="@prefix skos:    <http://www.w3.org/2004/02/skos/core#> ")
+          skos="@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .",
+          yw="@prefix yw:   	 <http://yesworkflow.org/ns/yesworkflow#> .",
+          cwfo="@prefix cwfo:    <http://cwf.tw.rpi.edu/vocab#> .",
+          cwf="@prefix cwf:     <http://cwf.tw.rpi.edu/data#> .")
 # Using ":" to find class
 for (i in 1:length(lines_split)){
   schemalist[[i]]=grep(":",lines_split[[i]])
@@ -687,6 +484,8 @@ for (i in 1:length(schemalist)){
     count0=count0+1}
   }
 }
+# adding headers:
+lines_rdf=paste0(" @prefix ",prefix,":    ","<",FullURI,"> .\n")
 for (i in 1:length(schemahad)){
   lines_rdf=paste(lines_rdf,schemas[schemahad[i]],"\n")
 }
