@@ -372,7 +372,8 @@ find_title <- function(level) {
   #                         "wasAttributedTo","wasDerivedFrom","ProcessExec","dataOnLink","used","wasGeneratedBy","wasAssociatedWith",
   #                         "wasInformedBy","isPartOf","Data","Collection","wasDerivedFrom","hadMember"))
   class_choices <- paste(c("provone:Process","provone:InputPort","provone:OutputPort","provone:DataLink","provone:SeqCtrlLink",
-                           "provone:Workflow","provone:User","provone:ProcessExec","provone:Data","provone:Collection","provone:Visualization"))
+                           "provone:Workflow","provone:User","provone:ProcessExec","provone:Data","provone:Collection",
+                           "provone:Visualization","provone:Program","prov:Plan"))
   ui <- miniPage(
     miniContentPanel(
       fillCol(
