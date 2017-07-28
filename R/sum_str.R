@@ -589,19 +589,19 @@ for (j in 1:length(infolist)){
   }
   print ("first:")
   print (AssociationNUM)
-  tempwordlist=which(parentclass==AssociationsLib$ParentClass)
-  print ("tempwordlist")
-  print (tempwordlist)
-  tempPwordlist=which(tempclass==AssociationsLib$ChildClass[tempwordlist])
+  tempPwordlist=which(parentclass==AssociationsLib$ParentClass)
   print ("tempPwordlist")
   print (tempPwordlist)
-  if (length(tempPwordlist)>1){
+  tempwordlist=which(tempclass==AssociationsLib$ChildClass[tempPwordlist])
+  print ("tempwordlist")
+  print (tempwordlist)
+  if (length(tempwordlist)>1){
     print (">1")
-    AssociationNUM=tempwordlist[min(tempPwordlist)]
+    AssociationNUM=tempPwordlist[min(tempwordlist)]
   }
-  else if (length(tempPwordlist)==1){
+  else if (length(tempwordlist)==1){
     print ("==1")
-    AssociationNUM=tempwordlist[tempPwordlist]
+    AssociationNUM=tempPwordlist[tempwordlist]
   }
   #print (which(parentclass==AssociationsLib$ParentClass))
   #print (which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)]))
