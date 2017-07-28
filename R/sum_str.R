@@ -743,7 +743,7 @@ nodesnames2=strsplit(nodesnames," ")
 nodesclasses2=strsplit(nodesclasses," ")
 print (nodesnames2)
 print (nodesclasses2)
-nodes <- data.frame(name = nodesnames2[[1]],
+nodes <- data.frame(name = return_space(nodesnames2[[1]]),
                     class = nodesclasses2[[1]])
    
 print (nodes)    
