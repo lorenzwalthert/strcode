@@ -460,8 +460,8 @@ for (j in 1:length(infolist)){
 }
 infolist=infolist1
  
-for (i in length(infolist)){
-  for (j in length(infolist[[i]]){
+for (i in 1:length(infolist)){
+  for (j in 1:length(infolist[[i]])){
   infolist[[i]][j]=return_space(infolist[[i]][j])
   }
 }
