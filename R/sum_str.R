@@ -588,10 +588,11 @@ for (j in 1:length(infolist)){
   }
 
   AssociationNUM=which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)])
-  
+  print (AssociationNUM)
   if (length(AssociationNUM)>0){
     property=as.character(AssociationsLib$Property[AssociationNUM])
     if (AssociationsLib$Ways[AssociationNUM]==2){
+      
       print ("2")
       nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
       nodesto=paste0(nodesto,infolist[[j]][2]," ")
