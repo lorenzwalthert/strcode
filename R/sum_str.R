@@ -587,12 +587,16 @@ for (j in 1:length(infolist)){
   else if (UserAL==TRUE) {
     AssociationsLib=read.table("AssociationsLibrary.txt",sep=",",header=TRUE)
   }
+  print (j)
+  print (title0)
+  print (tempclass)
+  print (parentclass)
   print ("first:")
   print (AssociationNUM)
-  tempPwordlist=which(parentclass==AssociationsLib$ParentClass)
+  tempPwordlist=which(AssociationsLib$ParentClass==parentclass)
   print ("tempPwordlist")
   print (tempPwordlist)
-  tempwordlist=which(tempclass==AssociationsLib$ChildClass[tempPwordlist])
+  tempwordlist=which(AssociationsLib$ChildClass[tempPwordlist]==tempclass)
   print ("tempwordlist")
   print (tempwordlist)
   if (length(tempwordlist)>1){
@@ -606,10 +610,7 @@ for (j in 1:length(infolist)){
   #print (which(parentclass==AssociationsLib$ParentClass))
   #print (which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)]))
   print ("second:")
-  print (j)
-  print (title0)
-  print (tempclass)
-  print (parentclass)
+  
   print (AssociationNUM)
   #if (length(AssociationNUM)>0){
   if (AssociationNUM>0){
