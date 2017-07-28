@@ -854,12 +854,12 @@ for (i in 1:length(nodesfrom2[[1]])){
     }
     if (nodesfrom2[[1]][i] %in% nodesnames2[[1]]){}
     else {
-      nodesnames=paste0(nodesnames," ",nodesfrom2[[1]][i])
+      nodesnames=paste0(nodesnames,nodesfrom2[[1]][i]," ")
       nodesclasses=paste0(nodesclasses," ","AutoAdded")
     }
     if (nodesto2[[1]][i] %in% nodesnames2[[1]]){}
     else {
-      nodesnames=paste0(nodesnames," ",nodesto2[[1]][i])
+      nodesnames=paste0(nodesnames,nodesto2[[1]][i]," ")
       nodesclasses=paste0(nodesclasses," ","AutoAdded")
     }
     #
@@ -889,8 +889,8 @@ nodes <- data.frame(name = return_space(nodesnames2[[1]]),
                     class = nodesclasses2[[1]])
    
 print (nodes)   
-nesting <- data.frame(from = nodesfrom3,
-                      to = nodesto3,
+nesting <- data.frame(from = return_space(nodesfrom3),
+                      to = return_space(nodesto3),
                       property = nodesproperty3)
    
 print (nesting)
