@@ -439,7 +439,7 @@ for (i in 1:length(infolist)){
 }
 for (i in 1:length(infolist)){
   infolist[[i]][length(infolist[[i]])]=gsub("\\}","",infolist[[i]][length(infolist[[i]])])
-  infolist[[i]][length(infolist[[i]])]=gsub("\\.","",infolist[[i]][length(infolist[[i]])])
+  #infolist[[i]][length(infolist[[i]])]=gsub("\\.","",infolist[[i]][length(infolist[[i]])])
   #infodf$level[i]=lines_split[[i]][1]
 }
 infolist
