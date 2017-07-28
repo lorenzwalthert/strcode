@@ -756,6 +756,7 @@ exceptwords=c("str:has","str:belongTo")
 print (nodesfrom2)
 print (nodesto2)
 print (nodesproperty2)
+if ((length(nodesfrom2[[1]])-1)>=1){
 for (i in 1:(length(nodesfrom2[[1]])-1)){
   print ("this is i:")
   print (i)
@@ -773,6 +774,7 @@ for (i in 1:(length(nodesfrom2[[1]])-1)){
     }
   }
 }
+  }
 print (nodesfrom2)
 print (nodesto2)
 print (nodesproperty2)
