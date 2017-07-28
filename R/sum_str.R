@@ -578,7 +578,7 @@ for (j in 1:length(infolist)){
       parentclass=infolist[[as.numeric(parentindex)]][4]
     }
     else {
-      levelvector[templevel]=j
+      levelvector[as.numeric(templevel)]=j
       parentindex=levelvector[as.numeric(templevel)-1]
     }
   }
