@@ -832,6 +832,7 @@ print (IDs)
 print (titles)
    
 nodesnames2=strsplit(nodesnames," ")
+print ("nodesnames2:")
 print (nodesnames2)
 for (i in 1:length(nodesfrom2[[1]])){
   if (i %in% except){}
