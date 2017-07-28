@@ -743,7 +743,9 @@ nodesnames2=strsplit(nodesnames," ")
 nodesclasses2=strsplit(nodesclasses," ")
 nodes <- data.frame(name = nodesnames2[[1]],
                     class = nodesclasses2[[1]])
-#print (nodes)    
+   
+print (nodes)    
+   
 nodesfrom2=strsplit(nodesfrom," ")
 nodesto2=strsplit(nodesto," ")
 nodesproperty2=strsplit(nodesproperty," ")
@@ -751,10 +753,13 @@ nodesproperty2=strsplit(nodesproperty," ")
 exceptnum=except=nodesfrom3=nodesto3=nodesproperty3=nodesnm=0
 exceptwords=c("str:has","str:belongTo")
 #diagonal matrix
+print (nodesfrom2)
+print (nodesto2)
+print (nodesproperty2)
 for (i in 1:(length(nodesfrom2[[1]])-1)){
-  #print (i)
+  print (i)
   for (j in ((i+1):length(nodesfrom2[[1]]))){
-    #print (j)
+    print (j)
     if (i!=j){
       if((nodesfrom2[[1]][i]==nodesfrom2[[1]][j])&(nodesto2[[1]][i]==nodesto2[[1]][j])){
         exceptnum=exceptnum+1
@@ -766,10 +771,10 @@ for (i in 1:(length(nodesfrom2[[1]])-1)){
     }
   }
 }
-#print (nodesfrom2)
-#print (nodesto2)
-#print (nodesproperty2)
-#print (except) 
+print (nodesfrom2)
+print (nodesto2)
+print (nodesproperty2)
+print (except) 
 for (i in 1:length(nodesfrom2[[1]])){
   if (i %in% except){}
   else {
