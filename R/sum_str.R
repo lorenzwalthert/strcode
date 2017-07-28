@@ -793,14 +793,7 @@ for (i in 1:length(infolist)){
 }
 
 library(igraph)
-nodesnames2=strsplit(nodesnames," ")
-nodesclasses2=strsplit(nodesclasses," ")
-print (nodesnames2)
-print (nodesclasses2)
-nodes <- data.frame(name = return_space(nodesnames2[[1]]),
-                    class = nodesclasses2[[1]])
-   
-print (nodes)    
+#### 
    
 nodesfrom2=strsplit(nodesfrom," ")
 nodesto2=strsplit(nodesto," ")
@@ -850,6 +843,11 @@ for (i in 1:length(nodesfrom2[[1]])){
         nodesto2[[1]][i]=titles[j]
         }
     }
+    if (nodesfrom2[[1]][i] %in% nodesnames){}
+    else {
+      nodesnames=paste0(nodesnames," ",nodesfrom2[[1]][i])
+      nodesclasses=paste0(nodesclasses," ",autoadded)
+    }
     #
     nodesfrom3[nodesnm]=return_space(nodesfrom2[[1]][i])
     nodesto3[nodesnm]=return_space(nodesto2[[1]][i])
@@ -859,7 +857,16 @@ for (i in 1:length(nodesfrom2[[1]])){
 print (nodesfrom3) 
 print (nodesto3)
 print (nodesproperty3)
-
+####
+   
+nodesnames2=strsplit(nodesnames," ")
+nodesclasses2=strsplit(nodesclasses," ")
+print (nodesnames2)
+print (nodesclasses2)
+nodes <- data.frame(name = return_space(nodesnames2[[1]]),
+                    class = nodesclasses2[[1]])
+   
+print (nodes)   
 nesting <- data.frame(from = nodesfrom3,
                       to = nodesto3,
                       property = nodesproperty3)
