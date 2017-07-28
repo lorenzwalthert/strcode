@@ -606,6 +606,9 @@ for (j in 1:length(infolist)){
   #print (which(parentclass==AssociationsLib$ParentClass))
   #print (which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)]))
   print ("second:")
+  print (j)
+  print (tempclass)
+  print (parentclass)
   print (AssociationNUM)
   #if (length(AssociationNUM)>0){
   if (AssociationNUM>0){
