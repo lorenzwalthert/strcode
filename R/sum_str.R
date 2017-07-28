@@ -109,7 +109,8 @@ sum_str <- function(path_in = getSourceEditorContext()$path,
                     baseURI="http://example.org/base/",
                     UserID="UserID",
                     prefix="user",
-                    AL="default",
+                    UserAL=FALSE,
+                    fillAssociation=FALSE,
                     ...) {
 
 ##  ............................................................................
@@ -168,7 +169,8 @@ assert_number(granularity, lower = 1, upper = 3)
                    baseURI=baseURI,
                    UserID=UserID,
                    prefix=prefix,
-                   AL=AL)
+                   UserAL=UserAL,
+                   fillAssociation=fillAssociation)
   })
 
   if (dir_out == "" && !is.null(file_out) && file_out == "object") {
@@ -214,7 +216,8 @@ sum_str_helper <- function(path_in,
                            baseURI,
                            UserID,
                            prefix,
-                           AL) {
+                           UserAL,
+                           fillAssociation) {
 
 ##  ............................................................................
 ##  argument interaction                                                    ####
@@ -500,7 +503,7 @@ for (i in 1:length(schemahad)){
 ProvONElist=c("provone:Process","provone:InputPort","provone:OutputPort",
               "provone:DataLink","provone:SeqCtrlLink","provone:Workflow",
               "provone:User","provone:ProcessExec","provone:Data",
-              "provone:Collection","provone:Visualization")
+              "provone:Collection","provone:Visualization","provone:Program")
 # Association word list:
 Associationlist=c("provone:hasSubProcess","provone:sourcePToCL","provone:CLtoDestP",
                   "provone:hasInPort","provone:hasOutPort","provone:hasDefaultParam",
@@ -577,10 +580,10 @@ for (j in 1:length(infolist)){
   }
   }
   # judge association:
-  if (AL=="default"){
+  if (UserAL==FALSE){
     AssociationsLib=read.table("DefaultAssociationLibrary.txt",sep=",",header=TRUE)
   }
-  else if (AL=="user") {
+  else if (UserAL==TRUE) {
     AssociationsLib=read.table("AssociationsLibrary.txt",sep=",",header=TRUE)
   }
 
@@ -596,7 +599,7 @@ for (j in 1:length(infolist)){
       nodesproperty=paste0(nodesproperty,AssociationsLib$ReverseProperty," ")
     }
   }
-  else if (as.numeric(parentlevel)!=0){
+  else if ((fillAssociation=TRUE)&(as.numeric(parentlevel)!=0)){
     property="str:has"
     nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
     nodesto=paste0(nodesto,infolist[[j]][2]," ")
