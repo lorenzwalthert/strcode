@@ -588,6 +588,11 @@ for (j in 1:length(infolist)){
   }
 
   AssociationNUM=which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)])
+  print ("fillAssociation")
+  print (fillAssociation=TRUE)
+  print ("as.numeric")
+  print (as.numeric(parentlevel)!=0))
+  print ("total")
   print ((fillAssociation=TRUE)&(as.numeric(parentlevel)!=0))
   if (length(AssociationNUM)>0){
     property=as.character(AssociationsLib$Property[AssociationNUM])
