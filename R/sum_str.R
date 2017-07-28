@@ -757,8 +757,10 @@ print (nodesfrom2)
 print (nodesto2)
 print (nodesproperty2)
 for (i in 1:(length(nodesfrom2[[1]])-1)){
+  print ("this is i:")
   print (i)
   for (j in ((i+1):length(nodesfrom2[[1]]))){
+    print ("this is j:")
     print (j)
     if ((i!=j)&(length(nodesfrom2[[1]])>=j)&(length(nodesto2[[1]])>=j)){
       if((nodesfrom2[[1]][i]==nodesfrom2[[1]][j])&(nodesto2[[1]][i]==nodesto2[[1]][j])){
