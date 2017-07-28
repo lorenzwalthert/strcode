@@ -465,11 +465,11 @@ for (j in 1:length(infolist)){
 }
 infolist=infolist1
  
-for (i in 1:length(infolist)){
-  for (j in 3:length(infolist[[i]])){
-  infolist[[i]][j]=return_space(infolist[[i]][j])
-  }
-}
+#for (i in 1:length(infolist)){
+#  for (j in 3:length(infolist[[i]])){
+#  infolist[[i]][j]=return_space(infolist[[i]][j])
+#  }
+#}
    
 schemahad=0
 lines_rdf=""
