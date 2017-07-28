@@ -587,17 +587,17 @@ for (j in 1:length(infolist)){
   else if (UserAL==TRUE) {
     AssociationsLib=read.table("AssociationsLibrary.txt",sep=",",header=TRUE)
   }
-  print ("first:")
-  print (AssociationNUM)
-  AssociationNUM=which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)])
-  print (which(parentclass==AssociationsLib$ParentClass))
-  print (which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)]))
-  print ("second:")
-  print (AssociationNUM)
+  #print ("first:")
+  #print (AssociationNUM)
+  AssociationNUM=min(which(parentclass==AssociationsLib$ParentClass)[which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)])])
+  #print (which(parentclass==AssociationsLib$ParentClass))
+  #print (which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)]))
+  #print ("second:")
+  #print (AssociationNUM)
   if (length(AssociationNUM)>0){
     property=as.character(AssociationsLib$Property[AssociationNUM])
     if (AssociationsLib$Ways[AssociationNUM]==2){
-            print ("!!2")
+      #      print ("!!2")
       nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
       nodesto=paste0(nodesto,infolist[[j]][2]," ")
       nodesproperty=paste0(nodesproperty,property," ")
@@ -605,12 +605,12 @@ for (j in 1:length(infolist)){
       nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
       nodesproperty=paste0(nodesproperty,AssociationsLib$ReverseProperty," ")
     }
-    else if (AssociationsLib$Ways[AssociationNUM]==1){
-    print ("!!1")
-    nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
-    nodesto=paste0(nodesto,infolist[[j]][2]," ")
-    nodesproperty=paste0(nodesproperty,property," ")
-  }
+      else if (AssociationsLib$Ways[AssociationNUM]==1){
+      #print ("!!1")
+      nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
+      nodesto=paste0(nodesto,infolist[[j]][2]," ")
+      nodesproperty=paste0(nodesproperty,property," ")
+    }
   }
   
   else if ((fillAssociation==TRUE)&(as.numeric(parentlevel)!=0)){
