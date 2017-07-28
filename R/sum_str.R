@@ -447,8 +447,10 @@ infolist
 infolist1=infolist
 for (i in grep("\":",infolist)){
   infolist[[i]][2]=gsub(",","",infolist1[[i]][4])
-  infolist[[i]][3]=gsub("#","",gsub(",","",infolist1[[i]][2]))
-  infolist[[i]][4]=gsub("\\.","",gsub(",","",infolist1[[i]][3]))
+  #infolist[[i]][3]=gsub("#","",gsub(",","",infolist1[[i]][2]))
+  infolist[[i]][3]=gsub(",","",infolist1[[i]][2])
+  #infolist[[i]][4]=gsub("\\.","",gsub(",","",infolist1[[i]][3]))
+  infolist[[i]][4]=gsub(",","",infolist1[[i]][3])
 }
 infolist
 
