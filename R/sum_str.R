@@ -593,8 +593,8 @@ for (j in 1:length(infolist)){
   print (title0)
   print (tempclass)
   print (parentclass)
-  print ("first:")
-  print (AssociationNUM)
+  #print ("first:")
+  #print (AssociationNUM)
   tempPwordlist=which(AssociationsLib$ParentClass==parentclass)
   print ("tempPwordlist")
   print (tempPwordlist)
@@ -614,6 +614,7 @@ for (j in 1:length(infolist)){
   print ("second:")
   
   print (AssociationNUM)
+  print (levelvector)
   #if (length(AssociationNUM)>0){
   if (AssociationNUM>0){
     property=as.character(AssociationsLib$Property[AssociationNUM])
@@ -904,7 +905,12 @@ for (i in 1:length(line_rdf_vector)){
   if (length(tempnumber)>0){
   for (j in 1:length(tempnumber)){
     #entityname2=paste0("<",FullURI,IDs[which(titles==nesting$to[tempnumber[j]])],">")
-    entityname2=paste0(prefix,":",IDs[which(titles==nodesto3[tempnumber[j]])])
+    if (nchar(IDs[which(titles==nodesto3[tempnumber[j]])])>0){
+      entityname2=paste0(prefix,":",IDs[which(titles==nodesto3[tempnumber[j]])])
+    }
+    else {
+      entityname2=paste0(prefix,":",nodesto3[tempnumber[j])
+    }
     if (j==length(tempnumber)){
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,".","\n")}
     else{line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")}
