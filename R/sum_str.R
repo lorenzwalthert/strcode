@@ -786,6 +786,11 @@ for (j in 1:length(infolist)){
   }
   #lines_rdf=paste(lines_rdf,line_rdf)
 }
+titles=IDs=0
+for (i in 1:length(infolist)){
+  titles[i]=return_space(infolist[[i]][2])
+  IDs[i]=infolist[[i]][3]
+}
 
 library(igraph)
 nodesnames2=strsplit(nodesnames," ")
@@ -834,6 +839,16 @@ for (i in 1:length(nodesfrom2[[1]])){
   if (i %in% except){}
   else {
     nodesnm=nodesnm+1
+    #
+    for (j in 1:length(IDs)){
+      if (nodesfrom2[[1]][i]==IDs[j]){
+        nodesfrom2[[1]][i]=titles[j]
+        }
+      else if (nodesto2[[1]][i]==IDs[j]){
+        nodesto2[[1]][i]=titles[j]
+        }
+    }
+    #
     nodesfrom3[nodesnm]=return_space(nodesfrom2[[1]][i])
     nodesto3[nodesnm]=return_space(nodesto2[[1]][i])
     nodesproperty3[nodesnm]=nodesproperty2[[1]][i]
@@ -852,11 +867,6 @@ print (nesting)
 g3 <- graph_from_data_frame(nesting, directed=TRUE, vertices=nodes)
 E(g3)$label <- E(g3)$property
 
-titles=IDs=0
-for (i in 1:length(infolist)){
-  titles[i]=return_space(infolist[[i]][2])
-  IDs[i]=infolist[[i]][3]
-}
 
 for (i in 1:length(line_rdf_vector)){
   tempnumber=which(nesting$from==titles[i])
