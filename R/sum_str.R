@@ -760,7 +760,7 @@ for (i in 1:(length(nodesfrom2[[1]])-1)){
   print (i)
   for (j in ((i+1):length(nodesfrom2[[1]]))){
     print (j)
-    if (i!=j){
+    if ((i!=j)&(length(nodesfrom2[[1]])>=j)){
       if((nodesfrom2[[1]][i]==nodesfrom2[[1]][j])&(nodesto2[[1]][i]==nodesto2[[1]][j])){
         exceptnum=exceptnum+1
         if (nodesproperty2[[1]][i] %in% exceptwords){
