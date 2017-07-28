@@ -591,7 +591,7 @@ for (j in 1:length(infolist)){
   print ("fillAssociation")
   print (fillAssociation=TRUE)
   print ("as.numeric")
-  print (as.numeric(parentlevel)!=0))
+  print (as.numeric(parentlevel)!=0)
   print ("total")
   print ((fillAssociation=TRUE)&(as.numeric(parentlevel)!=0))
   if (length(AssociationNUM)>0){
