@@ -524,6 +524,7 @@ templevel=parentlevel=parentindex=0
 levelvector=rep(0,7)
 
 for (j in 1:length(infolist)){
+  AssociationNUM=0
   line_rdf=""
   title0=infolist[[j]][2]
   ID=infolist[[j]][3]
