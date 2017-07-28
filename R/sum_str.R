@@ -588,12 +588,7 @@ for (j in 1:length(infolist)){
   }
 
   AssociationNUM=which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)])
-  print ("fillAssociation")
-  print (fillAssociation=TRUE)
-  print ("as.numeric")
-  print (as.numeric(parentlevel)!=0)
-  print ("total")
-  print ((fillAssociation=TRUE)&(as.numeric(parentlevel)!=0))
+  
   if (length(AssociationNUM)>0){
     property=as.character(AssociationsLib$Property[AssociationNUM])
     if (AssociationsLib$Ways[AssociationNUM]==2){
@@ -605,7 +600,7 @@ for (j in 1:length(infolist)){
       nodesproperty=paste0(nodesproperty,AssociationsLib$ReverseProperty," ")
     }
   }
-  else if ((fillAssociation=TRUE)&(as.numeric(parentlevel)!=0)){
+  else if ((fillAssociation==TRUE)&(as.numeric(parentlevel)!=0)){
     property="str:has"
     nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
     nodesto=paste0(nodesto,infolist[[j]][2]," ")
