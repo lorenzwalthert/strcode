@@ -607,7 +607,8 @@ for (j in 1:length(infolist)){
   #print (which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)]))
   print ("second:")
   print (AssociationNUM)
-  if (length(AssociationNUM)>0){
+  #if (length(AssociationNUM)>0){
+  if (AssociationNUM>0){
     property=as.character(AssociationsLib$Property[AssociationNUM])
     if (AssociationsLib$Ways[AssociationNUM]==2){
       #      print ("!!2")
