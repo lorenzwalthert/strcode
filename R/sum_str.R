@@ -520,7 +520,7 @@ DefaultAL=paste0("ParentClass,","ChildClass,","Ways,","Property,","ReverseProper
 write(DefaultAL,file="DefaultAssociationLibrary.txt")
 
 nodesnames=nodesclasses=nodesfrom=nodesto=nodesproperty=parentclass=property=line_rdf_vector=""
-templevel=parentlevel=parentindex=0
+templevel=parentlevel=parentindex=tempwordlist=0
 levelvector=rep(0,7)
 
 for (j in 1:length(infolist)){
@@ -587,18 +587,26 @@ for (j in 1:length(infolist)){
   else if (UserAL==TRUE) {
     AssociationsLib=read.table("AssociationsLibrary.txt",sep=",",header=TRUE)
   }
-  #print ("first:")
-  #print (AssociationNUM)
-  if (length(which(parentclass==AssociationsLib$ParentClass))>1){
-  AssociationNUM=min(which(parentclass==AssociationsLib$ParentClass)[which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)])])
+  print ("first:")
+  print (AssociationNUM)
+  tempwordlist=which(parentclass==AssociationsLib$ParentClass)
+  print ("tempwordlist")
+  print (tempwordlist)
+  tempPwordlist=which(tempclass==AssociationsLib$ChildClass[tempwordlist])
+  print ("tempPwordlist")
+  print (tempPwordlist)
+  if (length(tempPwordlist)>1){
+    print (">1")
+  AssociationNUM=tempwordlist[min(tempPwordlist)]
     }
-  else if (length(which(parentclass==AssociationsLib$ParentClass))==1){
-    AssociationNUM=which(parentclass==AssociationsLib$ParentClass)[which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)])]
-    }
+  else if (lenth(tempwordlist)==1){
+    print ("==1")
+    AssociationNUM=tempwordlist[tempPwordlist]
+  }
   #print (which(parentclass==AssociationsLib$ParentClass))
   #print (which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)]))
-  #print ("second:")
-  #print (AssociationNUM)
+  print ("second:")
+  print (AssociationNUM)
   if (length(AssociationNUM)>0){
     property=as.character(AssociationsLib$Property[AssociationNUM])
     if (AssociationsLib$Ways[AssociationNUM]==2){
