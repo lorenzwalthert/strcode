@@ -110,7 +110,7 @@ sum_str <- function(path_in = getSourceEditorContext()$path,
                     UserID="UserID",
                     prefix="user",
                     UserAL=FALSE,
-                    fillAssociation=FALSE,
+                    fillAssociation=TRUE,
                     ...) {
 
 ##  ............................................................................
@@ -599,7 +599,13 @@ for (j in 1:length(infolist)){
       nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
       nodesproperty=paste0(nodesproperty,AssociationsLib$ReverseProperty," ")
     }
+    else if (AssociationsLib$Ways[AssociationNUM]==1){
+    nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
+    nodesto=paste0(nodesto,infolist[[j]][2]," ")
+    nodesproperty=paste0(nodesproperty,property," ")
   }
+  }
+  
   else if ((fillAssociation==TRUE)&(as.numeric(parentlevel)!=0)){
     property="str:has"
     nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
