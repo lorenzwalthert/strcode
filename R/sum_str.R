@@ -587,13 +587,11 @@ for (j in 1:length(infolist)){
   else if (UserAL==TRUE) {
     AssociationsLib=read.table("AssociationsLibrary.txt",sep=",",header=TRUE)
   }
-
+  
+  print (AssociationNUM)
   AssociationNUM=which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)])
-  print ("p")
-  print (parentclass)
-  print ("c")
-  print (tempclass)
-  print (infolist[[j]])
+  print (which(parentclass==AssociationsLib$ParentClass))
+  print (which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)]))
   print (AssociationNUM)
   if (length(AssociationNUM)>0){
     property=as.character(AssociationsLib$Property[AssociationNUM])
