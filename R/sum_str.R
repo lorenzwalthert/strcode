@@ -464,7 +464,7 @@ for (j in 1:length(infolist)){
 infolist=infolist1
  
 for (i in 1:length(infolist)){
-  for (j in 1:length(infolist[[i]])){
+  for (j in 3:length(infolist[[i]])){
   infolist[[i]][j]=return_space(infolist[[i]][j])
   }
 }
@@ -785,8 +785,8 @@ for (i in 1:length(nodesfrom2[[1]])){
   if (i %in% except){}
   else {
     nodesnm=nodesnm+1
-    nodesfrom3[nodesnm]=nodesfrom2[[1]][i]
-    nodesto3[nodesnm]=nodesto2[[1]][i]
+    nodesfrom3[nodesnm]=return_space(nodesfrom2[[1]][i])
+    nodesto3[nodesnm]=return_space(nodesto2[[1]][i])
     nodesproperty3[nodesnm]=nodesproperty2[[1]][i]
     }
 }
@@ -819,6 +819,7 @@ for (i in 1:length(line_rdf_vector)){
 }
 
 for (i in 1:length(line_rdf_vector)){
+  line_rdf_vector[i]=return_space(line_rdf_vector[i])
   lines_rdf=paste(lines_rdf,line_rdf_vector[i])
 }
 
