@@ -589,7 +589,12 @@ for (j in 1:length(infolist)){
   }
   #print ("first:")
   #print (AssociationNUM)
+  if (length(which(parentclass==AssociationsLib$ParentClass))>1){
   AssociationNUM=min(which(parentclass==AssociationsLib$ParentClass)[which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)])])
+    }
+  else if (length(which(parentclass==AssociationsLib$ParentClass))==1){
+    AssociationNUM=which(parentclass==AssociationsLib$ParentClass)[which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)])]
+    }
   #print (which(parentclass==AssociationsLib$ParentClass))
   #print (which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)]))
   #print ("second:")
