@@ -109,6 +109,10 @@ rm_space <- function(x) {
   gsub(" ", "%20", x)
 }
 
+return_space <- function(x) {
+  gsub("%20", " ", x)
+}
+
 
 #' vapply and paste
 #'
