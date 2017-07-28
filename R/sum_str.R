@@ -524,8 +524,8 @@ templevel=parentlevel=parentindex=tempwordlist=0
 levelvector=rep(0,7)
 
 for (j in 1:length(infolist)){
-  AssociationNUM=0
-  line_rdf=""
+  AssociationNUM=firstmeet=0
+  line_rdf=classeswords=""
   title0=infolist[[j]][2]
   ID=infolist[[j]][3]
   parentlevel=templevel
@@ -567,18 +567,18 @@ for (j in 1:length(infolist)){
     }
   }
   if (as.numeric(parentlevel)!=0){
-  if (as.numeric(templevel)>as.numeric(parentlevel)){
-    parentindex=j-1
-    parentclass=infolist[[j-1]][4]
-  }
-  else if (templevel==parentlevel){
-    parentindex=levelvector[as.numeric(templevel)-1]
-    parentclass=infolist[[as.numeric(parentindex)]][4]
-  }
-  else {
-    levelvector[templevel]=j
-    parentindex=levelvector[as.numeric(templevel)-1]
-  }
+    if (as.numeric(templevel)>as.numeric(parentlevel)){
+      parentindex=j-1
+      parentclass=infolist[[j-1]][4]
+    }
+    else if (templevel==parentlevel){
+      parentindex=levelvector[as.numeric(templevel)-1]
+      parentclass=infolist[[as.numeric(parentindex)]][4]
+    }
+    else {
+      levelvector[templevel]=j
+      parentindex=levelvector[as.numeric(templevel)-1]
+    }
   }
   # judge association:
   if (UserAL==FALSE){
@@ -597,8 +597,8 @@ for (j in 1:length(infolist)){
   print (tempPwordlist)
   if (length(tempPwordlist)>1){
     print (">1")
-  AssociationNUM=tempwordlist[min(tempPwordlist)]
-    }
+    AssociationNUM=tempwordlist[min(tempPwordlist)]
+  }
   else if (length(tempwordlist)==1){
     print ("==1")
     AssociationNUM=tempwordlist[tempPwordlist]
@@ -619,7 +619,7 @@ for (j in 1:length(infolist)){
       nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
       nodesproperty=paste0(nodesproperty,AssociationsLib$ReverseProperty," ")
     }
-      else if (AssociationsLib$Ways[AssociationNUM]==1){
+    else if (AssociationsLib$Ways[AssociationNUM]==1){
       #print ("!!1")
       nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
       nodesto=paste0(nodesto,infolist[[j]][2]," ")
@@ -636,7 +636,7 @@ for (j in 1:length(infolist)){
     nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
     nodesproperty=paste0(nodesproperty,"str:belongTo"," ")
   }
-    
+  
   #if (parentclass=="provone:Process"&tempclass=="provone:Process"){
   #  property="provone:hasSubProcess"
   #}
@@ -671,7 +671,7 @@ for (j in 1:length(infolist)){
   #  nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
   #  nodesproperty=paste0(nodesproperty,"str:belongTo"," ")
   #}  
-
+  
   for (i in 4:length(infolist[[j]])){
     tempword=""
     tempentity=""
@@ -679,13 +679,14 @@ for (j in 1:length(infolist)){
     if (i==4){
       tempword=infolist[[j]][4]
       nodesnames=paste0(nodesnames,title0," ")
-      nodesclasses=paste0(nodesclasses,tempword," ")
+      classeswords=paste0(tempword)
+      #nodesclasses=paste0(nodesclasses,tempword," ")
       
       #entityname=paste0(FullURI,ID)  
       #title=paste0("<",entityname,">")
       entityname=paste0(prefix,":",ID)  
       title=paste0(entityname)
-      line_rdf=paste("\n",title,"a",tempword)
+      line_rdf=paste0("\n ",title," a ",tempword)
       
       if (i==length(infolist[[j]])){
         line_rdf=paste(line_rdf,";","\n")
@@ -694,7 +695,21 @@ for (j in 1:length(infolist)){
         line_rdf=paste(line_rdf,"\t","rdfs:label",title0,";","\n")#,".","\n")
       }
       else{
-        line_rdf=paste(line_rdf,";","\n")
+        line_rdf=paste(line_rdf)#,";","\n")
+      }
+      if (i==length(infolist[[j]])){
+        nodesclasses=paste0(nodesclasses,classeswords," ")
+        if (nchar(temp_line)>0){
+          temp_line=paste("\t",temp_line,";","\n")
+        }
+        #temp_line=paste(temp_line,"\t","rdfs:label",title0,".","\n")
+        title0=paste0("\"",title0,"\"")
+        temp_line=paste(temp_line,"\t","rdfs:label",title0,";","\n")#,".","\n")
+      }
+      else {
+        #if (nchar(temp_line)>0){
+        #  temp_line=paste("\t",temp_line,";","\n")
+        #}
       }
       
     }# out of if i==4
@@ -702,6 +717,13 @@ for (j in 1:length(infolist)){
       tempword=infolist[[j]][i]
       # old association
       if (grepl("=",tempword)){
+        firstmeet=firstmeet+1
+        if (firstmeet==1){
+          line_rdf=paste0(line_rdf,";","\n")
+          
+        }
+        
+        
         tempwordlist=strsplit(tempword,"=")
         #tempentity=paste0("<",tempwordlist[[1]][2],">")
         
@@ -712,24 +734,44 @@ for (j in 1:length(infolist)){
           nodesproperty=paste0(nodesproperty,tempwordlist[[1]][1]," ")
         }
         else{
-        temp_line=paste(tempwordlist[[1]][1],tempwordlist[[1]][2])
+          temp_line=paste(tempwordlist[[1]][1],tempwordlist[[1]][2])
+        }
+        if (i==length(infolist[[j]])){
+          nodesclasses=paste0(nodesclasses,classeswords," ")
+          if (nchar(temp_line)>0){
+            temp_line=paste("\t",temp_line,";","\n")
+          }
+          #temp_line=paste(temp_line,"\t","rdfs:label",title0,".","\n")
+          title0=paste0("\"",title0,"\"")
+          temp_line=paste(temp_line,"\t","rdfs:label",title0,";","\n")#,".","\n")
+        }
+        else {
+          if (nchar(temp_line)>0){
+            temp_line=paste("\t",temp_line,";","\n")
+          }
+        }
+      }
+      else {
+        classeswords=paste0(classeswords,",",tempword)
+        line_rdf=paste0(line_rdf,", ",tempword)
+        if (i==length(infolist[[j]])){
+          nodesclasses=paste0(nodesclasses,classeswords," ")
+          if (nchar(temp_line)>0){
+            temp_line=paste("\t",temp_line,";","\n")
+          }
+          #temp_line=paste(temp_line,"\t","rdfs:label",title0,".","\n")
+          title0=paste0("\"",title0,"\"")
+          temp_line=paste(temp_line,";\n","\t","rdfs:label",title0,";","\n")#,".","\n")
+        }
+        else {
+          #if (nchar(temp_line)>0){
+          #  temp_line=paste("\t",temp_line,";","\n")
+          #}
         }
       }
       #end session
       
-      if (i==length(infolist[[j]])){
-        if (nchar(temp_line)>0){
-        temp_line=paste("\t",temp_line,";","\n")
-          }
-        #temp_line=paste(temp_line,"\t","rdfs:label",title0,".","\n")
-        title0=paste0("\"",title0,"\"")
-        temp_line=paste(temp_line,"\t","rdfs:label",title0,";","\n")#,".","\n")
-      }
-      else {
-        if (nchar(temp_line)>0){
-        temp_line=paste("\t",temp_line,";","\n")
-          }
-      }
+      
       
     }
     line_rdf=paste(line_rdf,temp_line)
