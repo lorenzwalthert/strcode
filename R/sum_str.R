@@ -841,6 +841,7 @@ nesting <- data.frame(from = nodesfrom3,
                       property = nodesproperty3)
    
 print (nesting)
+   print (nodes)
 g3 <- graph_from_data_frame(nesting, directed=TRUE, vertices=nodes)
 E(g3)$label <- E(g3)$property
 
