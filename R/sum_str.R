@@ -825,15 +825,19 @@ for (i in 1:(length(nodesfrom2[[1]])-1)){
   }
 }
   }
+print ("from before")
 print (nodesfrom2)
+   print ("to before")
 print (nodesto2)
+   print ("property before")
 print (nodesproperty2)
 print (except)
 print (IDs)
+print ("title before")
 print (titles)
    
 nodesnames2=strsplit(nodesnames," ")
-print ("nodesnames2:")
+print ("nodesnames2 before")
 print (nodesnames2)
 for (i in 1:length(nodesfrom2[[1]])){
   if (i %in% except){}
@@ -867,14 +871,19 @@ for (i in 1:length(nodesfrom2[[1]])){
     nodesproperty3[nodesnm]=nodesproperty2[[1]][i]
     }
 }
-print (nodesfrom3) 
+print ("form")
+print (nodesfrom3)
+print ("to")
 print (nodesto3)
+print ("property")
 print (nodesproperty3)
 ####
    
 nodesnames2=strsplit(nodesnames," ")
 nodesclasses2=strsplit(nodesclasses," ")
+print ("name")
 print (nodesnames2)
+print ("name")
 print (nodesclasses2)
 nodes <- data.frame(name = return_space(nodesnames2[[1]]),
                     class = nodesclasses2[[1]])
