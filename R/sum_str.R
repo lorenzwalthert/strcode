@@ -599,7 +599,7 @@ for (j in 1:length(infolist)){
     print (">1")
   AssociationNUM=tempwordlist[min(tempPwordlist)]
     }
-  else if (lenth(tempwordlist)==1){
+  else if (length(tempwordlist)==1){
     print ("==1")
     AssociationNUM=tempwordlist[tempPwordlist]
   }
