@@ -519,7 +519,7 @@ DefaultAL=paste0("ParentClass,","ChildClass,","Ways,","Property,","ReverseProper
           "\"provone:Process\",","\"provone:Visualization\",","2,","\"provone:wasDerivedFrom\",","\"provone:hasMember\"\n")
 write(DefaultAL,file="DefaultAssociationLibrary.txt")
 
-nodesnames=nodesclasses=nodesfrom=nodesto=nodesproperty=parentclass=property=line_rdf_vector=AssociationsLib=""
+nodesnames=nodesclasses=nodesfrom=nodesto=nodesproperty=parentclass=property=line_rdf_vector=""
 templevel=parentlevel=parentindex=tempwordlist=0
 levelvector=rep(0,7)
 
