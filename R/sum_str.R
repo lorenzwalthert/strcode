@@ -855,12 +855,12 @@ for (i in 1:length(nodesfrom2[[1]])){
     if (nodesfrom2[[1]][i] %in% nodesnames2[[1]]){}
     else {
       nodesnames=paste0(nodesnames,nodesfrom2[[1]][i]," ")
-      nodesclasses=paste0(nodesclasses," ","AutoAdded")
+      nodesclasses=paste0(nodesclasses,"AutoAdded"," ")
     }
     if (nodesto2[[1]][i] %in% nodesnames2[[1]]){}
     else {
       nodesnames=paste0(nodesnames,nodesto2[[1]][i]," ")
-      nodesclasses=paste0(nodesclasses," ","AutoAdded")
+      nodesclasses=paste0(nodesclasses,"AutoAdded"," ")
     }
     #
     #nodesfrom3[nodesnm]=return_space(nodesfrom2[[1]][i])
