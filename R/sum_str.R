@@ -513,7 +513,7 @@ Associationlist=c("provone:hasSubProcess","provone:sourcePToCL","provone:CLtoDes
                   "provone:DLToOutPort","provone:wasAttributedTo","provone:wasDerivedFrom",
                   "provone:dataOnLink","provone:used","provone:wasGeneratedBy",
                   "provone:wasAssociatedWith","provone:wasInformedBy","provone:isPartOf",
-                  "provone:hadMember","cwfo:hasOutData")
+                  "provone:hadMember","cwfo:hasOutData","cwfo:hasInData")
 # Association library:
 DefaultAL=paste0("ParentClass,","ChildClass,","Ways,","Property,","ReverseProperty\n",
           "\"provone:Process\",","\"provone:Process\",","2,","\"provone:hasSubProcess\",","\"provone:wasDerivedFrom\"\n",
