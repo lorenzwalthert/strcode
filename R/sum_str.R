@@ -905,7 +905,7 @@ for (i in 1:length(line_rdf_vector)){
   if (length(tempnumber)>0){
   for (j in 1:length(tempnumber)){
     #entityname2=paste0("<",FullURI,IDs[which(titles==nesting$to[tempnumber[j]])],">")
-    if (nchar(IDs[which(titles==nodesto3[tempnumber[j]])])>0){
+    if (length(IDs[which(titles==nodesto3[tempnumber[j]])])>0){
       entityname2=paste0(prefix,":",IDs[which(titles==nodesto3[tempnumber[j]])])
     }
     else {
