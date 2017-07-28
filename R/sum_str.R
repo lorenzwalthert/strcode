@@ -592,6 +592,7 @@ for (j in 1:length(infolist)){
   if (length(AssociationNUM)>0){
     property=as.character(AssociationsLib$Property[AssociationNUM])
     if (AssociationsLib$Ways[AssociationNUM]==2){
+      print ("2")
       nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
       nodesto=paste0(nodesto,infolist[[j]][2]," ")
       nodesproperty=paste0(nodesproperty,property," ")
@@ -600,6 +601,7 @@ for (j in 1:length(infolist)){
       nodesproperty=paste0(nodesproperty,AssociationsLib$ReverseProperty," ")
     }
     else if (AssociationsLib$Ways[AssociationNUM]==1){
+    print ("1")
     nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
     nodesto=paste0(nodesto,infolist[[j]][2]," ")
     nodesproperty=paste0(nodesproperty,property," ")
