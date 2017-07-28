@@ -830,6 +830,9 @@ print (nodesproperty2)
 print (except)
 print (IDs)
 print (titles)
+   
+nodesnames2=strsplit(nodesnames," ")
+   
 for (i in 1:length(nodesfrom2[[1]])){
   if (i %in% except){}
   else {
@@ -843,9 +846,14 @@ for (i in 1:length(nodesfrom2[[1]])){
         nodesto2[[1]][i]=titles[j]
         }
     }
-    if (nodesfrom2[[1]][i] %in% nodesnames){}
+    if (nodesfrom2[[1]][i] %in% nodesnames2){}
     else {
       nodesnames=paste0(nodesnames," ",nodesfrom2[[1]][i])
+      nodesclasses=paste0(nodesclasses," ","AutoAdded")
+    }
+    if (nodesto2[[1]][i] %in% nodesnames2){}
+    else {
+      nodesnames=paste0(nodesnames," ",nodesto2[[1]][i])
       nodesclasses=paste0(nodesclasses," ","AutoAdded")
     }
     #
