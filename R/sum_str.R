@@ -715,7 +715,8 @@ if (rm_break_anchors) {
           }
         }
       }
-      else { # for multiple classes
+      # for multiple classes, paste each one after first class, seperate by comma
+      else { 
         classeswords=paste0(classeswords,",",tempword)
         line_rdf=paste0(line_rdf,", ",tempword)
         if (i==length(infolist[[j]])){
@@ -724,16 +725,18 @@ if (rm_break_anchors) {
             temp_line=paste("\t",temp_line,";","\n")
           }
           title0=paste0("\"",title0,"\"")
-          temp_line=paste(temp_line,";\n","\t","rdfs:label",title0,";","\n")#,".","\n")
+          temp_line=paste(temp_line,";\n","\t","rdfs:label",title0,";","\n")
         }
         else {
         }
       }
     }
     line_rdf=paste(line_rdf,temp_line)
+    # save entities in a character sting variable
     line_rdf_vector[j]=line_rdf
   }
 }
+# get titles and IDs
 titles=IDs=0
 for (i in 1:length(infolist)){
   titles[i]=infolist[[i]][2]
@@ -747,8 +750,9 @@ nodesto2=strsplit(nodesto," ")
 nodesproperty2=strsplit(nodesproperty," ")
 exceptnum=except=nodesfrom3=nodesto3=nodesproperty3=nodesnm=0
 exceptwords=c("str:has","str:belongTo")
-#diagonal matrix
 
+# use a diagonal matrix to find duplicate nodes when users manually typed in associations, and replace the 
+# default associations "str:has" and "str:belongTo" by user-defined associations
 if ((length(nodesfrom2[[1]])-1)>=1){
 for (i in 1:(length(nodesfrom2[[1]])-1)){
   for (j in ((i+1):length(nodesfrom2[[1]]))){
@@ -767,6 +771,7 @@ for (i in 1:(length(nodesfrom2[[1]])-1)){
 
 nodesnames2=strsplit(nodesnames," ")
 
+# add nonexisting nodes to graph, even if they are not inserted as an entity
 for (i in 1:length(nodesfrom2[[1]])){
   if (i %in% except){}
   else {
@@ -779,6 +784,8 @@ for (i in 1:length(nodesfrom2[[1]])){
         nodesto2[[1]][i]=titles[j]
         }
     }
+    # add nonexisting nodes to graph, set class as AutoAdded
+    
     if (nodesfrom2[[1]][i] %in% nodesnames2[[1]]){}
     else {
       nodesnames=paste0(nodesnames,nodesfrom2[[1]][i]," ")
@@ -799,6 +806,7 @@ for (i in 1:length(nodesfrom2[[1]])){
 nodesnames2=strsplit(nodesnames," ")
 nodesclasses2=strsplit(nodesclasses," ")
 
+# add nodes and nesting information into a data frame
 nodes <- data.frame(name = return_space(nodesnames2[[1]]),
                     class = nodesclasses2[[1]])
 
@@ -809,7 +817,7 @@ nesting <- data.frame(from = return_space(nodesfrom3),
 g3 <- graph_from_data_frame(nesting, directed=TRUE, vertices=nodes)
 E(g3)$label <- E(g3)$property
 
-
+# append manually type-in information to each entity
 for (i in 1:length(line_rdf_vector)){
   tempnumber=which(nodesfrom3==titles[i])
   if (length(tempnumber)>0){
@@ -827,11 +835,12 @@ for (i in 1:length(line_rdf_vector)){
   }
 }
 
+# convert %20 to space
 for (i in 1:length(line_rdf_vector)){
   line_rdf_vector[i]=return_space(line_rdf_vector[i])
   lines_rdf=paste(lines_rdf,line_rdf_vector[i])
 }
-
+# generate RDF file
 if (rdf=="ttl"){
   write(lines_rdf,file=outputfile2)
 print("Create a RDF file successfully. Please find the output file in:")
