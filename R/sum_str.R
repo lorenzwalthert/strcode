@@ -111,6 +111,7 @@ sum_str <- function(path_in = getSourceEditorContext()$path,
                     prefix="user",
                     UserAL=FALSE,
                     fillAssociation=TRUE,
+                    UserANM=FALSE,
                     ...) {
 
 ##  ............................................................................
@@ -170,7 +171,8 @@ assert_number(granularity, lower = 1, upper = 3)
                    UserID=UserID,
                    prefix=prefix,
                    UserAL=UserAL,
-                   fillAssociation=fillAssociation)
+                   fillAssociation=fillAssociation,
+                   UserANM=UserANM)
   })
 
   if (dir_out == "" && !is.null(file_out) && file_out == "object") {
@@ -217,7 +219,8 @@ sum_str_helper <- function(path_in,
                            UserID,
                            prefix,
                            UserAL,
-                           fillAssociation) {
+                           fillAssociation,
+                           UserANM) {
 
 ##  ............................................................................
 ##  argument interaction                                                    ####
@@ -507,13 +510,33 @@ ProvONElist=c("provone:Process","provone:InputPort","provone:OutputPort",
               "provone:User","provone:ProcessExec","provone:Data",
               "provone:Collection","provone:Visualization","provone:Program")
 # Association word list:
-Associationlist=c("provone:hasSubProcess","provone:sourcePToCL","provone:CLtoDestP",
-                  "provone:hasInPort","provone:hasOutPort","provone:hasDefaultParam",
-                  "provone:DLToInPort","provone:outPortToDL","provone:inPortToDL",
-                  "provone:DLToOutPort","provone:wasAttributedTo","provone:wasDerivedFrom",
-                  "provone:dataOnLink","provone:used","provone:wasGeneratedBy",
-                  "provone:wasAssociatedWith","provone:wasInformedBy","provone:isPartOf",
-                  "provone:hadMember","cwfo:hasOutData","cwfo:hasInData")
+#Associationlist=c("provone:hasSubProcess","provone:sourcePToCL","provone:CLtoDestP",
+#                  "provone:hasInPort","provone:hasOutPort","provone:hasDefaultParam",
+#                  "provone:DLToInPort","provone:outPortToDL","provone:inPortToDL",
+#                  "provone:DLToOutPort","provone:wasAttributedTo","provone:wasDerivedFrom",
+#                  "provone:dataOnLink","provone:used","provone:wasGeneratedBy",
+#                  "provone:wasAssociatedWith","provone:wasInformedBy","provone:isPartOf",
+#                  "provone:hadMember","cwfo:hasOutData","cwfo:hasInData")
+DefaultAssociationlist=paste0("AssociationName\n","provone:hasSubProcess\n","provone:sourcePToCL\n","provone:CLtoDestP\n",
+                  "provone:hasInPort\n","provone:hasOutPort\n","provone:hasDefaultParam\n",
+                  "provone:DLToInPort\n","provone:outPortToDL\n","provone:inPortToDL\n",
+                  "provone:DLToOutPort\n","provone:wasAttributedTo\n","provone:wasDerivedFrom\n",
+                  "provone:dataOnLink\n","provone:used\n","provone:wasGeneratedBy\n",
+                  "provone:wasAssociatedWith\n","provone:wasInformedBy\n","provone:isPartOf\n",
+                  "provone:hadMember\n","cwfo:hasOutData\n","cwfo:hasInData\n")
+write(DefaultAssociationlist,file="DefaultAssociationNames.txt")
+   
+Associationlist.df=read.table("DefaultAssociationNames.txt",sep=",",header=TRUE)
+
+if (UserANM==FALSE){
+    Associationlist.df=read.table("DefaultAssociationNames.txt",sep=",",header=TRUE)
+  }
+else if (UserANM==TRUE) {
+    Associationlist.df=read.table("AssociationNames.txt",sep=",",header=TRUE)
+  }
+   
+Associationlist=Associationlist.df$AssociationName
+
 # Association library:
 DefaultAL=paste0("ParentClass,","ChildClass,","Ways,","Property,","ReverseProperty\n",
           "\"provone:Process\",","\"provone:Process\",","2,","\"provone:hasSubProcess\",","\"provone:wasDerivedFrom\"\n",
