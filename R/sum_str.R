@@ -537,7 +537,8 @@ if (rm_break_anchors) {
     nodesnames=nodesclasses=nodesfrom=nodesto=nodesproperty=parentclass=property=line_rdf_vector=""
     templevel=parentlevel=parentindex=tempwordlist=0
     levelvector=rep(0,7)
-
+    
+    # get property of association by using parent entity class and child entity class automatically
     for (j in 1:length(infolist)){
       AssociationNUM=firstmeet=0
       line_rdf=classeswords=""
@@ -546,6 +547,7 @@ if (rm_break_anchors) {
       parentlevel=templevel
       templevel=infolist[[j]][1]
       tempclass=infolist[[j]][4]
+      # levelvector saves existing levels
      if (infolist[[j]][1]==1){
         if (levelvector[1]==0){
          levelvector[1]=j
@@ -581,6 +583,7 @@ if (rm_break_anchors) {
          levelvector[7]=j
         }
       }
+      # replace existing levels when found a new one
       if (as.numeric(parentlevel)!=0){
        if (as.numeric(templevel)>as.numeric(parentlevel)){
           parentindex=j-1
@@ -604,14 +607,17 @@ if (rm_break_anchors) {
       }
       tempPwordlist=which(AssociationsLib$ParentClass==parentclass)
       tempwordlist=which(AssociationsLib$ChildClass[tempPwordlist]==tempclass)
+      # whether the relationship between parent and child classes are in association library
       if (length(tempwordlist)>1){
         AssociationNUM=tempPwordlist[min(tempwordlist)]
       }
       else if (length(tempwordlist)==1){
         AssociationNUM=tempPwordlist[tempwordlist]
       }
+      # get association property and other information if it is in association library
       if (AssociationNUM>0){
         property=as.character(AssociationsLib$Property[AssociationNUM])
+        # two ways association
        if (AssociationsLib$Ways[AssociationNUM]==2){
           nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
           nodesto=paste0(nodesto,infolist[[j]][2]," ")
@@ -620,13 +626,14 @@ if (rm_break_anchors) {
           nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
           nodesproperty=paste0(nodesproperty,AssociationsLib$ReverseProperty," ")
        }
+        # one way association
         else if (AssociationsLib$Ways[AssociationNUM]==1){
           nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
           nodesto=paste0(nodesto,infolist[[j]][2]," ")
           nodesproperty=paste0(nodesproperty,property," ")
         }
       }
-  
+      # if using default association to fill the nonexistent association in the library
       else if ((fillAssociation==TRUE)&(as.numeric(parentlevel)!=0)){
         property="str:has"
         nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
@@ -636,7 +643,8 @@ if (rm_break_anchors) {
         nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
         nodesproperty=paste0(nodesproperty,"str:belongTo"," ")
      }
-    
+  
+  # deal with other information besides title, id and class
   for (i in 4:length(infolist[[j]])){
     tempword=""
     tempentity=""
@@ -650,13 +658,15 @@ if (rm_break_anchors) {
       title=paste0(entityname)
       line_rdf=paste0("\n ",title," a ",tempword)
       
+      # print content depends on whether it is the last one or not
       if (i==length(infolist[[j]])){
         line_rdf=paste(line_rdf,";","\n")
         title0=paste0("\"",title0,"\"")
+        # add title as rdfs:label in the output file
         line_rdf=paste(line_rdf,"\t","rdfs:label",title0,";","\n")#,".","\n")
       }
       else{
-        line_rdf=paste(line_rdf)#,";","\n")
+        line_rdf=paste(line_rdf)
       }
       if (i==length(infolist[[j]])){
         nodesclasses=paste0(nodesclasses,classeswords," ")
@@ -672,17 +682,16 @@ if (rm_break_anchors) {
     }# out of if i==4
     else { # i>4
       tempword=infolist[[j]][i]
-      # old association
+      # find manually input values
       if (grepl("=",tempword)){
+        # print founded class or classes in output file
         firstmeet=firstmeet+1
         if (firstmeet==1){
           line_rdf=paste0(line_rdf,";","\n")
-          
         }
-        
-        
+                
         tempwordlist=strsplit(tempword,"=")
-        
+        # if the manually typed input is an association, add this relation into nodes data frame
         if (tempwordlist[[1]][1] %in% Associationlist)
         { 
           nodesfrom=paste0(nodesfrom,title0," ")
@@ -706,7 +715,7 @@ if (rm_break_anchors) {
           }
         }
       }
-      else {
+      else { # for multiple classes
         classeswords=paste0(classeswords,",",tempword)
         line_rdf=paste0(line_rdf,", ",tempword)
         if (i==length(infolist[[j]])){
