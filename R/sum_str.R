@@ -363,17 +363,17 @@ if (rm_break_anchors) {
     outputfile2 <- paste("RDF_output_file_",datetime,fileformat,sep="")
     write(lines,file=outputfile2)
     templines=readLines(outputfile2)
-lines_content=templines[4:length(templines)]
-lines_split=strsplit(lines_content, " ")
+    lines_content=templines[4:length(templines)]
+    lines_split=strsplit(lines_content, " ")
 
-baseURI=baseURI
-UserID=UserID
-FullURI=paste0(baseURI,UserID,"/")
-prefix=prefix
+    baseURI=baseURI
+    UserID=UserID
+    FullURI=paste0(baseURI,UserID,"/")
+    prefix=prefix
 
-schemalist=list()
+    schemalist=list()
 
-schemas=c(rdfs="@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .",
+    schemas=c(rdfs="@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .",
           xsd="@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .",
           owl="@prefix owl:     <http://www.w3.org/2002/07/owl#> .",
           dcterms="@prefix dcterms: <http://purl.org/dc/terms/> .",
@@ -385,324 +385,236 @@ schemas=c(rdfs="@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .",
           yw="@prefix yw:   	 <http://yesworkflow.org/ns/yesworkflow#> .",
           cwfo="@prefix cwfo:    <http://cwf.tw.rpi.edu/vocab#> .",
           cwf="@prefix cwf:     <http://cwf.tw.rpi.edu/data#> .")
-# Using ":" to find class
-for (i in 1:length(lines_split)){
-  schemalist[[i]]=grep(":",lines_split[[i]])
-}
-tempcount0=0
-schemalist1=list()
-for (i in 1:length(schemalist)){
-  if (length(schemalist[[i]])>0){
-    tempcount0=tempcount0+1
-    schemalist1[[tempcount0]]=schemalist[[i]]
-  }
-}
-schemalist1
-
-tempcount0=0
-lines_split1=list()
-for (i in 1:length(schemalist)){
-  if (length(schemalist[[i]])>0){
-    tempcount0=tempcount0+1
-    lines_split1[[tempcount0]]=lines_split[[i]]
-  }
-}
-lines_split1
-
-lines_split=lines_split1
-schemalist=schemalist1
-lines_split1=schemalist
-for (i in 1:length(lines_split)){
-  tempcount0=0
-  for (j in 1:length(lines_split[[i]])){
-    if (nchar(lines_split[[i]][j])>0){
-      tempcount0=tempcount0+1
-      lines_split1[[i]][tempcount0]=lines_split[[i]][j]
+    # Using ":" to find class
+    for (i in 1:length(lines_split)){
+     schemalist[[i]]=grep(":",lines_split[[i]])
     }
-  }
-}
-lines_split1
+    tempcount0=0
+    schemalist1=list()
+    for (i in 1:length(schemalist)){
+      if (length(schemalist[[i]])>0){
+        tempcount0=tempcount0+1
+        schemalist1[[tempcount0]]=schemalist[[i]]
+      }
+    }
 
-for (i in 1:length(lines_split1)){
-  schemalist[[i]]=grep(":",lines_split1[[i]])
-}
-schemalist
-lines_split=lines_split1
+    tempcount0=0
+    lines_split1=list()
+    for (i in 1:length(schemalist)){
+      if (length(schemalist[[i]])>0){
+        tempcount0=tempcount0+1
+        lines_split1[[tempcount0]]=lines_split[[i]]
+      }
+    }
 
-infolist=lines_split
-for (i in 1:length(infolist)){
-  templevel=strsplit(infolist[[i]][1],"\\t")
-  infolist[[i]][1]=nchar(templevel[[1]][2])
-  #infodf$level[i]=lines_split[[i]][1]
-}
-for (i in 1:length(infolist)){
-  infolist[[i]][3]=gsub("\\{","",infolist[[i]][3])
-  infolist[[i]][3]=gsub("\\#","",infolist[[i]][3])
-  #infodf$level[i]=lines_split[[i]][1]
-}
-for (i in 1:length(infolist)){
-  infolist[[i]][length(infolist[[i]])]=gsub("\\}","",infolist[[i]][length(infolist[[i]])])
-  #infolist[[i]][length(infolist[[i]])]=gsub("\\.","",infolist[[i]][length(infolist[[i]])])
-  #infodf$level[i]=lines_split[[i]][1]
-}
-infolist
+    lines_split=lines_split1
+    schemalist=schemalist1
+    lines_split1=schemalist
+    for (i in 1:length(lines_split)){
+      tempcount0=0
+      for (j in 1:length(lines_split[[i]])){
+        if (nchar(lines_split[[i]][j])>0){
+          tempcount0=tempcount0+1
+          lines_split1[[i]][tempcount0]=lines_split[[i]][j]
+        }
+      }
+    }
 
-infolist1=infolist
-for (i in grep("\":",infolist)){
-  infolist[[i]][2]=gsub(",","",infolist1[[i]][4])
-  #infolist[[i]][3]=gsub("#","",gsub(",","",infolist1[[i]][2]))
-  infolist[[i]][3]=gsub(",","",infolist1[[i]][2])
-  #infolist[[i]][4]=gsub("\\.","",gsub(",","",infolist1[[i]][3]))
-  infolist[[i]][4]=gsub(",","",infolist1[[i]][3])
-}
-infolist
+    for (i in 1:length(lines_split1)){
+      schemalist[[i]]=grep(":",lines_split1[[i]])
+    }
+    lines_split=lines_split1
+    infolist=lines_split
+    for (i in 1:length(infolist)){
+      templevel=strsplit(infolist[[i]][1],"\\t")
+      infolist[[i]][1]=nchar(templevel[[1]][2])
+    }
+    for (i in 1:length(infolist)){
+      infolist[[i]][3]=gsub("\\{","",infolist[[i]][3])
+      infolist[[i]][3]=gsub("\\#","",infolist[[i]][3])
+    }
+    for (i in 1:length(infolist)){
+      infolist[[i]][length(infolist[[i]])]=gsub("\\}","",infolist[[i]][length(infolist[[i]])])
+    }
+    infolist1=infolist
+    for (i in grep("\":",infolist)){
+      infolist[[i]][2]=gsub(",","",infolist1[[i]][4])
+      infolist[[i]][3]=gsub(",","",infolist1[[i]][2])
+      infolist[[i]][4]=gsub(",","",infolist1[[i]][3])
+    }
 
-#strsplit(infolist[[4]][2], "\":")[[1]][2]
-for (j in 1:length(infolist)){
-#for (j in 4:4){
-  for (i in 1:length(strsplit(infolist[[j]], "\":"))){
-    if (length(strsplit(infolist[[j]], "\":")[[i]])>1){
-      infolist1[[j]][i]=strsplit(infolist[[j]], "\":")[[i]][2]
-  }
-}
-}
-infolist=infolist1
+    for (j in 1:length(infolist)){
+      for (i in 1:length(strsplit(infolist[[j]], "\":"))){
+        if (length(strsplit(infolist[[j]], "\":")[[i]])>1){
+          infolist1[[j]][i]=strsplit(infolist[[j]], "\":")[[i]][2]
+      }
+    }
+    }
+    infolist=infolist1
  
-#for (i in 1:length(infolist)){
-#  for (j in 3:length(infolist[[i]])){
-#  infolist[[i]][j]=return_space(infolist[[i]][j])
-#  }
-#}
-   
-schemahad=0
-lines_rdf=""
-count0=1
+    schemahad=0
+    lines_rdf=""
+    count0=1
     
-schemalist1=list()
-for (i in 1:length(infolist)){
-  schemalist1[[i]]=grep(":",infolist[[i]])
-}
-schemalist=schemalist1
-# add prefix
-for (i in 1:length(schemalist)){
-  #print (i)
-  for (j in 1:length(schemalist[[i]])){
-    #print (j)
-    tempstr=infolist[[i]][(schemalist[[i]])[j]]
-    #print(tempstr)
-    tempschemastr=gsub("\\.","",strsplit(tempstr,'\\:')[[1]][1])
-    schemas[tempschemastr]
-    if (tempschemastr %in% schemahad) {#print("!")
+    schemalist1=list()
+    for (i in 1:length(infolist)){
+      schemalist1[[i]]=grep(":",infolist[[i]])
     }
-    else{schemahad[count0]=tempschemastr
-    count0=count0+1}
-  }
-}
-# adding headers:
-lines_rdf=paste0(" @prefix ",prefix,":    ","<",FullURI,"> .\n")
-for (i in 1:length(schemahad)){
-  lines_rdf=paste(lines_rdf,schemas[schemahad[i]],"\n")
-}
+    schemalist=schemalist1
+    # add prefix
+    for (i in 1:length(schemalist)){
+      for (j in 1:length(schemalist[[i]])){
+        tempstr=infolist[[i]][(schemalist[[i]])[j]]
+        tempschemastr=gsub("\\.","",strsplit(tempstr,'\\:')[[1]][1])
+        schemas[tempschemastr]
+        if (tempschemastr %in% schemahad) {
+        }
+        else{schemahad[count0]=tempschemastr
+        count0=count0+1}
+      }
+    }
+    # adding headers:
+    lines_rdf=paste0(" @prefix ",prefix,":    ","<",FullURI,"> .\n")
+    for (i in 1:length(schemahad)){
+      lines_rdf=paste(lines_rdf,schemas[schemahad[i]],"\n")
+    }
 
-# RDF word list:
-ProvONElist=c("provone:Process","provone:InputPort","provone:OutputPort",
-              "provone:DataLink","provone:SeqCtrlLink","provone:Workflow",
-              "provone:User","provone:ProcessExec","provone:Data",
-              "provone:Collection","provone:Visualization","provone:Program")
-# Association word list:
-#Associationlist=c("provone:hasSubProcess","provone:sourcePToCL","provone:CLtoDestP",
-#                  "provone:hasInPort","provone:hasOutPort","provone:hasDefaultParam",
-#                  "provone:DLToInPort","provone:outPortToDL","provone:inPortToDL",
-#                  "provone:DLToOutPort","provone:wasAttributedTo","provone:wasDerivedFrom",
-#                  "provone:dataOnLink","provone:used","provone:wasGeneratedBy",
-#                  "provone:wasAssociatedWith","provone:wasInformedBy","provone:isPartOf",
-#                  "provone:hadMember","cwfo:hasOutData","cwfo:hasInData")
-DefaultAssociationlist=paste0("AssociationName\n","provone:hasSubProcess\n","provone:sourcePToCL\n","provone:CLtoDestP\n",
+    # RDF word list:
+    ProvONElist=c("provone:Process","provone:InputPort","provone:OutputPort",
+                  "provone:DataLink","provone:SeqCtrlLink","provone:Workflow",
+                  "provone:User","provone:ProcessExec","provone:Data",
+                  "provone:Collection","provone:Visualization","provone:Program")
+
+    DefaultAssociationlist=paste0("AssociationName\n","provone:hasSubProcess\n","provone:sourcePToCL\n","provone:CLtoDestP\n",
                   "provone:hasInPort\n","provone:hasOutPort\n","provone:hasDefaultParam\n",
                   "provone:DLToInPort\n","provone:outPortToDL\n","provone:inPortToDL\n",
                   "provone:DLToOutPort\n","provone:wasAttributedTo\n","provone:wasDerivedFrom\n",
                   "provone:dataOnLink\n","provone:used\n","provone:wasGeneratedBy\n",
                   "provone:wasAssociatedWith\n","provone:wasInformedBy\n","provone:isPartOf\n",
                   "provone:hadMember\n","cwfo:hasOutData\n","cwfo:hasInData\n")
-write(DefaultAssociationlist,file="DefaultAssociationNames.txt")
+    write(DefaultAssociationlist,file="DefaultAssociationNames.txt")
    
-Associationlist.df=read.table("DefaultAssociationNames.txt",sep=",",header=TRUE)
-
-if (UserANM==FALSE){
     Associationlist.df=read.table("DefaultAssociationNames.txt",sep=",",header=TRUE)
-  }
-else if (UserANM==TRUE) {
-    Associationlist.df=read.table("AssociationNames.txt",sep=",",header=TRUE)
-  }
-   
-Associationlist=Associationlist.df$AssociationName
 
-# Association library:
-DefaultAL=paste0("ParentClass,","ChildClass,","Ways,","Property,","ReverseProperty\n",
+    if (UserANM==FALSE){
+       Associationlist.df=read.table("DefaultAssociationNames.txt",sep=",",header=TRUE)
+     }
+    else if (UserANM==TRUE) {
+       Associationlist.df=read.table("AssociationNames.txt",sep=",",header=TRUE)
+       }
+   
+    Associationlist=Associationlist.df$AssociationName
+
+    # Association library:
+    DefaultAL=paste0("ParentClass,","ChildClass,","Ways,","Property,","ReverseProperty\n",
           "\"provone:Process\",","\"provone:Process\",","2,","\"provone:hasSubProcess\",","\"provone:wasDerivedFrom\"\n",
           "\"provone:Process\",","\"provone:Data\",","2,","\"provone:wasDerivedFrom\",","\"provone:hasMember\"\n",
           "\"provone:Process\",","\"provone:Visualization\",","2,","\"provone:wasDerivedFrom\",","\"provone:hasMember\"\n")
-write(DefaultAL,file="DefaultAssociationLibrary.txt")
+    write(DefaultAL,file="DefaultAssociationLibrary.txt")
 
-nodesnames=nodesclasses=nodesfrom=nodesto=nodesproperty=parentclass=property=line_rdf_vector=""
-templevel=parentlevel=parentindex=tempwordlist=0
-levelvector=rep(0,7)
+    nodesnames=nodesclasses=nodesfrom=nodesto=nodesproperty=parentclass=property=line_rdf_vector=""
+    templevel=parentlevel=parentindex=tempwordlist=0
+    levelvector=rep(0,7)
 
-for (j in 1:length(infolist)){
-  AssociationNUM=firstmeet=0
-  line_rdf=classeswords=""
-  title0=infolist[[j]][2]
-  ID=infolist[[j]][3]
-  parentlevel=templevel
-  templevel=infolist[[j]][1]
-  tempclass=infolist[[j]][4]
-  if (infolist[[j]][1]==1){
-    if (levelvector[1]==0){
-      levelvector[1]=j
-    }
-  }
-  if (infolist[[j]][1]==2){
-    if (levelvector[2]==0){
-      levelvector[2]=j
-    }
-  }
-  if (infolist[[j]][1]==3){
-    if (levelvector[3]==0){
-      levelvector[3]=j
-    }
-  }
-  if (infolist[[j]][1]==4){
-    if (levelvector[4]==0){
-      levelvector[4]=j
-    }
-  }
-  if (infolist[[j]][1]==5){
-    if (levelvector[5]==0){
-      levelvector[5]=j
-    }
-  }
-  if (infolist[[j]][1]==6){
-    if (levelvector[6]==0){
-      levelvector[6]=j
-    }
-  }
-  if (infolist[[j]][1]==7){
-    if (levelvector[7]==0){
-      levelvector[7]=j
-    }
-  }
-  if (as.numeric(parentlevel)!=0){
-    if (as.numeric(templevel)>as.numeric(parentlevel)){
-      parentindex=j-1
-      parentclass=infolist[[j-1]][4]
-    }
-    else if (templevel==parentlevel){
-      parentindex=levelvector[as.numeric(templevel)-1]
-      parentclass=infolist[[as.numeric(parentindex)]][4]
-    }
-    else {
-      levelvector[as.numeric(templevel)]=j
-      parentindex=levelvector[as.numeric(templevel)-1]
-    }
-  }
-  # judge association:
-  if (UserAL==FALSE){
-    AssociationsLib=read.table("DefaultAssociationLibrary.txt",sep=",",header=TRUE)
-  }
-  else if (UserAL==TRUE) {
-    AssociationsLib=read.table("AssociationsLibrary.txt",sep=",",header=TRUE)
-  }
-  print (j)
-  print (title0)
-  print (tempclass)
-  print (parentclass)
-  #print ("first:")
-  #print (AssociationNUM)
-  tempPwordlist=which(AssociationsLib$ParentClass==parentclass)
-  print ("tempPwordlist")
-  print (tempPwordlist)
-  tempwordlist=which(AssociationsLib$ChildClass[tempPwordlist]==tempclass)
-  print ("tempwordlist")
-  print (tempwordlist)
-  if (length(tempwordlist)>1){
-    print (">1")
-    AssociationNUM=tempPwordlist[min(tempwordlist)]
-  }
-  else if (length(tempwordlist)==1){
-    print ("==1")
-    AssociationNUM=tempPwordlist[tempwordlist]
-  }
-  #print (which(parentclass==AssociationsLib$ParentClass))
-  #print (which(tempclass==AssociationsLib$ChildClass[which(parentclass==AssociationsLib$ParentClass)]))
-  print ("second:")
+    for (j in 1:length(infolist)){
+      AssociationNUM=firstmeet=0
+      line_rdf=classeswords=""
+      title0=infolist[[j]][2]
+     ID=infolist[[j]][3]
+      parentlevel=templevel
+      templevel=infolist[[j]][1]
+      tempclass=infolist[[j]][4]
+     if (infolist[[j]][1]==1){
+        if (levelvector[1]==0){
+         levelvector[1]=j
+       }
+      }
+     if (infolist[[j]][1]==2){
+       if (levelvector[2]==0){
+          levelvector[2]=j
+       }
+      }
+      if (infolist[[j]][1]==3){
+       if (levelvector[3]==0){
+         levelvector[3]=j
+       }
+      }
+      if (infolist[[j]][1]==4){
+       if (levelvector[4]==0){
+          levelvector[4]=j
+       }
+     }
+     if (infolist[[j]][1]==5){
+       if (levelvector[5]==0){
+          levelvector[5]=j
+       }
+      }
+      if (infolist[[j]][1]==6){
+       if (levelvector[6]==0){
+         levelvector[6]=j
+       }
+      }
+      if (infolist[[j]][1]==7){
+       if (levelvector[7]==0){
+         levelvector[7]=j
+        }
+      }
+      if (as.numeric(parentlevel)!=0){
+       if (as.numeric(templevel)>as.numeric(parentlevel)){
+          parentindex=j-1
+         parentclass=infolist[[j-1]][4]
+       }
+       else if (templevel==parentlevel){
+          parentindex=levelvector[as.numeric(templevel)-1]
+          parentclass=infolist[[as.numeric(parentindex)]][4]
+        }
+        else {
+         levelvector[as.numeric(templevel)]=j
+          parentindex=levelvector[as.numeric(templevel)-1]
+        }
+     }
+     # judge association:
+     if (UserAL==FALSE){
+        AssociationsLib=read.table("DefaultAssociationLibrary.txt",sep=",",header=TRUE)
+      }
+      else if (UserAL==TRUE) {
+         AssociationsLib=read.table("AssociationsLibrary.txt",sep=",",header=TRUE)
+      }
+      tempPwordlist=which(AssociationsLib$ParentClass==parentclass)
+      tempwordlist=which(AssociationsLib$ChildClass[tempPwordlist]==tempclass)
+      if (length(tempwordlist)>1){
+        AssociationNUM=tempPwordlist[min(tempwordlist)]
+      }
+      else if (length(tempwordlist)==1){
+        AssociationNUM=tempPwordlist[tempwordlist]
+      }
+      if (AssociationNUM>0){
+        property=as.character(AssociationsLib$Property[AssociationNUM])
+       if (AssociationsLib$Ways[AssociationNUM]==2){
+          nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
+          nodesto=paste0(nodesto,infolist[[j]][2]," ")
+          nodesproperty=paste0(nodesproperty,property," ")
+          nodesfrom=paste0(nodesfrom,infolist[[j]][2]," ")
+          nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
+          nodesproperty=paste0(nodesproperty,AssociationsLib$ReverseProperty," ")
+       }
+        else if (AssociationsLib$Ways[AssociationNUM]==1){
+          nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
+          nodesto=paste0(nodesto,infolist[[j]][2]," ")
+          nodesproperty=paste0(nodesproperty,property," ")
+        }
+      }
   
-  print (AssociationNUM)
-  print (levelvector)
-  #if (length(AssociationNUM)>0){
-  if (AssociationNUM>0){
-    property=as.character(AssociationsLib$Property[AssociationNUM])
-    if (AssociationsLib$Ways[AssociationNUM]==2){
-      #      print ("!!2")
-      nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
-      nodesto=paste0(nodesto,infolist[[j]][2]," ")
-      nodesproperty=paste0(nodesproperty,property," ")
-      nodesfrom=paste0(nodesfrom,infolist[[j]][2]," ")
-      nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
-      nodesproperty=paste0(nodesproperty,AssociationsLib$ReverseProperty," ")
-    }
-    else if (AssociationsLib$Ways[AssociationNUM]==1){
-      #print ("!!1")
-      nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
-      nodesto=paste0(nodesto,infolist[[j]][2]," ")
-      nodesproperty=paste0(nodesproperty,property," ")
-    }
-  }
-  
-  else if ((fillAssociation==TRUE)&(as.numeric(parentlevel)!=0)){
-    property="str:has"
-    nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
-    nodesto=paste0(nodesto,infolist[[j]][2]," ")
-    nodesproperty=paste0(nodesproperty,property," ")
-    nodesfrom=paste0(nodesfrom,infolist[[j]][2]," ")
-    nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
-    nodesproperty=paste0(nodesproperty,"str:belongTo"," ")
-  }
-  
-  #if (parentclass=="provone:Process"&tempclass=="provone:Process"){
-  #  property="provone:hasSubProcess"
-  #}
-  #else if (parentclass=="provone:Process"&(tempclass=="provone:Data"|tempclass=="provone:Visualization")){
-  #  property="provone:wasDerivedFrom"
-  #}
-  #else if (as.numeric(parentlevel)!=0){
-  #  property="str:has"
-  #}
-  
-  #if (property=="provone:hasSubProcess"){
-  #  nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
-  #  nodesto=paste0(nodesto,infolist[[j]][2]," ")
-  #  nodesproperty=paste0(nodesproperty,property," ")
-  #  nodesfrom=paste0(nodesfrom,infolist[[j]][2]," ")
-  #  nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
-  #  nodesproperty=paste0(nodesproperty,"provone:wasDerivedFrom"," ")
-  #}
-  #else if(property=="provone:wasDerivedFrom"){
-  #  nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
-  #  nodesto=paste0(nodesto,infolist[[j]][2]," ")
-  #  nodesproperty=paste0(nodesproperty,property," ")
-  #  nodesfrom=paste0(nodesfrom,infolist[[j]][2]," ")
-  #  nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
-  #  nodesproperty=paste0(nodesproperty,"provone:hasMember"," ")
-  #}
-  #else if (as.numeric(parentlevel)!=0){
-  #  nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
-  #  nodesto=paste0(nodesto,infolist[[j]][2]," ")
-  #  nodesproperty=paste0(nodesproperty,property," ")
-  #  nodesfrom=paste0(nodesfrom,infolist[[j]][2]," ")
-  #  nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
-  #  nodesproperty=paste0(nodesproperty,"str:belongTo"," ")
-  #}  
-  
+      else if ((fillAssociation==TRUE)&(as.numeric(parentlevel)!=0)){
+        property="str:has"
+        nodesfrom=paste0(nodesfrom,infolist[[as.numeric(parentindex)]][2]," ")
+        nodesto=paste0(nodesto,infolist[[j]][2]," ")
+        nodesproperty=paste0(nodesproperty,property," ")
+       nodesfrom=paste0(nodesfrom,infolist[[j]][2]," ")
+        nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
+        nodesproperty=paste0(nodesproperty,"str:belongTo"," ")
+     }
+    
   for (i in 4:length(infolist[[j]])){
     tempword=""
     tempentity=""
@@ -711,17 +623,13 @@ for (j in 1:length(infolist)){
       tempword=infolist[[j]][4]
       nodesnames=paste0(nodesnames,title0," ")
       classeswords=paste0(tempword)
-      #nodesclasses=paste0(nodesclasses,tempword," ")
       
-      #entityname=paste0(FullURI,ID)  
-      #title=paste0("<",entityname,">")
       entityname=paste0(prefix,":",ID)  
       title=paste0(entityname)
       line_rdf=paste0("\n ",title," a ",tempword)
       
       if (i==length(infolist[[j]])){
         line_rdf=paste(line_rdf,";","\n")
-        #line_rdf=paste(line_rdf,"\t","rdfs:label",title0,".","\n")
         title0=paste0("\"",title0,"\"")
         line_rdf=paste(line_rdf,"\t","rdfs:label",title0,";","\n")#,".","\n")
       }
@@ -733,14 +641,10 @@ for (j in 1:length(infolist)){
         if (nchar(temp_line)>0){
           temp_line=paste("\t",temp_line,";","\n")
         }
-        #temp_line=paste(temp_line,"\t","rdfs:label",title0,".","\n")
         title0=paste0("\"",title0,"\"")
-        temp_line=paste(temp_line,"\t","rdfs:label",title0,";","\n")#,".","\n")
+        temp_line=paste(temp_line,"\t","rdfs:label",title0,";","\n")
       }
       else {
-        #if (nchar(temp_line)>0){
-        #  temp_line=paste("\t",temp_line,";","\n")
-        #}
       }
       
     }# out of if i==4
@@ -756,7 +660,6 @@ for (j in 1:length(infolist)){
         
         
         tempwordlist=strsplit(tempword,"=")
-        #tempentity=paste0("<",tempwordlist[[1]][2],">")
         
         if (tempwordlist[[1]][1] %in% Associationlist)
         { 
@@ -772,7 +675,6 @@ for (j in 1:length(infolist)){
           if (nchar(temp_line)>0){
             temp_line=paste("\t",temp_line,";","\n")
           }
-          #temp_line=paste(temp_line,"\t","rdfs:label",title0,".","\n")
           title0=paste0("\"",title0,"\"")
           temp_line=paste(temp_line,"\t","rdfs:label",title0,";","\n")#,".","\n")
         }
@@ -790,53 +692,35 @@ for (j in 1:length(infolist)){
           if (nchar(temp_line)>0){
             temp_line=paste("\t",temp_line,";","\n")
           }
-          #temp_line=paste(temp_line,"\t","rdfs:label",title0,".","\n")
           title0=paste0("\"",title0,"\"")
           temp_line=paste(temp_line,";\n","\t","rdfs:label",title0,";","\n")#,".","\n")
         }
         else {
-          #if (nchar(temp_line)>0){
-          #  temp_line=paste("\t",temp_line,";","\n")
-          #}
         }
       }
-      #end session
-      
-      
-      
     }
     line_rdf=paste(line_rdf,temp_line)
     line_rdf_vector[j]=line_rdf
   }
-  #lines_rdf=paste(lines_rdf,line_rdf)
 }
 titles=IDs=0
 for (i in 1:length(infolist)){
-  #titles[i]=return_space(infolist[[i]][2])
   titles[i]=infolist[[i]][2]
   IDs[i]=infolist[[i]][3]
 }
 
 library(igraph)
-#### 
    
 nodesfrom2=strsplit(nodesfrom," ")
 nodesto2=strsplit(nodesto," ")
 nodesproperty2=strsplit(nodesproperty," ")
-#nodesdf=data.frame(from=nodesfrom2[[1]],to=nodesto2[[1]],property=nodesproperty2[[1]])
 exceptnum=except=nodesfrom3=nodesto3=nodesproperty3=nodesnm=0
 exceptwords=c("str:has","str:belongTo")
 #diagonal matrix
-print (nodesfrom2)
-print (nodesto2)
-print (nodesproperty2)
+
 if ((length(nodesfrom2[[1]])-1)>=1){
 for (i in 1:(length(nodesfrom2[[1]])-1)){
-  print ("this is i:")
-  print (i)
   for (j in ((i+1):length(nodesfrom2[[1]]))){
-    print ("this is j:")
-    print (j)
     if ((i!=j)&(length(nodesfrom2[[1]])>=j)&(length(nodesto2[[1]])>=j)){
       if((nodesfrom2[[1]][i]==nodesfrom2[[1]][j])&(nodesto2[[1]][i]==nodesto2[[1]][j])){
         exceptnum=exceptnum+1
@@ -849,25 +733,13 @@ for (i in 1:(length(nodesfrom2[[1]])-1)){
   }
 }
   }
-print ("from before")
-print (nodesfrom2)
-   print ("to before")
-print (nodesto2)
-   print ("property before")
-print (nodesproperty2)
-print (except)
-print (IDs)
-print ("title before")
-print (titles)
-   
+
 nodesnames2=strsplit(nodesnames," ")
-print ("nodesnames2 before")
-print (nodesnames2)
+
 for (i in 1:length(nodesfrom2[[1]])){
   if (i %in% except){}
   else {
     nodesnm=nodesnm+1
-    #
     for (j in 1:length(IDs)){
       if (nodesfrom2[[1]][i]==IDs[j]){
         nodesfrom2[[1]][i]=titles[j]
@@ -886,39 +758,23 @@ for (i in 1:length(nodesfrom2[[1]])){
       nodesnames=paste0(nodesnames,nodesto2[[1]][i]," ")
       nodesclasses=paste0(nodesclasses,"AutoAdded"," ")
     }
-    #
-    #nodesfrom3[nodesnm]=return_space(nodesfrom2[[1]][i])
-    #nodesto3[nodesnm]=return_space(nodesto2[[1]][i])
-    #nodesproperty3[nodesnm]=nodesproperty2[[1]][i]
     nodesfrom3[nodesnm]=nodesfrom2[[1]][i]
     nodesto3[nodesnm]=nodesto2[[1]][i]
     nodesproperty3[nodesnm]=nodesproperty2[[1]][i]
     }
 }
-print ("form")
-print (nodesfrom3)
-print ("to")
-print (nodesto3)
-print ("property")
-print (nodesproperty3)
-####
+
    
 nodesnames2=strsplit(nodesnames," ")
 nodesclasses2=strsplit(nodesclasses," ")
-print ("name")
-print (nodesnames2)
-print ("name")
-print (nodesclasses2)
+
 nodes <- data.frame(name = return_space(nodesnames2[[1]]),
                     class = nodesclasses2[[1]])
-   
-print (nodes)   
+
 nesting <- data.frame(from = return_space(nodesfrom3),
                       to = return_space(nodesto3),
                       property = nodesproperty3)
-   
-print (nesting)
-   print (nodes)
+
 g3 <- graph_from_data_frame(nesting, directed=TRUE, vertices=nodes)
 E(g3)$label <- E(g3)$property
 
@@ -927,7 +783,6 @@ for (i in 1:length(line_rdf_vector)){
   tempnumber=which(nodesfrom3==titles[i])
   if (length(tempnumber)>0){
   for (j in 1:length(tempnumber)){
-    #entityname2=paste0("<",FullURI,IDs[which(titles==nesting$to[tempnumber[j]])],">")
     if (length(IDs[which(titles==nodesto3[tempnumber[j]])])>0){
       entityname2=paste0(prefix,":",IDs[which(titles==nodesto3[tempnumber[j]])])
     }
