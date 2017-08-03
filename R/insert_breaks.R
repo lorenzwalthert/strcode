@@ -131,23 +131,15 @@ insert_break <- function(level,
       # create fill
       creators <- setNames(Map(create_creators,
                              start = c("", "", "", "")),
-                             #start = c("", "", "", "")),  
                              c("get_title", "get_id", "get_class","get_attribute"))
-                            #c("get_id", "get_class", "get_title", "get_attribute"))
-      tempstring=ret_value$id      
-      
+      tempstring=ret_value$id
       fill <- create_fill(id = ret_value$id,
                           classes = ret_value$classes,
                           title = ret_value$text1,
                           attributes = ret_value$keyvaluepairs,
                     json_ld = ret_value$json_ld,
                     function_container = creators)
-      #fill <- create_fill(id = paste0("\"@id\":",ret_value$id,"\,"),
-      #                    classes = paste0("\"@type\":",ret_value$classes,"\,"),
-      #                    title = paste0("\"label\":",ret_value$text1,"\,"),
-      #                    attributes = ret_value$keyvaluepairs,
-      #                    function_container = creators)
-
+      
     } else {
       fill <- ret_value$text1
     }
@@ -158,7 +150,6 @@ insert_break <- function(level,
     op$anchor_in_sep <- anchor_in_sep
     options(strcode = op)
     level <- as.numeric(unlist(strsplit(ret_value$level, ""))[nchar(ret_value$level)])
-    #level=as.numeric(gsub("level ","",ret_value$level,))
 
   } else {
     fill <- ""
@@ -169,11 +160,6 @@ insert_break <- function(level,
   start <- paste0(rep("#", level), collapse = "")
   break_char = give_breakchar(level)
   sep = paste(rep(" ", 8 - level), collapse = "")
-  #start <- paste0(rep("#", 3), collapse = "")
-  #break_char = give_breakchar(3)
-  #sep = paste(rep(" ", 4 - 3), collapse = "")
-
-
 
 #   ____________________________________________________________________________
 
@@ -281,11 +267,6 @@ help_create_title <- function(start = "##",
   if (fill == "") return(NULL)
   
   text <- paste0(start, sep, fill)
-  #text <- paste0(start, sep, paste0("\"@id\":",ret_value$id),
-  #               paste0("\"@type\":",ret_value$classes),
-  #               paste0("\"label\":",ret_value$text1),ret_value$keyvaluepairs)
-  
-  
 
   extension <- paste0(rep(" ",
                           max(0, length - nchar(end) - nchar(text))),
@@ -365,12 +346,7 @@ find_title <- function(level) {
   #XJ Original codes:
   #styles_input <- paste(c("Default","JSON-LD"))
   choices_input <- paste("level", 1:7)
-  #class_choices <- paste("class", 1:10)
-  #choices_input <- paste(c("Workflow","Trace","Data Structure"))
-  #class_choices <- paste(c("Process","InputPort","OutputPort","DataLink","SeqCtrlLink","Workflow","User","hasSubProcess","sourcePToCL",
-  #                         "CLtoDestP","hasInPort","hasOutPort","hasDefaultParam","DLToInPort","outPortToDL","inPortToDL","DLToOutPort",
-  #                         "wasAttributedTo","wasDerivedFrom","ProcessExec","dataOnLink","used","wasGeneratedBy","wasAssociatedWith",
-  #                         "wasInformedBy","isPartOf","Data","Collection","wasDerivedFrom","hadMember"))
+  
   class_choices <- paste(c("provone:Process","provone:InputPort","provone:OutputPort","provone:DataLink","provone:SeqCtrlLink",
                            "provone:Workflow","provone:User","provone:ProcessExec","provone:Data","provone:Collection",
                            "provone:Visualization","provone:Program","prov:Plan"))
@@ -412,26 +388,12 @@ find_title <- function(level) {
                            choices = "", multiple = TRUE,
                            options = list(create = TRUE,
                                           persist = FALSE,
-                                          #createFilter = "^[a-zA-Z0-9:]+\\s*=\\s*[a-zA-Z0-9]+$")),
                                           createFilter = "^.+\\s*=\\s*.+$")),
                            checkboxInput("json_ld", "JSON-LD",width = "80px")
                            )
         )
         ,flex = c(0.8, 0.5, 3)
       )
-      #,
-      #fillRow(
-      #  selectInput("style", " ", width = "200px",
-      #                choices = styles_input,
-      #                selected = styles_input[level])
-      #checkboxInput("jsonld_style", "JSON-LD style",
-      #                  value = FALSE,
-      #                  width = "150px"),
-      #checkboxInput("default_style", "Default style",
-      #                  value = TRUE,
-      #                  width = "150px"),
-      #flex = c(1, 1.5)
-      #),
     )
   )
 
@@ -445,9 +407,6 @@ find_title <- function(level) {
                     classes = input$classes,
                     keyvaluepairs = input$keyvaluepairs,
                           json_ld = input$json_ld
-                    #style=input$style
-                    #,jsonld_style=input$jsonld_style,
-                    #default_style=input$default_style    
                          ))
 
     observeEvent(input$done, {
