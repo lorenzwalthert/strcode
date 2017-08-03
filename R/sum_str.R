@@ -39,8 +39,22 @@
 #'   contain a title or not.
 #' @param header A boolean value indicating whether a column header should
 #'   indicate the name of the columns (line, level, section).
+#' @param rdf A boolean value indicating whether a rdf file should be generated.
+#' @param graph A boolean value indicating whether a rdf graph should be generated.
+#' @param domain A boolean value indicating whether use user's working domain as
+#' a prefix header in generated rdf file.
+#' @param baseURI A character string naming the URI for user's working domain.
+#' @param UserID A character string naming the user name in the working domain.
+#' @param prefix A character string naming the abbreviation for user's domain.
+#' @param UserAL A boolean value indicating whether use default association
+#' library.
+#' @param fillAssociation A boolean value indicating whether use a pair of default
+#' associations to name unlisted associations in User default association library.
+#' @param UserANM A boolean value indicating whether use defaut association list.
+#' Only associations in this list could serve as an relationship in output rdf graph.
 #' @param ... futher arguments to be passed from and to other methods, in
 #'   particular \code{\link{list.files}} for reading in multiple files.
+
 #' @details To create the summary, \code{sum_str} uses regular expressions.
 #'   Hence it is crucial that the code separators and the separator titles
 #'   match the regular expression pattern. We recommend inserting
@@ -50,10 +64,10 @@
 #'   as well.
 #'   \itemize{
 #'     \item A code separator is defined as a line that starts with n hashes,
-#'     followed by 4-n spaces where 0 < n < 4. This sequence is followed by one
+#'     followed by 8-n spaces where 0 < n < 8. This sequence is followed by one
 #'     or more either \code{.} or \code{_}.
 #'     \item A title associated with a code separator is defined as a line
-#'     that starts with n hashes, followed by 4-n spaces where 0 < n < 4. This
+#'     that starts with n hashes, followed by 8-n spaces where 0 < n < 8. This
 #'     sequence is \emph{not} followed by \code{.} or \code{_}.
 #'   }
 #'   Lines that do not satisfy these requirements (e.g. do not start with #s,
@@ -73,11 +87,20 @@
 #' # the following separator is an example of a valid
 #' # separator and associated title
 #'
-#' #   __________________________________________________
-#' #   this is a level 1 title                     ####
+#' #       __________________________________________________
+#' #       this is a level 1 title                       ####
 #' ##  . . . . . . . . . . . . . . . . . . . . . . . . .
 #' ##  note that the title or the separator character (_, .)
-#' ##  always starts at indention 4.
+#' ##  always starts at indention 8.
+#' # to create separators which is valid for generating rdf file,
+#' # users should fill out at least title and class, and put the entities into
+#' # correct levels to create associations automatically by function.
+#' 
+#' # the following separator is an example of a valid
+#' # separator and associated title for generating rdf file
+#'
+#' #       ________________________________________________________________________
+#' #       YourWorkflow {YourID provone:Workflow}                              ####
 #'
 #' \dontrun{
 #' # Open a new .R file in RStudio, insert some code breaks
@@ -357,11 +380,14 @@ if (rm_break_anchors) {
 
 ##  ............................................................................
 ##  output the pattern
- if (rdf=="ttl"|graph){
+  
+ if (rdf=="ttl"|graph){ # if users want to generate rdf file or rdf graph
+   # use system time to generate a base file
     datetime <- format(Sys.time(), "%Y_%m_%d_%H_%M_%S")
     fileformat=".ttl" #".txt"
     outputfile2 <- paste("RDF_output_file_",datetime,fileformat,sep="")
     write(lines,file=outputfile2)
+   
     templines=readLines(outputfile2)
     lines_content=templines[4:length(templines)]
     lines_split=strsplit(lines_content, " ")
@@ -372,7 +398,7 @@ if (rm_break_anchors) {
     prefix=prefix
 
     schemalist=list()
-
+    # a schemas library to create headers by using keywords in content
     schemas=c(rdfs="@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .",
           xsd="@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .",
           owl="@prefix owl:     <http://www.w3.org/2002/07/owl#> .",
@@ -397,7 +423,7 @@ if (rm_break_anchors) {
         schemalist1[[tempcount0]]=schemalist[[i]]
       }
     }
-
+    # delete the seperator line and get useful information only
     tempcount0=0
     lines_split1=list()
     for (i in 1:length(schemalist)){
@@ -419,7 +445,7 @@ if (rm_break_anchors) {
         }
       }
     }
-
+    # delete the symbols which is used in seperator line
     for (i in 1:length(lines_split1)){
       schemalist[[i]]=grep(":",lines_split1[[i]])
     }
@@ -437,6 +463,7 @@ if (rm_break_anchors) {
       infolist[[i]][length(infolist[[i]])]=gsub("\\}","",infolist[[i]][length(infolist[[i]])])
     }
     infolist1=infolist
+   # delete JSON-LD style structure and only leave the useful information
     for (i in grep("\":",infolist)){
       infolist[[i]][2]=gsub(",","",infolist1[[i]][4])
       infolist[[i]][3]=gsub(",","",infolist1[[i]][2])
@@ -461,6 +488,7 @@ if (rm_break_anchors) {
       schemalist1[[i]]=grep(":",infolist[[i]])
     }
     schemalist=schemalist1
+   
     # add prefix
     for (i in 1:length(schemalist)){
       for (j in 1:length(schemalist[[i]])){
@@ -477,14 +505,8 @@ if (rm_break_anchors) {
     lines_rdf=paste0(" @prefix ",prefix,":    ","<",FullURI,"> .\n")
     for (i in 1:length(schemahad)){
       lines_rdf=paste(lines_rdf,schemas[schemahad[i]],"\n")
-    }
-
-    # RDF word list:
-    ProvONElist=c("provone:Process","provone:InputPort","provone:OutputPort",
-                  "provone:DataLink","provone:SeqCtrlLink","provone:Workflow",
-                  "provone:User","provone:ProcessExec","provone:Data",
-                  "provone:Collection","provone:Visualization","provone:Program")
-
+    }   
+    # creating a default association list
     DefaultAssociationlist=paste0("AssociationName\n","provone:hasSubProcess\n","provone:sourcePToCL\n","provone:CLtoDestP\n",
                   "provone:hasInPort\n","provone:hasOutPort\n","provone:hasDefaultParam\n",
                   "provone:DLToInPort\n","provone:outPortToDL\n","provone:inPortToDL\n",
@@ -495,17 +517,17 @@ if (rm_break_anchors) {
     write(DefaultAssociationlist,file="DefaultAssociationNames.txt")
    
     Associationlist.df=read.table("DefaultAssociationNames.txt",sep=",",header=TRUE)
-
+    
+   # whether use default association list or not
     if (UserANM==FALSE){
        Associationlist.df=read.table("DefaultAssociationNames.txt",sep=",",header=TRUE)
      }
     else if (UserANM==TRUE) {
        Associationlist.df=read.table("AssociationNames.txt",sep=",",header=TRUE)
-       }
-   
+       }   
     Associationlist=Associationlist.df$AssociationName
 
-    # Association library:
+    # creating a default association library:
     DefaultAL=paste0("ParentClass,","ChildClass,","Ways,","Property,","ReverseProperty\n",
           "\"provone:Process\",","\"provone:Process\",","2,","\"provone:hasSubProcess\",","\"provone:wasDerivedFrom\"\n",
           "\"provone:Process\",","\"provone:Data\",","2,","\"provone:wasDerivedFrom\",","\"provone:hasMember\"\n",
