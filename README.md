@@ -84,7 +84,7 @@ Firstly, click check box `Add semantics` to show more options for semantic use. 
 -   level 3 sections, which are lower-level blocks that can be separated as follows:
 
 ``` r
-####    .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ...
+###     .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ...
 ###     YourProcess02 {ProcessID02 provone:Process}                         ####
 ```
 
@@ -107,6 +107,7 @@ You can notice from the above that
 ```
 
 -   Manually input values should follow the structure: property=value. The user interface only accept manually input values in correct structure.
+-   
 
 Anchoring sections
 ==================
