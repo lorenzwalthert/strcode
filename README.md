@@ -3,6 +3,17 @@ README
 
 [![Build Status](https://travis-ci.org/lorenzwalthert/strcode.svg?branch=master)](https://travis-ci.org/lorenzwalthert/strcode) [![Project Status: WIP ? Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/strcode)](https://cran.r-project.org/package=strcode) [![packageversion](https://img.shields.io/badge/Package%20version-0.2.0-orange.svg?style=flat-square)](commits/master)
 
+# Table of Contents
+1. Add...
+2. Table...
+   + Of...
+   + Contents...
+3. Here...
+
+# Introduction
+
+*Include discussion of semantic functionality!* 
+
 The `strcode` (short for structuring code) package contains tools to organize and abstract your code better. It consists of
 
 -   An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you quickly add code block separators and titles (possibly with unique identifiers) to divide your work into sections. The titles are recognized as sections by RStudio, which enhances the coding experience further.
@@ -13,8 +24,7 @@ The `strcode` (short for structuring code) package contains tools to organize an
 a guide for good practice in R programming. -->
 <img src="https://raw.githubusercontent.com/lorenzwalthert/strcode/master/demos/strcode_v0.2.0_video_to_gif2_large.gif" width="650px" />
 
-Installation
-============
+# Installation
 
 You can install the package from GitHub.
 
@@ -23,11 +33,9 @@ You can install the package from GitHub.
 devtools::install_github("XiaoliangJiang/strcode",ref="semantics")
 ```
 
-Structuring code
-================
+# Structuring code
 
-For basic use
--------------
+## For basic use
 We suggest three levels of granularity for code structuring, whereas higher-level blocks can contain lower-level blocks.
 
 -   level 1 sections, which are high-level blocks that can be separated as follows:
@@ -63,8 +71,8 @@ The separators all have length 80. The value is looked up in the global option `
 
 By default, breaks and titles are inserted via a Shiny Gadget, but this default can be overridden by setting the option `strcode$insert_with_shiny` to `FALSE` and hence only inserting the break.
 
-For semantic use
-----------------
+## For semantic use
+
 Firstly, click check box `Add semantics` to show more options for semantic use. We suggest seven levels of granularity for code structuring, whereas higher-level blocks can contain lower-level blocks.
 
 -   level 1 sections, which are highest-level blocks that usually represents user's workflow domain and can be separated as follows:
@@ -152,8 +160,7 @@ The RDF diagram of this one will be:
 
 Notice that if you want to generate two-ways association, you need to manually added associations both in parent and child entities. In addition, only given words which exist in AssociationNames.txt file (in semantics branch, demos folder) can serve as associations between two entities and be manually added in. After download and paste this file into your current working directory, you could add associations by yourself. For more information about how to add associations into the list, please read Summarizing code part.
 
-Anchoring sections
-==================
+## Anchoring sections
 
 Sometimes it is required to refer to a code section, which can be done by title. A better way, however, is to use a unique hash sequence - let us call it a code anchor - to create an arguably unique reference to that section. A code anchor in `strcode` is enclosed by `#<` and `>#` so all anchors can be found using regular expressions. You can add section breaks that include a hash. That might look like this:
 
@@ -162,8 +169,7 @@ Sometimes it is required to refer to a code section, which can be done by title.
 ##  An anchored section                                                     ####
 ```
 
-Insert a code anchor
-====================
+## Insert a code anchor
 
 Code anchors might prove helpful in other situations where one want to anchor a single line. That is also possible with `strcode`. An example of a code anchor is the following:
 
@@ -174,11 +180,9 @@ this_is_a_super_important_but_hard_to_describe_line_so_let_me_anchor_it
 
 The hash sequences in strcode are produced with the R package [digest](https://github.com/eddelbuettel/digest).
 
-Summarizing code
-================
+# Summarizing code
 
-For basic use
--------------
+## For basic use
 Once code has been structured by adding sections (as above), it can easily be summarized or represented in a compact and abstract form. This is particularly handy when the codebase is large, when a lot of people work on the code or when new people join a project. The function `sum_str` is designed for the purpose of extracting separators and respective comments, in order to provide high level code summaries. It is highly customizable and flexible, with a host of options. Thanks to RStudio's API, you can even create summaries of the file you are working on, simply by typing `sum_str()` in the console. The file presented in the example section below can be summarized as follows:
 
 ``` r
@@ -209,8 +213,7 @@ sum_str(path_in = "placeholder_code/example.R",
 -   Similarly, we use `lowest_sep = FALSE` to indicate that we want lowest separators (given `granularity`) to be omitted between the titles of the sections.
 -   `header` was set to `TRUE`, so the column names were reported as well. Note that they are slightly off since knitr uses a different tab length. In the R console and more imporantly in the outputed file, they are aliged.
 
-For semantic use
-----------------
+## For semantic use
 For semantic use, some new arguments are needed. 
 -   `rdf` specifies a type of output rdf file. Only "ttl" has been added into function right now.
 -   `graph` indicates whether to generate a RDF graph or not. The default value is FALSE.
@@ -224,10 +227,9 @@ For semantic use, some new arguments are needed.
 
 You can find an example of how those arguments work in Example of improved legibility part.
 
-Example of improved legibility
-==============================
-For basic use
--------------
+# Example of improved legibility
+## For basic use
+
 To demonstrate the improvement in legibility, we give an extended example with some placeholder code.
 
 ``` r
@@ -395,8 +397,7 @@ test2 <- function(x) {
 }
 ```
 
-For semantic use
-----------------
+## For semantic use
 By using input breaks as follows:
 ``` r
 #       ________________________________________________________________________
@@ -447,7 +448,7 @@ Notice that `str:has` and `str:belongTo` are in this output file, which means no
  	 rdfs:label "YourProcess02" ; 
   	 provone:wasDerivedFrom user:ProcessID . 
 ```
-You may find that default associations are disappear in this output file.
+You may find that default associations are missing in this output file.
 
 You can add another argument `graph=TRUE` into your function. With `sum_str(rdf="ttl", UserAL=TRUE, graph=TRUE)`, you can generate a RDF diagram as follows:
 
@@ -513,7 +514,7 @@ You can try to use these code as your input breaks:
 ###     .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ...
 ###     Choose%20Subjects {choose_subjects provone:Program skos:altLabel="Choose%20only%20subjects%20with%20all%20five%20time%20points" rdfs:comment="MATLAB%20code:%20YenerTensor.m,%20Section%201" dcterms:conformsTo=<https://www.nlm.nih.gov/medlineplus/ency/article/003402.htm> cwfo:hasInData=adjusted_apgar_data cwfo:hasOutData=growth_data}####
 ```
-Then download AssociationNames.txt and AssociationLibrary.txt in demos forder, and paste them into your current working directory. With `sum_str(rdf="ttl",graph=TRUE,UserAL=FALSE,UserANM=FALSE,prefix="cwf",baseURI = "http://cwf.tw.rpi.edu/",UserID ="data#" )`, you could negerate a output file as follows:
+Then download `AssociationNames.txt` and `AssociationLibrary.txt` in `demos` forder, and paste them into your current working directory. With `sum_str(rdf="ttl",graph=TRUE,UserAL=FALSE,UserANM=FALSE,prefix="cwf",baseURI = "http://cwf.tw.rpi.edu/",UserID ="data#" )`, you could generate a output file as follows:
 ```
  @prefix test:    <http://testwebsite/testUser/> .
  @prefix provone: <http://dataone.org/ns/provone#> . 
@@ -560,7 +561,7 @@ Then download AssociationNames.txt and AssociationLibrary.txt in demos forder, a
  	 provone:hasSubProgram test:choose_subjects . 
 ```
 
-And a RDF diagram like this:
+And a generate RDF diagram like this:
 
 <img src="https://github.com/XiaoliangJiang/strcode/blob/semantics/demos/final%20example.png" width="350px" />
 
