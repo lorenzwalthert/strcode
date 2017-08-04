@@ -447,7 +447,7 @@ Notice that `str:has` and `str:belongTo` are in this output file, which means no
  	 rdfs:label "YourProcess02" ; 
   	 provone:wasDerivedFrom user:ProcessID . 
 ```
-You may found that default associations are disappear in this output file.
+You may find that default associations are disappear in this output file.
 
 You can add another argument `graph=TRUE` into your function. With `sum_str(rdf="ttl", UserAL=TRUE, graph=TRUE)`, you can generate a RDF diagram as follows:
 
