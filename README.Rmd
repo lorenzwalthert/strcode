@@ -16,7 +16,17 @@ library(strcode)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/strcode)](https://cran.r-project.org/package=strcode)
 [![packageversion](https://img.shields.io/badge/Package%20version-0.2.0-orange.svg?style=flat-square)](commits/master)
 
+# Table of Contents
+1. Add...
+2. Table...
+   + Of...
+   + Contents...
+3. Here...
 
+
+# Introduction
+
+*Be sure to introduce basic **and** semantic functionality*
 
 The `strcode` (short for structuring code) package contains tools to organize
 and abstract your code better. It consists of
