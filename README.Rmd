@@ -17,16 +17,22 @@ library(strcode)
 [![packageversion](https://img.shields.io/badge/Package%20version-0.2.0-orange.svg?style=flat-square)](commits/master)
 
 # Table of Contents
-1. Add...
-2. Table...
-   + Of...
-   + Contents...
-3. Here...
+1. Introduction
+2. Installation
+3. Structuring Code
+   + Basic Code Structuring (no embedded semantics)
+   + Structuring Code with Embedded Semantics
+   + Anchoring Sections
+   + Inserting a code anchor
+4. Summarizing Code
+   + Summarizing without Embedded Semantics
+   + Summarizing with Embedded Semantics
+5. Improving Legibility through Code Structuring
+   + Improve Legibility without Embedded Semantics
+   + Improved Legibility with Embedded Semantics
 
 
 # Introduction
-
-*Be sure to introduce basic **and** semantic functionality*
 
 The `strcode` (short for structuring code) package contains tools to organize
 and abstract your code better. It consists of
@@ -38,7 +44,9 @@ and abstract your code better. It consists of
   experience further.
 - A function `sum_str` that summarizes the code structure based on the 
   separators and their comments added with the Add-in. For one or more files,
-  it can cat the structure to the console or a file.
+  it can cat the structure to the console or a file. 
+  -   `sum_str` function can also structure code with embedded semantics, and generate an RDF file and RDF diagram automatically. 
+  -   Users can define the association library by themselves for `sum_str` which contains rules of automatically generated associations.
 - An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you
   insert a code anchor, that is, a hash sequence which can be used to uniquely 
   identify a line in a large code base. 
