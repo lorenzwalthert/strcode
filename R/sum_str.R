@@ -603,7 +603,7 @@ if (rm_break_anchors) {
         AssociationsLib=read.table("DefaultAssociationLibrary.txt",sep=",",header=TRUE)
       }
       else if (UserAL==TRUE) {
-         AssociationsLib=read.table("AssociationsLibrary.txt",sep=",",header=TRUE)
+         AssociationsLib=read.table("AssociationLibrary.txt",sep=",",header=TRUE)
       }
       tempPwordlist=which(AssociationsLib$ParentClass==parentclass)
       tempwordlist=which(AssociationsLib$ChildClass[tempPwordlist]==tempclass)
