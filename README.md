@@ -215,8 +215,8 @@ For semantic use, some new arguments are needed.
 -   `rdf` specifies a type of output rdf file. Only "ttl" has been added into function right now.
 -   `graph` indicates whether to generate a RDF graph or not. The default value is FALSE.
 -   `domain` indicates whether to use User-defined working domain. If `domain=TRUE`, the value of baseURI, UserID and prefix values are needed
--   `baseURI` specifies a working URI, the default value is "http://example.org/base/".
--   `UserID` specifies a lower level of working URI, the default value is "UserID". Combine with baseURI the full URI with default value will be "http://example.org/base/UserID".
+-   `baseURI` specifies a working URI, the default value is `"http://example.org/base/"`.
+-   `UserID` specifies a lower level of working URI, the default value is "UserID". Combine with baseURI the full URI with default value will be `"http://example.org/base/UserID"`.
 -   `prefix` specifies an abbreviate name of user domain. The default value is "user". The prefix and full URI will become prefix header of output RDF file as follows: ` @prefix cwf:    <http://cwf.tw.rpi.edu/data#/> .`
 -   `UserAL` indicates whether to use User-defined association library, and the default value is FALSE. With default value FALSE, the function will generate a .txt file in your current working directory named DefaultAssociationLibrary.txt. You can rename it as AssociationLibrary.txt to let it serve as your user-defined association library, and add new relations in it.
 -   `UserANM` indicates whether to use User-defined association names, and the default value is FALSE. With default value FALSE, the function will generate a .txt file in your current working directory named DefaultAssociationNames.txt. You can rename it as AssociationNames.txt to let it serve as your user-defined association names list, and add new associations in it.
