@@ -102,8 +102,8 @@ You can notice from the above that
 -   The first argument which is outside of brace is title. The first argument in the pair of braces is ID and second argument is class. And if you add more manully inputs, they will appear in the pair of braces after class, like:
 
 ``` r
-###     .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ...
-###     YourData {DataID provone:Data manuallyinput=value}                  ####
+####    ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ....
+####    YourData {DataID provone:Data manuallyinput=value}                  ####
 ```
 
 -   Manually input values should follow the structure: property=value. The user interface only accept manually input values in correct structure.
