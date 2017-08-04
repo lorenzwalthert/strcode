@@ -668,16 +668,16 @@ if (rm_break_anchors) {
       else{
         line_rdf=paste(line_rdf)
       }
-      if (i==length(infolist[[j]])){
-        nodesclasses=paste0(nodesclasses,classeswords," ")
-        if (nchar(temp_line)>0){
-          temp_line=paste("\t",temp_line,";","\n")
-        }
-        title0=paste0("\"",title0,"\"")
-        temp_line=paste(temp_line,"\t","rdfs:label",title0,";","\n")
-      }
-      else {
-      }
+      #if (i==length(infolist[[j]])){
+      #  nodesclasses=paste0(nodesclasses,classeswords," ")
+      #  if (nchar(temp_line)>0){
+      #    temp_line=paste("\t",temp_line,";","\n")
+      #  }
+      #  title0=paste0("\"",title0,"\"")
+      #  temp_line=paste(temp_line,"\t","rdfs:label",title0,";","\n")
+      #}
+      #else {
+      #}
       
     }# out of if i==4
     else { # i>4
