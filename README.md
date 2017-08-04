@@ -515,7 +515,7 @@ You can try to use these code as your input breaks:
 ```
 Then download AssociationNames.txt and AssociationLibrary.txt in demos forder, and paste them into your current working directory. With `sum_str(rdf="ttl",graph=TRUE,UserAL=FALSE,UserANM=FALSE,prefix="cwf",baseURI = "http://cwf.tw.rpi.edu/",UserID ="data#" )`, you could negerate a output file as follows:
 ```
-@prefix test:    <http://testwebsite/testUser/> .
+ @prefix test:    <http://testwebsite/testUser/> .
  @prefix provone: <http://dataone.org/ns/provone#> . 
  @prefix skos:    <http://www.w3.org/2004/02/skos/core#> . 
  @prefix prov:    <http://www.w3.org/ns/prov#> . 
