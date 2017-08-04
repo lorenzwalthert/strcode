@@ -1,0 +1,9 @@
+ParentClass,ChildClass,Ways,Property,ReverseProperty
+"provone:Process","provone:Process",2,"provone:hasSubProcess","provone:wasDerivedFrom"
+"provone:Process","provone:Data",2,"provone:wasDerivedFrom","provone:hasMember"
+"provone:Process","provone:Visualization",2,"provone:wasDerivedFrom","provone:hasMember"
+"provone:Workflow","prov:Plan",1,"prov:hadPlan"," "
+"provone:Program","provone:Program",1,"provone:hasSubProgram","provone:wasDerivedFrom"
+"provone:Workflow","provone:Program",1,"provone:hasSubProgram"," "
+"provone:Program","provone:Data",1,"cwfo:hasOutData"," "
+"provone:Workflow","provone:Process",1,"provone:hasSubProcess"," "
