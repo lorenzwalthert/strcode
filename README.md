@@ -7,7 +7,7 @@ The `strcode` (short for structuring code) package contains tools to organize an
 
 -   An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you quickly add code block separators and titles (possibly with unique identifiers) to divide your work into sections. The titles are recognized as sections by RStudio, which enhances the coding experience further.
 -   A function `sum_str` that summarizes the code structure based on the separators and their comments added with the Add-in. For one or more files, it can cat the structure to the console or a file.
--   An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you insert a code anchor, that is, a hash sequence which can be used to uniquely identify a line in a large code base.
+-   An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you insert a code anchor, that is, a hash sequence which can be used to uniquely identify a line in a large code base.
 
 <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
 a guide for good practice in R programming. -->
@@ -26,39 +26,87 @@ devtools::install_github("XiaoliangJiang/strcode",ref="semantics")
 Structuring code
 ================
 
+For basic use
+-------------
 We suggest three levels of granularity for code structuring, whereas higher-level blocks can contain lower-level blocks.
 
--   level 1 sections, which are high-level blocks that can be separated as follows:
+-   level 1 sections, which are high-level blocks that can be separated as follows:
 
 ``` r
-#   ____________________________________________________________________________
-#   A title                                                                 ####
+#       ________________________________________________________________________
+#       A title                                                             ####
 ```
 
 -   level 2 sections, which are medium-level blocks that can be separated as follows:
 
+
 ``` r
-##  ............................................................................
-##  A subtitle                                                              ####
+##      ........................................................................
+##      A subtitle                                                          ####
 ```
 
 -   level 3 sections, which are low-level blocks that can be separated as follows:
 
 ``` r
-### .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-### One more                                                                ####
+###     .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ...
+###     One more                                                            ####
 ```
 
 You can notice from the above that
 
--   The number of `#` used in front of the break character (`___`, `...`, `. .`) corresponds to the level of granularity that is separated.
--   The breaks characters `___`, `...`, `. .` were chosen such that they reflect the level of granularity, namely `___` has a much higher visual density than `. .`.
+-   The number of `#` used in front of the break character (`___`, `...`, `.. ..`) corresponds to the level of granularity that is separated.
+-   The breaks characters `___`, `...`, `.. ..` were chosen such that they reflect the level of granularity, namely `___` has a much higher visual density than `.. ..`.
 -   Each block has an (optional) short title on what that block is about.
 -   Every title ends with `####`. Therefore, the titles are recognized by RStudio as [sections](https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections). This has the advantages that you can get a quick summary of your code in Rstudio's code pane and you can fold sections as you can fold code or function declarations or if statements. See the pictures below for details.
 
 The separators all have length 80. The value is looked up in the global option `strcode$char_length` and can therefore be changed by the user.
 
 By default, breaks and titles are inserted via a Shiny Gadget, but this default can be overridden by setting the option `strcode$insert_with_shiny` to `FALSE` and hence only inserting the break.
+
+For semantic use
+----------------
+Firstly, click check box `Add semantics` to show more options for semantic use. We suggest seven levels of granularity for code structuring, whereas higher-level blocks can contain lower-level blocks.
+
+-   level 1 sections, which are highest-level blocks that usually represents user's workflow domain and can be separated as follows:
+
+``` r
+#       ________________________________________________________________________
+#       YourWorkflow {WorkID provone:Workflow}                              ####
+```
+
+-   level 2 sections, which are second-highest-level blocks that are the highest level for detailed entities can be separated as follows:
+
+``` r
+##      ........................................................................
+##      YourProcess {ProcessID provone:Process}                             ####
+```
+
+-   level 3 sections, which are lower-level blocks that can be separated as follows:
+
+``` r
+####    .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ...
+###     YourProcess02 {ProcessID02 provone:Process}                         ####
+```
+
+-   level 4 sections, which are lower-level blocks that can be separated as follows:
+
+``` r
+####    ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ....
+####    YourData {DataID provone:Data}                                      ####
+```
+
+You can notice from the above that
+
+-   The breaks characters `___`, `...`, `.. ..`,`... ...` were chosen such that they reflect the level of granularity, namely `___` means highest level (or domain level), and the number of dots between spaces represents different lower levels, for example, `.. ..` means second level of entities level (third level in total).
+
+-   The first argument which is outside of brace is title. The first argument in the pair of braces is ID and second argument is class. And if you add more manully inputs, they will appear in the pair of braces after class, like:
+
+``` r
+###     .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ...
+###     YourData {DataID provone:Data manuallyinput=value}                  ####
+```
+
+-   Manually input values should follow the structure: property=value. The user interface only accept manually input values in correct structure.
 
 Anchoring sections
 ==================
