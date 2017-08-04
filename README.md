@@ -46,14 +46,14 @@ devtools::install_github("XiaoliangJiang/strcode",ref="semantics")
 ## Basic Code Structuring (no embedded semantics)
 We suggest three levels of granularity for 'basic' code structuring, whereas higher-level blocks can contain lower-level blocks.
 
-- **Level 1* sections, which are high-level blocks that can be separated as follows:
+- **Level 1** sections: high-level blocks that can be separated as follows:
 
 ``` r
 #       ________________________________________________________________________
 #       A title                                                             ####
 ```
 
-- **Level 2* sections, which are medium-level blocks that can be separated as follows:
+- **Level 2** sections: medium-level blocks that can be separated as follows:
 
 
 ``` r
@@ -61,50 +61,50 @@ We suggest three levels of granularity for 'basic' code structuring, whereas hig
 ##      A subtitle                                                          ####
 ```
 
-- **Level 3* sections, which are low-level blocks that can be separated as follows:
+- **Level 3** sections: low-level blocks that can be separated as follows:
 
 ``` r
 ###     .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ...
 ###     One more                                                            ####
 ```
 
-Notice from the examples above that
+Notice from these examples that:
 
--   The number of `#` used in front of the break character (`___`, `...`, `.. ..`) corresponds to the level of granularity that is separated.
--   The breaks characters `___`, `...`, `.. ..` were chosen such that they reflect the level of granularity, namely `___` has a much higher visual density than `.. ..`.
--   Each block has an (optional) short title on what that block is about.
--   Every title ends with `####`. Therefore, the titles are recognized by RStudio as [sections](https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections). This has the advantages that you can get a quick summary of your code in Rstudio's code pane and you can fold sections as you can fold code or function declarations or if statements. See the pictures below for details.
+- The number of `#` used in front of the break character (`___`, `...`, `.. ..`) corresponds to the level of granularity that is separated.
+- The break characters `___`, `...`, `.. ..` were chosen such that they reflect the level of granularity, namely `___` has a much higher visual density than `.. ..`.
+- Each block has an (optional) short title on what that block is about.
+- Every title ends with `####`. Therefore, the titles are recognized by RStudio as [sections](https://support.rstudio.com/hc/en-us/articles/200484568-Code-Folding-and-Sections). This has the advantages that you can get a quick summary of your code in Rstudio's code pane and you can fold sections as you can fold code or function declarations or if statements. See the pictures below for details.
 
-The separators all have length 80. The value is looked up in the global option `strcode$char_length` and can therefore be changed by the user.
+*The separators each have a length of 80 characters*. The value is set by the global option `strcode$char_length` and can therefore be changed by the user.
 
-By default, breaks and titles are inserted via a Shiny Gadget, but this default can be overridden by setting the option `strcode$insert_with_shiny` to `FALSE` and hence only inserting the break.
+By default, breaks and titles are inserted via a `shiny` Gadget, but this default may  be overridden by setting the option `strcode$insert_with_shiny` to `FALSE` and hence only the break is inserted.
 
 ## Structuring Code with Embedded Semantics
 
 After invoking the interface, click check box `Add semantics` to show more options for semantic use. For complicated scripts up to seven levels of granularity might be required. Examples semantic annotation at different levels appear below.
 
-- **Level 1** sections, which are highest-level blocks that usually represents user's workflow domain and can be separated as follows:
+- **Level 1** sections: the highest-level blocks that usually represent user's workflow domain and can be separated as follows:
 
 ``` r
 #       ________________________________________________________________________
 #       YourWorkflow {WorkID provone:Workflow}                              ####
 ```
 
-- **Level 2** sections, which are second-highest-level blocks that are the highest level for detailed entities can be separated as follows:
+- **Level 2** sections: second-highest-level blocks that are the highest level for detailed entities can be separated as follows:
 
 ``` r
 ##      ........................................................................
 ##      YourProcess {ProcessID provone:Process}                             ####
 ```
 
-- **Level 3** sections, which are lower-level blocks that can be separated as follows:
+- **Level 3** sections: lower-level blocks that can be separated as follows:
 
 ``` r
 ###     .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ...
 ###     YourProcess02 {ProcessID02 provone:Process}                         ####
 ```
 
--   **Level 4** sections, which are lower-level blocks that can be separated as follows:
+-   **Level 4** sections: lower-level blocks that can be separated as follows:
 
 ``` r
 ####    ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ....
@@ -118,25 +118,25 @@ or
 
 Notice from these examples that:
 
--   The breaks characters `___`, `...`, `.. ..`,`... ...` were chosen such that they reflect the level of granularity, namely `___` means highest level (or domain level), and the number of dots between spaces represents different lower levels, for example, `.. ..` means second level of entities level (third level in total).
+- The break characters `___`, `...`, `.. ..`,`... ...` were chosen such that they reflect the level of granularity, namely `___` means highest level (or domain level), and the number of dots between spaces represents different lower levels, for example, `.. ..` means second level of entities level (third level in total).
 
--   The first argument which is outside of the brace `{` is the *title*. The first argument in the pair of braces is *ID* and second argument is *class*. If you add more manual inputs, they will appear in the pair of braces after class, like:
+- The first argument which is outside of the brace `{` is the *title*. The first argument in the pair of braces is *ID* and second argument is *class*. If you add more manual inputs, they will appear in the pair of braces after class, like:
 
 ``` r
 ####    ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ....
 ####    YourData {DataID provone:Data manuallyinput=value}                  ####
 ```
 
--   Manually inputted values must follow the structure: `property=value`. The user interface can only accept manually input values following this structure!
--   A structure following JSON-LD syntax also can be generated by the function by selecting `JSON-LD`. With same input above, the result of using JSON-LD style let users understand arguments easier and it is like:
+- Manually inputted values must follow the structure: `property=value`. The user interface can only accept manually input values following this structure!
+- A structure following JSON-LD syntax also can be generated by the function by selecting `JSON-LD`. With same input above, the result of using JSON-LD style let users understand arguments easier and it is like:
 
 ``` r
 ####    .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ...
 ####    {"@id":DataID, "@type":provone:Data, "label":YourData}              ####
 ```
 
--   Since the function uses levels to generat associations between entities, for semantics use, the child entity must be under its parent entity.
--   Notice that only given classes exist in AssociationLibrary.txt file (in semantics branch, demos folder) can serve as associations and automatically generated by the function. After download and paste it into your current working directory (use getwd() to show your working directory in R), you could added new associations into this library by yourself. This file have five columns: "ParentClass" , "ChildClass", "Ways", "Property", and "ReverseProperty". You need to follow this structure and add five values (seperate by comma ",") for your user-defined associations. The first value in ParentClass column is the class of parent entity; the second value in ChildClass is the calss of child entity; the third value in Ways column can be only 1 or 2 which indicate this association is one-way or two-ways; the fourth value in Property column represent the property of the association from parent entity to child entity, which also will be shown in RDF diagram; the last value in ReverseProperty column represent the property in reverse way, which is from child entity to parent entity, and this value could be " " in onw-way associations.
+- **Since the summarization function uses code levels to automatically generate associations between entities, for semantics embedding a child entity must be 'under' its parent entity.**
+- Notice that only given classes exist in `AssociationLibrary.txt` file (in `semantics` branch, `demos` folder) can serve as associations and automatically generated by the function. After downloading and pasting it into your current working directory --- use `getwd()` to show your working directory in R --- you could added new associations into this library by yourself. This file has five columns: `ParentClass` , `ChildClass`, `Ways`, `Property`, and `ReverseProperty`. You must follow this structure and add five values --- separated by commas `,` --- for your user-defined associations. The first value in `ParentClass` column is the class of parent entity; the second value in `ChildClass` is the class of child entity; the third value in `Ways` column can be only `1` or `2` which indicates this association is one-way or two-way; the fourth value in `Property` column represents the property of the association from parent entity to child entity, which also will be shown in RDF diagram; the last value in the `ReverseProperty` column represent the property in reverse way, which is from child entity to parent entity, and this value could be " " in onw-way associations.
 
 -   If a parent entity has multiple child entities, put these child entities under the parent entity level, and the function will generat correct relationship automatically. For example, if your inputs are as follows:
 
