@@ -4,11 +4,19 @@ README
 [![Build Status](https://travis-ci.org/lorenzwalthert/strcode.svg?branch=master)](https://travis-ci.org/lorenzwalthert/strcode) [![Project Status: WIP ? Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/strcode)](https://cran.r-project.org/package=strcode) [![packageversion](https://img.shields.io/badge/Package%20version-0.2.0-orange.svg?style=flat-square)](commits/master)
 
 # Table of Contents
-1. Add...
-2. Table...
-   + Of...
-   + Contents...
-3. Here...
+1. Introduction
+2. Installation
+3. Structuring Code
+   + Basic Code Structuring (no embedded semantics)
+   + Structuring Code with Embedded Semantics
+   + Anchoring Sections
+   + Inserting a code anchor
+4. Summarizing Code
+   + Summarizing without Embedded Semantics
+   + Summarizing with Embedded Semantics
+5. Improving Legibility through Code Structuring
+   + Improve Legibility without Embedded Semantics
+   + Improved Legibility with Embedded Semantics
 
 # Introduction
 
@@ -38,14 +46,14 @@ devtools::install_github("XiaoliangJiang/strcode",ref="semantics")
 ## Basic Code Structuring (no embedded semantics)
 We suggest three levels of granularity for 'basic' code structuring, whereas higher-level blocks can contain lower-level blocks.
 
--   level 1 sections, which are high-level blocks that can be separated as follows:
+- **Level 1* sections, which are high-level blocks that can be separated as follows:
 
 ``` r
 #       ________________________________________________________________________
 #       A title                                                             ####
 ```
 
--   level 2 sections, which are medium-level blocks that can be separated as follows:
+- **Level 2* sections, which are medium-level blocks that can be separated as follows:
 
 
 ``` r
@@ -53,14 +61,14 @@ We suggest three levels of granularity for 'basic' code structuring, whereas hig
 ##      A subtitle                                                          ####
 ```
 
--   level 3 sections, which are low-level blocks that can be separated as follows:
+- **Level 3* sections, which are low-level blocks that can be separated as follows:
 
 ``` r
 ###     .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ...
 ###     One more                                                            ####
 ```
 
-You can notice from the above that
+Notice from the examples above that
 
 -   The number of `#` used in front of the break character (`___`, `...`, `.. ..`) corresponds to the level of granularity that is separated.
 -   The breaks characters `___`, `...`, `.. ..` were chosen such that they reflect the level of granularity, namely `___` has a much higher visual density than `.. ..`.
@@ -75,21 +83,21 @@ By default, breaks and titles are inserted via a Shiny Gadget, but this default 
 
 After invoking the interface, click check box `Add semantics` to show more options for semantic use. For complicated scripts up to seven levels of granularity might be required. Examples semantic annotation at different levels appear below.
 
--   **Level 1** sections, which are highest-level blocks that usually represents user's workflow domain and can be separated as follows:
+- **Level 1** sections, which are highest-level blocks that usually represents user's workflow domain and can be separated as follows:
 
 ``` r
 #       ________________________________________________________________________
 #       YourWorkflow {WorkID provone:Workflow}                              ####
 ```
 
--   **Level 2** sections, which are second-highest-level blocks that are the highest level for detailed entities can be separated as follows:
+- **Level 2** sections, which are second-highest-level blocks that are the highest level for detailed entities can be separated as follows:
 
 ``` r
 ##      ........................................................................
 ##      YourProcess {ProcessID provone:Process}                             ####
 ```
 
--   **Level 3** sections, which are lower-level blocks that can be separated as follows:
+- **Level 3** sections, which are lower-level blocks that can be separated as follows:
 
 ``` r
 ###     .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ...
@@ -108,7 +116,7 @@ or
 ####    YourData {VisualizationID provone:Visualization}                    ####
 ```
 
-Notice from the above that:
+Notice from these examples that:
 
 -   The breaks characters `___`, `...`, `.. ..`,`... ...` were chosen such that they reflect the level of granularity, namely `___` means highest level (or domain level), and the number of dots between spaces represents different lower levels, for example, `.. ..` means second level of entities level (third level in total).
 
@@ -143,7 +151,7 @@ Notice from the above that:
 ##      YourProcess02 {ProcessID02 provone:Process}                         ####
 ```
 
-The RDF diagram of this structure based on `igraph` looks like:
+A graphical representation of the RDF for this structure based on `igraph` looks like:
 
 <img src="https://github.com/XiaoliangJiang/strcode/blob/semantics/demos/Multiple%20Child%20entities.png" width="300px" />
 
@@ -159,7 +167,7 @@ The RDF diagram of this structure based on `igraph` looks like:
 ###     .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ...
 ###     YourProcess02 {ProcessID02 provone:Process provone:wasDerivedFrom=WorkID}####
 ```
-The RDF diagram of this one will be:
+The RDF graph now looks like :
 
 <img src="https://github.com/XiaoliangJiang/strcode/blob/semantics/demos/Multiple%20Parent%20entities.png" width="300px" />
 
@@ -218,7 +226,7 @@ sum_str(path_in = "placeholder_code/example.R",
 -   Similarly, we use `lowest_sep = FALSE` to indicate that we want lowest separators (given `granularity`) to be omitted between the titles of the sections.
 -   `header` was set to `TRUE`, so the column names were reported as well. Note that they are slightly off since knitr uses a different tab length. In the R console and more imporantly in the outputed file, they are aliged.
 
-## Summarizing Embedded Semantics
+## Summarizing with Embedded Semantics
 For semantic use, some new arguments are needed. 
 -   `rdf` specifies a type of output rdf file. Only "ttl" has been added into function right now.
 -   `graph` indicates whether to generate a RDF graph or not. The default value is FALSE.
