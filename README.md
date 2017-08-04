@@ -129,7 +129,7 @@ You can notice from the above that
 ```
 
 The RDF diagram of this one will be:
-<img src="https://github.com/XiaoliangJiang/strcode/blob/semantics/demos/Multiple%20Child%20entities.png" width="650px" />
+<img src="https://github.com/XiaoliangJiang/strcode/blob/semantics/demos/Multiple%20Child%20entities.png" width="300px" />
 
 Anchoring sections
 ==================
