@@ -660,6 +660,7 @@ if (rm_break_anchors) {
       
       # print content depends on whether it is the last one or not
       if (i==length(infolist[[j]])){
+        nodesclasses=paste0(nodesclasses,classeswords," ")
         line_rdf=paste(line_rdf,";","\n")
         title0=paste0("\"",title0,"\"")
         # add title as rdfs:label in the output file
