@@ -4,20 +4,21 @@ README
 [![Build Status](https://travis-ci.org/lorenzwalthert/strcode.svg?branch=master)](https://travis-ci.org/lorenzwalthert/strcode) [![Project Status: WIP ? Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/strcode)](https://cran.r-project.org/package=strcode) [![packageversion](https://img.shields.io/badge/Package%20version-0.2.0-orange.svg?style=flat-square)](commits/master)
 
 # Table of Contents
-1. Introduction
-2. Installation
-3. Structuring Code
+1. [Introduction](#intro)
+2. [Installation](#install)
+3. [Structuring Code](#structuring)
    + Basic Code Structuring (no embedded semantics)
-   + Structuring Code with Embedded Semantics
+   + [Structuring Code with Embedded Semantics](#structuringSem)
    + Anchoring Sections
    + Inserting a code anchor
-4. Summarizing Code
+4. [Summarizing Code](#summarizing)
    + Summarizing without Embedded Semantics
-   + Summarizing with Embedded Semantics
-5. Improving Legibility through Code Structuring
+   + [Summarizing with Embedded Semantics](#summarizingSem)
+5. [Improving Legibility through Code Structuring](#legibility)
    + Improve Legibility without Embedded Semantics
-   + Improved Legibility with Embedded Semantics
+   + [Improved Legibility with Embedded Semantics](#legibilitySem)
 
+<a id="intro"></a>
 # Introduction
 
 The `strcode` (short for structuring code) package contains tools to organize and abstract your code better. It consists of
@@ -32,6 +33,7 @@ The `strcode` (short for structuring code) package contains tools to organize an
 a guide for good practice in R programming. -->
 <img src="https://raw.githubusercontent.com/lorenzwalthert/strcode/master/demos/strcode_v0.2.0_video_to_gif2_large.gif" width="650px" />
 
+<a id="install"></a>
 # Installation
 
 You can install the package from GitHub.
@@ -40,7 +42,7 @@ You can install the package from GitHub.
 # install.packages("devtools")
 devtools::install_github("XiaoliangJiang/strcode",ref="semantics")
 ```
-
+<a id="structuring"></a>
 # Structuring Code
 
 ## Basic Code Structuring (no embedded semantics)
@@ -79,6 +81,7 @@ Notice from these examples that:
 
 By default, breaks and titles are inserted via a `shiny` Gadget, but this default may  be overridden by setting the option `strcode$insert_with_shiny` to `FALSE` and hence only the break is inserted.
 
+<a id="structuringSem"></a>
 ## Structuring Code with Embedded Semantics
 
 After invoking the interface, click check box `Add semantics` to show more options for semantic use. For complicated scripts up to seven levels of granularity might be required. Examples semantic annotation at different levels appear below.
@@ -193,6 +196,7 @@ this_is_a_super_important_but_hard_to_describe_line_so_let_me_anchor_it
 
 The hash sequences in strcode are produced with the R package [digest](https://github.com/eddelbuettel/digest).
 
+<a id="summarizing"></a>
 # Summarizing Code
 
 ## Without Embedded Semantics
@@ -226,6 +230,7 @@ sum_str(path_in = "placeholder_code/example.R",
 -   Similarly, we use `lowest_sep = FALSE` to indicate that we want lowest separators (given `granularity`) to be omitted between the titles of the sections.
 -   `header` was set to `TRUE`, so the column names were reported as well. Note that they are slightly off since knitr uses a different tab length. In the R console and more imporantly in the outputed file, they are aliged.
 
+<a id="summarizingSem"></a>
 ## Summarizing with Embedded Semantics
 For semantic use, some new arguments are needed. 
 -   `rdf` specifies a type of output rdf file. Only "ttl" has been added into function right now.
@@ -240,6 +245,7 @@ For semantic use, some new arguments are needed.
 
 You can find an example of how those arguments work in Example of improved legibility part.
 
+<a id="legibility"></a>
 # Improving Legibility through Code Structuring
 ## Improve Legibility without Embedded Semantics
 
@@ -409,6 +415,7 @@ test2 <- function(x) {
 ##  ............................................................................
 }
 ```
+<a id="legibilitySem"></a>
 ## Improved Legibility with Embedded Semantics
 
 By using input breaks as follows:
