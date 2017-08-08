@@ -31,6 +31,9 @@ This special version of the `strcode` package (short for "structuring code") con
 
 <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
 a guide for good practice in R programming. -->
+
+The animation below shows using `strcode` for basic code structuring. Embedding semantics is similar 
+
 <img src="https://raw.githubusercontent.com/lorenzwalthert/strcode/master/demos/strcode_v0.2.0_video_to_gif2_large.gif" width="650px" />
 
 <a id="install"></a>
