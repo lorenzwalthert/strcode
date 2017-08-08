@@ -153,6 +153,8 @@ Notice from these examples that:
 ##      ........................................................................
 ##      YourProcess02 {ProcessID02 provone:Process}                         ####
 ```
+To insert semantics breaks, you can follow this:
+<img src="https://github.com/XiaoliangJiang/strcode/blob/semantics/demos/Howtoadd.gif" width="600px" />
 
 A graphical representation of the RDF for this structure based on `igraph` looks like:
 
