@@ -21,12 +21,12 @@ README
 <a id="intro"></a>
 # Introduction
 
-The `strcode` (short for structuring code) package contains tools to organize and abstract your code better. It consists of
+This special version of the `strcode` package (short for "structuring code") contains tools to help you organize and abstract your R scripts and to embed semantics according to the [ProvONE Data Model for Workflow Semantics)[http://bit.ly/2eOUuAX]. It consists of:
 
-- An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you quickly add code block separators and titles (possibly with unique identifiers) to divide your work into sections. The titles are recognized as sections by RStudio, which enhances the coding experience further.
-- A function `sum_str` that summarizes the code structure based on the separators and their comments added with the Add-in. For one or more files, it can cat the structure to the console or a file. 
-  - `sum_str` function can also structure code with embedded semantics, and generate an RDF file and RDF diagram automatically. 
-  - Users can define the association library by themselves for `sum_str` which contains rules of automatically generated associations.
+- An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you quickly insert code block separators and titles (possibly with unique identifiers) to divide your work into sections. The titles are recognized as sections by RStudio, which further enhances the coding experience.
+- A function `sum_str` that summarizes the code structure based on the separators and comments added with the Add-in. For one or more files, it can send the structure to the console or a file. 
+  - **NEW**: The `sum_str` function now can structure code with **embedded semantics** and can generate RDF files (N3 format) and visual representations of the RDF graph automatically. 
+  - To assist RDF generation, users can manually define the association library (relationships between entities of various classes). `sum_str` has built-in rules for automatic property generation for `ProvONE` entity types.
 - An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you insert a code anchor, that is, a hash sequence which can be used to uniquely identify a line in a large code base.
 
 <!-- You can learn more about structuring code in [Bono Usu](https://github.com/lorenzwalthert/bonousu/blob/devel/docs/commenting-code.html), 
