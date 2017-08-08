@@ -160,6 +160,9 @@ A graphical representation of the RDF for this structure based on `igraph` looks
 
 <img src="https://github.com/XiaoliangJiang/strcode/blob/semantics/demos/Multiple%20Child%20entities.png" width="300px" />
 
+To generate this RDF graph, please make sure that you have already download and paste the "AssociationLibrary.txt" in your current working directory, and using this function `sum_str(graph=TRUE,UserAL=TRUE)` as follows:
+<img src="https://github.com/XiaoliangJiang/strcode/blob/semantics/demos/Creatgraph.gif" width="300px" />
+
 -   If a child entity has multiple parent entities, please manually input associations in this structure: associations=ID. for example, if your breaks are as follows:
 
 ``` r
