@@ -21,7 +21,7 @@ README
 <a id="intro"></a>
 # Introduction
 
-This special version of the `strcode` package (short for "structuring code") contains tools to help you organize and abstract your R scripts and to embed semantics according to the [ProvONE Data Model for Workflow Semantics)[http://bit.ly/2eOUuAX]. It consists of:
+This special version of the `strcode` package (short for "structuring code") contains tools to help you organize and abstract your R scripts and to embed semantics according to the [ProvONE Data Model for Workflow Semantics](http://bit.ly/2eOUuAX). It consists of:
 
 - An [RStudio Add-in](https://rstudio.github.io/rstudioaddins/) that lets you quickly insert code block separators and titles (possibly with unique identifiers) to divide your work into sections. The titles are recognized as sections by RStudio, which further enhances the coding experience.
 - A function `sum_str` that summarizes the code structure based on the separators and comments added with the Add-in. For one or more files, it can send the structure to the console or a file. 
