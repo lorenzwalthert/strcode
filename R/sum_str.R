@@ -698,7 +698,7 @@ if (rm_break_anchors) {
             temp_line=paste("\t",temp_line,";","\n")
           }
           title0=paste0("\"",title0,"\"")
-          temp_line=paste(temp_line,"\t","rdfs:label",title0,".","\n")#,".","\n")
+          temp_line=paste(temp_line,"\t","rdfs:label",title0,";","\n")#,".","\n")
         }
         else {
           if (nchar(temp_line)>0){
