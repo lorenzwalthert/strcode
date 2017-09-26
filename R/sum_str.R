@@ -701,7 +701,7 @@ if (rm_break_anchors) {
           }
           if (trigger1==0){
             title0=paste0("\"",title0,"\"")
-            temp_line=paste(temp_line,"\t","rdfs:label",title0,".","\n")#,".","\n")
+            temp_line=paste(temp_line,"\t","rdfs:label!!!",title0,".","\n")#,".","\n")
           }
           
         }
