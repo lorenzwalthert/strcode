@@ -539,8 +539,8 @@ if (rm_break_anchors) {
     levelvector=rep(0,7)
     
     # get property of association by using parent entity class and child entity class automatically
-    for (j in 1:length(infolist)){
-      AssociationNUM=firstmeet=0
+    for (j in 1:length(infolist)){      
+      AssociationNUM=firstmeet=trigger1=0
       line_rdf=classeswords=""
       title0=infolist[[j]][2]
       title1[j]=title0
@@ -686,6 +686,7 @@ if (rm_break_anchors) {
         # if the manually typed input is an association, add this relation into nodes data frame
         if (tempwordlist[[1]][1] %in% Associationlist)
         { 
+          trigger1=1
           nodesfrom=paste0(nodesfrom,title0," ")
           nodesto=paste0(nodesto,tempwordlist[[1]][2]," ")
           nodesproperty=paste0(nodesproperty,tempwordlist[[1]][1]," ")
@@ -698,8 +699,11 @@ if (rm_break_anchors) {
           if (nchar(temp_line)>0){
             temp_line=paste("\t",temp_line,";","\n")
           }
-          #title0=paste0("\"",title0,"\"")
-          #temp_line=paste(temp_line,"\t","rdfs:label",title0,".","\n")#,".","\n")
+          if (trigger1=0){
+            title0=paste0("\"",title0,"\"")
+            temp_line=paste(temp_line,"\t","rdfs:label",title0,".","\n")#,".","\n")
+          }
+          
         }
         else {
           if (nchar(temp_line)>0){
@@ -822,7 +826,7 @@ for (i in 1:length(line_rdf_vector)){
     }
     if (j==length(tempnumber)){
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
-      line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label",title1[i],".","\n")
+      line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label","\"",title1[i],"\"",".","\n")
     }
     else{line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")}
     }
