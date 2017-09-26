@@ -534,7 +534,7 @@ if (rm_break_anchors) {
           "\"provone:Process\",","\"provone:Visualization\",","2,","\"provone:wasDerivedFrom\",","\"provone:hasMember\"\n")
     write(DefaultAL,file="DefaultAssociationLibrary.txt")
 
-    nodesnames=nodesclasses=nodesfrom=nodesto=nodesproperty=parentclass=property=line_rdf_vector=""
+    nodesnames=nodesclasses=nodesfrom=nodesto=nodesproperty=parentclass=property=line_rdf_vector=title1=""
     templevel=parentlevel=parentindex=tempwordlist=0
     levelvector=rep(0,7)
     
@@ -543,6 +543,7 @@ if (rm_break_anchors) {
       AssociationNUM=firstmeet=0
       line_rdf=classeswords=""
       title0=infolist[[j]][2]
+      title1[j]=title0
      ID=infolist[[j]][3]
       parentlevel=templevel
       templevel=infolist[[j]][1]
@@ -697,8 +698,8 @@ if (rm_break_anchors) {
           if (nchar(temp_line)>0){
             temp_line=paste("\t",temp_line,";","\n")
           }
-          title0=paste0("\"",title0,"\"")
-          temp_line=paste(temp_line,"\t","rdfs:label",title0,".","\n")#,".","\n")
+          #title0=paste0("\"",title0,"\"")
+          #temp_line=paste(temp_line,"\t","rdfs:label",title0,".","\n")#,".","\n")
         }
         else {
           if (nchar(temp_line)>0){
@@ -715,8 +716,8 @@ if (rm_break_anchors) {
           if (nchar(temp_line)>0){
             temp_line=paste("\t",temp_line,";","\n")
           }
-          title0=paste0("\"",title0,"\"")
-          temp_line=paste(temp_line,";\n","\t","rdfs:label",title0,";","\n")
+          #title0=paste0("\"",title0,"\"")
+          temp_line=paste(temp_line,";\n")#,"\t","rdfs:label",title0,";","\n")
         }
         else {
         }
@@ -820,7 +821,9 @@ for (i in 1:length(line_rdf_vector)){
       entityname2=paste0(prefix,":",nodesto3[tempnumber[j]])
     }
     if (j==length(tempnumber)){
-      line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,".","\n")}
+      line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
+      line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label",title1[i],".","\n")
+    }
     else{line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")}
     }
   }
