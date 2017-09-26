@@ -818,7 +818,7 @@ E(g3)$label <- E(g3)$property
 escj=strsplit(esci," ")
 for (i in 1:length(line_rdf_vector)){
   if (i %in% escj[[1]]){
-    line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label!!!","\"",title1[i],"\"",".","\n")
+    line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label","\"",title1[i],"\"",".","\n")
   }
   else{
   tempnumber=which(nodesfrom3==titles[i])
@@ -832,7 +832,7 @@ for (i in 1:length(line_rdf_vector)){
     }
     if (j==length(tempnumber)){
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
-      line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label???","\"",title1[i],"\"",".","\n")
+      line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label","\"",title1[i],"\"",".","\n")
     }
     else{
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
