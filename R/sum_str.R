@@ -535,7 +535,7 @@ if (rm_break_anchors) {
     write(DefaultAL,file="DefaultAssociationLibrary.txt")
 
     nodesnames=nodesclasses=nodesfrom=nodesto=nodesproperty=parentclass=property=line_rdf_vector=title1=""
-    templevel=parentlevel=parentindex=tempwordlist=0
+    templevel=parentlevel=parentindex=tempwordlist=esci=0
     levelvector=rep(0,7)
     
     # get property of association by using parent entity class and child entity class automatically
@@ -700,8 +700,9 @@ if (rm_break_anchors) {
             temp_line=paste("\t",temp_line,";","\n")
           }
           if (trigger1==0){
-            title0=paste0("\"",title0,"\"")
-            temp_line=paste(temp_line,"\t","rdfs:label!!!",title0,".","\n")#,".","\n")
+            esci=paste(esci,j)
+            #title0=paste0("\"",title0,"\"")
+            #temp_line=paste(temp_line,"\t","rdfs:label!!!",title0,".","\n")#,".","\n")
           }
           
         }
@@ -814,7 +815,12 @@ g3 <- graph_from_data_frame(nesting, directed=TRUE, vertices=nodes)
 E(g3)$label <- E(g3)$property
 
 # append manually type-in information to each entity
+escj=strsplit(esci," ")
 for (i in 1:length(line_rdf_vector)){
+  if (i %in% escj[[1]]){
+    line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label!!!","\"",title1[i],"\"",".","\n")
+  }
+  else{
   tempnumber=which(nodesfrom3==titles[i])
   if (length(tempnumber)>0){
   for (j in 1:length(tempnumber)){
@@ -828,9 +834,13 @@ for (i in 1:length(line_rdf_vector)){
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label???","\"",title1[i],"\"",".","\n")
     }
-    else{line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")}
+    else{
+      line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
     }
-  }
+    }
+  }  
+  }#else
+  
 }
 
 # convert %20 to space
