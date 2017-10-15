@@ -827,7 +827,7 @@ for (i in 1:length(line_rdf_vector)){
   if (length(tempnumber)>0){
   for (j in 1:length(tempnumber)){
     print ("j loop")
-    print ("j")
+    print (j)
     if (length(IDs[which(titles==nodesto3[tempnumber[j]])])>0){
       entityname2=paste0(prefix,":",IDs[which(titles==nodesto3[tempnumber[j]])])
     }
