@@ -814,9 +814,11 @@ nesting <- data.frame(from = return_space(nodesfrom3),
 g3 <- graph_from_data_frame(nesting, directed=TRUE, vertices=nodes)
 E(g3)$label <- E(g3)$property
 
+print (esci)
 # append manually type-in information to each entity
 if (length(esci)>0){
 escj=strsplit(esci," ")
+print (escj)
 for (i in 1:length(line_rdf_vector)){
   if (i %in% escj[[1]]){
     line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label","\"",title1[i],"\"",".","\n")
@@ -832,12 +834,12 @@ for (i in 1:length(line_rdf_vector)){
       entityname2=paste0(prefix,":",nodesto3[tempnumber[j]])
     }
     if (j==length(tempnumber)){
-      print (11)
+      print (i,j,11)
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label","\"",title1[i],"\"",".","\n")
     }
     else{
-      print (12)
+      print (i,j,12)
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
     }
     }
@@ -857,12 +859,12 @@ else{
       entityname2=paste0(prefix,":",nodesto3[tempnumber[j]])
     }
     if (j==length(tempnumber)){
-      print (21)
+      print (j,21)
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label","\"",title1[i],"\"",".","\n")
     }
     else{
-      print (22)
+      print (j,22)
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
     }
     }
