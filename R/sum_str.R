@@ -632,9 +632,7 @@ if (rm_break_anchors) {
           nodesto=paste0(nodesto,infolist[[j]][2]," ")
           nodesproperty=paste0(nodesproperty,property," ")
         }
-        print (nodesfrom)
-        print (nodesto)
-        print (nodesproperty)
+        
       }
       # if using default association to fill the nonexistent association in the library
       else if ((fillAssociation==TRUE)&(as.numeric(parentlevel)!=0)){
@@ -646,7 +644,9 @@ if (rm_break_anchors) {
         nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
         nodesproperty=paste0(nodesproperty,"str:belongTo"," ")
      }
-  
+  print (nodesfrom)
+        print (nodesto)
+        print (nodesproperty)
   # deal with other information besides title, id and class
   for (i in 4:length(infolist[[j]])){
     tempword=""
