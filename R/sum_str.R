@@ -888,7 +888,9 @@ for (i in 1:length(line_rdf_vector)){
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
     }
     }
-  }  
+  }
+    else # !if (length(tempnumber)>0)
+  {line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label","\"",title1[i],"\"",".","\n")}
   }#else
   
 }
