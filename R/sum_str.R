@@ -822,7 +822,7 @@ print (escj)
 for (i in 1:length(line_rdf_vector)){
   if (i %in% escj[[1]]){
     print (i)
-    line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label","\"",title1[i],"\"",".","\n")
+    #line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label","\"",title1[i],"\"",".","\n")
     tempnumber=which(nodesfrom3==titles[i])
   if (length(tempnumber)>0){
   for (j in 1:length(tempnumber)){
