@@ -399,8 +399,7 @@ if (rm_break_anchors) {
 
     schemalist=list()
     # a schemas library to create headers by using keywords in content
-    schemas=c(rdfs="@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .",
-          xsd="@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .",
+    schemas=c(xsd="@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .",
           owl="@prefix owl:     <http://www.w3.org/2002/07/owl#> .",
           dcterms="@prefix dcterms: <http://purl.org/dc/terms/> .",
           prov="@prefix prov:    <http://www.w3.org/ns/prov#> .",
@@ -480,7 +479,7 @@ if (rm_break_anchors) {
     infolist=infolist1
  
     schemahad=0
-    lines_rdf=""
+    lines_rdf=" @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .\n"
     count0=1
     
     schemalist1=list()
@@ -502,7 +501,7 @@ if (rm_break_anchors) {
       }
     }
     # adding headers:
-    lines_rdf=paste0(" @prefix ",prefix,":    ","<",FullURI,"> .\n")
+    lines_rdf=paste0(lines_rdf," @prefix ",prefix,":    ","<",FullURI,"> .\n")
     for (i in 1:length(schemahad)){
       lines_rdf=paste(lines_rdf,schemas[schemahad[i]],"\n")
     }   
