@@ -285,7 +285,7 @@ give_breakchar <- function(level) {
   switch(as.character(level),
        "1" = "_",
        "2" = ". ",
-       "3" = "..3.. ",
+       "3" = ".. ",
        "4" = "... ",
        "5" = ".... ",
        "6" = "..... ",
