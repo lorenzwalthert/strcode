@@ -387,10 +387,13 @@ if (rm_break_anchors) {
     fileformat=".ttl" #".txt"
     outputfile2 <- paste("RDF_output_file_",datetime,fileformat,sep="")
     write(lines,file=outputfile2)
+    
    
     templines=readLines(outputfile2)
+    print (templines)
     lines_content=templines[4:length(templines)]
     lines_split=strsplit(lines_content, " ")
+    print (lines_split)
 
     baseURI=baseURI
     UserID=UserID
