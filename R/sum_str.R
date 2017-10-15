@@ -449,7 +449,10 @@ if (rm_break_anchors) {
       schemalist[[i]]=grep(":",lines_split1[[i]])
     }
     lines_split=lines_split1
+   
     infolist=lines_split
+   print ("this is infolist1")
+   print (infolist)
     for (i in 1:length(infolist)){
       templevel=strsplit(infolist[[i]][1],"\\t")
       infolist[[i]][1]=nchar(templevel[[1]][2])
@@ -462,6 +465,7 @@ if (rm_break_anchors) {
       infolist[[i]][length(infolist[[i]])]=gsub("\\}","",infolist[[i]][length(infolist[[i]])])
     }
     infolist1=infolist
+   
    # delete JSON-LD style structure and only leave the useful information
     for (i in grep("\":",infolist)){
       infolist[[i]][2]=gsub(",","",infolist1[[i]][4])
@@ -477,6 +481,8 @@ if (rm_break_anchors) {
     }
     }
     infolist=infolist1
+    print ("this is infolist2")
+   print (infolist)
  
     schemahad=0
     lines_rdf=" @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .\n"
