@@ -632,6 +632,9 @@ if (rm_break_anchors) {
           nodesto=paste0(nodesto,infolist[[j]][2]," ")
           nodesproperty=paste0(nodesproperty,property," ")
         }
+        print (nodesfrom)
+        print (nodesto)
+        print (nodesproperty)
       }
       # if using default association to fill the nonexistent association in the library
       else if ((fillAssociation==TRUE)&(as.numeric(parentlevel)!=0)){
