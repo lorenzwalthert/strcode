@@ -813,22 +813,22 @@ nesting <- data.frame(from = return_space(nodesfrom3),
 g3 <- graph_from_data_frame(nesting, directed=TRUE, vertices=nodes)
 E(g3)$label <- E(g3)$property
 
-print (nodes)
-print (nesting)
-print (esci)
+#print (nodes)
+#print (nesting)
+#print (esci)
 # append manually type-in information to each entity
 if (length(esci)>0){
 escj=strsplit(esci," ")
-print (escj)
+#print (escj)
 for (i in 1:length(line_rdf_vector)){
   if (i %in% escj[[1]]){
-    print (i)
+    #print (i)
     #line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label","\"",title1[i],"\"",".","\n")
     tempnumber=which(nodesfrom3==titles[i])
   if (length(tempnumber)>0){
   for (j in 1:length(tempnumber)){
-    print ("j loop")
-    print (j)
+    #print ("j loop")
+    #print (j)
     if (length(IDs[which(titles==nodesto3[tempnumber[j]])])>0){
       entityname2=paste0(prefix,":",IDs[which(titles==nodesto3[tempnumber[j]])])
     }
@@ -836,20 +836,20 @@ for (i in 1:length(line_rdf_vector)){
       entityname2=paste0(prefix,":",nodesto3[tempnumber[j]])
     }
     if (j==length(tempnumber)){
-      print ("j=l")
-      print (j)
-      print (tempnumber)
-      print (i)
-      print (line_rdf_vector[i])
+      #print ("j=l")
+      #print (j)
+      #print (tempnumber)
+      #print (i)
+      #print (line_rdf_vector[i])
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label","\"",title1[i],"\"",".","\n")
     }
     else{
-      print ("j!=l")
-      print (j)
-      print (tempnumber)
-      print (i)
-      print (line_rdf_vector[i])
+      #print ("j!=l")
+      #print (j)
+      #print (tempnumber)
+      #print (i)
+      #print (line_rdf_vector[i])
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
     }
     }
@@ -871,20 +871,20 @@ for (i in 1:length(line_rdf_vector)){
       entityname2=paste0(prefix,":",nodesto3[tempnumber[j]])
     }
     if (j==length(tempnumber)){
-      print ("!")
-      print (j)
-      print (tempnumber)
-      print (i)
-      print (line_rdf_vector[i])
+      #print ("!")
+      #print (j)
+      #print (tempnumber)
+      #print (i)
+      #print (line_rdf_vector[i])
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label","\"",title1[i],"\"",".","\n")
     }
     else{
-      print ("!")
-      print (j)
-      print (tempnumber)
-      print (i)
-      print (line_rdf_vector[i])
+      #print ("!")
+      #print (j)
+      #print (tempnumber)
+      #print (i)
+      #print (line_rdf_vector[i])
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
     }
     }
