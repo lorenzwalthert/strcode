@@ -684,6 +684,8 @@ if (rm_break_anchors) {
       tempword=infolist[[j]][i]
       # find manually input values
       if (grepl("=",tempword)){
+        print ("This is i")
+        print (i)
         # print founded class or classes in output file
         firstmeet=firstmeet+1
         if (firstmeet==1){
@@ -692,6 +694,9 @@ if (rm_break_anchors) {
                 
         tempwordlist=strsplit(tempword,"=")
         # if the manually typed input is an association, add this relation into nodes data frame
+        print (tempwordlist[[1]][1])
+        print (Associationlist)
+        print (tempwordlist[[1]][1] %in% Associationlist)
         if (tempwordlist[[1]][1] %in% Associationlist)
         { 
           trigger1=1
