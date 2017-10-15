@@ -815,6 +815,7 @@ g3 <- graph_from_data_frame(nesting, directed=TRUE, vertices=nodes)
 E(g3)$label <- E(g3)$property
 
 # append manually type-in information to each entity
+if (length(esci)>0){
 escj=strsplit(esci," ")
 for (i in 1:length(line_rdf_vector)){
   if (i %in% escj[[1]]){
@@ -842,6 +843,7 @@ for (i in 1:length(line_rdf_vector)){
   }#else
   
 }
+  }
 
 # convert %20 to space
 for (i in 1:length(line_rdf_vector)){
