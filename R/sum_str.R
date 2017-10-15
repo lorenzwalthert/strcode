@@ -833,12 +833,16 @@ for (i in 1:length(line_rdf_vector)){
       entityname2=paste0(prefix,":",nodesto3[tempnumber[j]])
     }
     if (j==length(tempnumber)){
+      print (j)
+      print (tempnumber)
       print (i)
       print (line_rdf_vector[i])
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label","\"",title1[i],"\"",".","\n")
     }
     else{
+      print (j)
+      print (tempnumber)
       print (i)
       print (line_rdf_vector[i])
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
@@ -860,12 +864,18 @@ for (i in 1:length(line_rdf_vector)){
       entityname2=paste0(prefix,":",nodesto3[tempnumber[j]])
     }
     if (j==length(tempnumber)){
+      print ("!")
+      print (j)
+      print (tempnumber)
       print (i)
       print (line_rdf_vector[i])
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label","\"",title1[i],"\"",".","\n")
     }
     else{
+      print ("!")
+      print (j)
+      print (tempnumber)
       print (i)
       print (line_rdf_vector[i])
       line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
