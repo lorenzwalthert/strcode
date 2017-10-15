@@ -644,9 +644,12 @@ if (rm_break_anchors) {
         nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
         nodesproperty=paste0(nodesproperty,"str:belongTo"," ")
      }
-  print (nodesfrom)
-        print (nodesto)
-        print (nodesproperty)
+      print ("This is from")
+      print (nodesfrom)
+      print ("This is to")
+      print (nodesto)
+      print ("This is property")
+      print (nodesproperty)
   # deal with other information besides title, id and class
   for (i in 4:length(infolist[[j]])){
     tempword=""
