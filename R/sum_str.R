@@ -685,8 +685,10 @@ if (rm_break_anchors) {
       # find manually input values
       print ("This is j")
       print (j)
-      print ("This is tempword")
+      print ("This is tempword (tempword=infolist[[j]][i])")
       print (tempword)
+      print ("This is infolist[[j]]")
+      print (infolist[[j]])
       if (grepl("=",tempword)){
         print ("This is j get equal mark")
         print (j)
