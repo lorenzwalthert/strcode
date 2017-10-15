@@ -683,8 +683,12 @@ if (rm_break_anchors) {
     else { # i>4
       tempword=infolist[[j]][i]
       # find manually input values
+      print ("This is i")
+      print (i)
+      print ("This is tempword")
+      print (tempword)
       if (grepl("=",tempword)){
-        print ("This is i")
+        print ("This is i get equal mark")
         print (i)
         # print founded class or classes in output file
         firstmeet=firstmeet+1
