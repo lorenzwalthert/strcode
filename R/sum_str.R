@@ -814,6 +814,8 @@ nesting <- data.frame(from = return_space(nodesfrom3),
 g3 <- graph_from_data_frame(nesting, directed=TRUE, vertices=nodes)
 E(g3)$label <- E(g3)$property
 
+print (nodes)
+print (nesting)
 print (esci)
 # append manually type-in information to each entity
 if (length(esci)>0){
