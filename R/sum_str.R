@@ -664,7 +664,7 @@ if (rm_break_anchors) {
         line_rdf=paste(line_rdf,";","\n")
         title0=paste0("\"",title0,"\"")
         # add title as rdfs:label in the output file
-        line_rdf=paste(line_rdf,"\t","rdfs:label",title0,".","\n")#,".","\n")
+        #line_rdf=paste(line_rdf,"\t","rdfs:label",title0,".","\n")#,".","\n")
       }
       else{
         line_rdf=paste(line_rdf)
