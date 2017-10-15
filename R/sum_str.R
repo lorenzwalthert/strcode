@@ -644,6 +644,8 @@ if (rm_break_anchors) {
         nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
         nodesproperty=paste0(nodesproperty,"str:belongTo"," ")
      }
+      print ("This is levelvector")
+      print (levelvector)
       print ("This is from")
       print (nodesfrom)
       print ("This is to")
