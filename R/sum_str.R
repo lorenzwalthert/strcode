@@ -855,6 +855,8 @@ for (i in 1:length(line_rdf_vector)){
     }
     }
   }
+  else # !if (length(tempnumber)>0)
+  {line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label","\"",title1[i],"\"",".","\n")}
     
     
     
