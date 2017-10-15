@@ -133,7 +133,7 @@ sum_str <- function(path_in = getSourceEditorContext()$path,
                     UserID="UserID",
                     prefix="user",
                     UserAL=FALSE,
-                    fillAssociation=TRUE,
+                    fillAssociation=FALSE,
                     UserANM=FALSE,
                     ...) {
 
