@@ -823,6 +823,31 @@ for (i in 1:length(line_rdf_vector)){
   if (i %in% escj[[1]]){
     print (i)
     line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label","\"",title1[i],"\"",".","\n")
+    tempnumber=which(nodesfrom3==titles[i])
+  if (length(tempnumber)>0){
+  for (j in 1:length(tempnumber)){
+    if (length(IDs[which(titles==nodesto3[tempnumber[j]])])>0){
+      entityname2=paste0(prefix,":",IDs[which(titles==nodesto3[tempnumber[j]])])
+    }
+    else {
+      entityname2=paste0(prefix,":",nodesto3[tempnumber[j]])
+    }
+    if (j==length(tempnumber)){
+      print (i)
+      print (line_rdf_vector[i])
+      line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
+      line_rdf_vector[i]=paste(line_rdf_vector[i],"\t","rdfs:label","\"",title1[i],"\"",".","\n")
+    }
+    else{
+      print (i)
+      print (line_rdf_vector[i])
+      line_rdf_vector[i]=paste(line_rdf_vector[i],"\t",nodesproperty3[tempnumber[j]],entityname2,";","\n")
+    }
+    }
+  }
+    
+    
+    
   }
   else{
   tempnumber=which(nodesfrom3==titles[i])
