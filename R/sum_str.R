@@ -595,7 +595,8 @@ if (rm_break_anchors) {
         }
         else {
          levelvector[as.numeric(templevel)]=j
-          parentindex=levelvector[as.numeric(templevel)-1]
+         parentindex=levelvector[as.numeric(templevel)-1]
+         parentclass=infolist[[parentindex]][4]
         }
      }
      # judge association:
@@ -644,14 +645,14 @@ if (rm_break_anchors) {
         nodesto=paste0(nodesto,infolist[[as.numeric(parentindex)]][2]," ")
         nodesproperty=paste0(nodesproperty,"str:belongTo"," ")
      }
-      print ("This is levelvector")
-      print (levelvector)
-      print ("This is from")
-      print (nodesfrom)
-      print ("This is to")
-      print (nodesto)
-      print ("This is property")
-      print (nodesproperty)
+      #print ("This is levelvector")
+      #print (levelvector)
+      #print ("This is from")
+      #print (nodesfrom)
+      #print ("This is to")
+      #print (nodesto)
+      #print ("This is property")
+      #print (nodesproperty)
   # deal with other information besides title, id and class
   for (i in 4:length(infolist[[j]])){
     tempword=""
