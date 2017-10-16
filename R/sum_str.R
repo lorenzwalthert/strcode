@@ -939,6 +939,16 @@ print(getwd())
 print(paste("Your file name is:",outputfile2))
 }
 if (graph){
+  if (HideAssociation=TRUE){
+    nestinghide <- data.frame(from = nesting$from,
+                      to = nesting$to,
+                      property = rep("",nrow(nesting)))
+
+    g3 <- graph_from_data_frame(nesting, directed=TRUE, vertices=nodes)
+  }
+  
+  
+E(g3)$label <- E(g3)$property
 print(g3, e=TRUE, v=TRUE)
 plot(g3, edge.arrow.size=.2, edge.curved=.4)
   }
