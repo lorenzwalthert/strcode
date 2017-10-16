@@ -947,7 +947,7 @@ if (graph){
                       to = nesting$to,
                       property = rep("",nrow(nesting)))
 
-    g3 <- graph_from_data_frame(nesting, directed=TRUE, vertices=nodes)
+    g3 <- graph_from_data_frame(nestinghide , directed=TRUE, vertices=nodes)
   }
   
   
