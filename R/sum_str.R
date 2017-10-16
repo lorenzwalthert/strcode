@@ -135,6 +135,7 @@ sum_str <- function(path_in = getSourceEditorContext()$path,
                     UserAL=FALSE,
                     fillAssociation=FALSE,
                     UserANM=FALSE,
+                    HideAssociation=FALSE,
                     ...) {
 
 ##  ............................................................................
@@ -195,7 +196,8 @@ assert_number(granularity, lower = 1, upper = 3)
                    prefix=prefix,
                    UserAL=UserAL,
                    fillAssociation=fillAssociation,
-                   UserANM=UserANM)
+                   UserANM=UserANM,
+                   HideAssociation=HideAssociation)
   })
 
   if (dir_out == "" && !is.null(file_out) && file_out == "object") {
@@ -243,7 +245,8 @@ sum_str_helper <- function(path_in,
                            prefix,
                            UserAL,
                            fillAssociation,
-                           UserANM) {
+                           UserANM,
+                           HideAssociation) {
 
 ##  ............................................................................
 ##  argument interaction                                                    ####
