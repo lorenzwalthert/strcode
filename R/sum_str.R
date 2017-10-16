@@ -939,7 +939,7 @@ print(getwd())
 print(paste("Your file name is:",outputfile2))
 }
 if (graph){
-  if (HideAssociation=TRUE){
+  if (HideAssociation==TRUE){
     nestinghide <- data.frame(from = nesting$from,
                       to = nesting$to,
                       property = rep("",nrow(nesting)))
