@@ -1,0 +1,54 @@
+ @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+ @prefix cwf:    <http://cwf.tw.rpi.edu/data#/> .
+ @prefix provone: <http://dataone.org/ns/provone#> . 
+ 
+ cwf:IrisWorkflow a provone:Workflow ; 
+  	 provone:hasSubProcess cwf:IrisProcess ; 
+ 	 rdfs:label " Iris Workflow " . 
+ 
+ cwf:IrisProcess a provone:Process ; 
+  	 hasInPort cwf:IrisDataIn ; 
+ 	 str:has cwf:VirginicaFilter
+	 rdfs:label " Iris Process " .  ; 
+ 	 provone:hasSubProcess cwf:VirginicaFilter ; 
+ 	 provone:hasSubProcess cwf:VirginicaFilter ; 
+ 	 provone:hasSubProcess cwf:VirginicaFilter2 ; 
+ 	 rdfs:label " Iris Process " . 
+ 
+ cwf:IrisDataIn a provone:InputPort ; 
+  	 hasDefaultParam cwf:IrisData ; 
+ 	 rdfs:label " Iris Data in " . 
+ 
+ cwf:IrisData a provone:Data ; 
+  	 rdfs:label " Iris Data " . 
+ 
+ cwf:VirginicaFilter a provone:Process ; 
+  	 str:belongTo cwf:IrisProcess ; 
+ 	 rdfs:label " Test Filter " . 
+ 
+ cwf:VirginicaFilter a provone:Process ; 
+  	 provone:wasDerivedFrom cwf:IrisProcess ; 
+ 	 rdfs:label " Test Filter2 " . 
+ 
+ cwf:VirginicaFilter a provone:Process ; 
+  	 provone:wasDerivedFrom cwf:IrisProcess ; 
+ 	 provone:wasDerivedFrom cwf:VirginicaData ; 
+ 	 rdfs:label " Virginica Filter " . 
+ 
+ cwf:VirginicaData a provone:Data ; 
+  	 provone:wasDerivedFrom cwf:VirginicaFilter ; 
+ 	 rdfs:label " Virginica data " . 
+ 
+ cwf:VirginicaFilter2 a provone:Process ; 
+  	 provone:wasDerivedFrom cwf:IrisProcess ; 
+ 	 provone:wasDerivedFrom cwf:VirginicaData2 ; 
+ 	 rdfs:label " Virginica Filter 2 " . 
+ 
+ cwf:VirginicaData2 a provone:Data ; 
+  	 provone:wasDerivedFrom cwf:VirginicaFilter2 ; 
+ 	 provone:beUsedFor cwf:IdProcess ; 
+ 	 rdfs:label " Virginica data 2 " . 
+ 
+ cwf:IdProcess a provone:Process ; 
+  	 rdfs:label " Identical Process " . 
+
